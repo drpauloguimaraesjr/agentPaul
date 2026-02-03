@@ -8,6 +8,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const axios = require('axios');
 const { NutriBuddyAgent } = require('./index');
 const { logger } = require('./logger');
 const { verificarEscalacao } = require('./tools');
@@ -17,6 +18,10 @@ const app = express();
 // Servir arquivos estáticos (Dashboard)
 app.use('/dashboard', express.static(path.join(__dirname, 'public')));
 const PORT = process.env.PORT || 3001;
+
+// Backend URL para enviar alertas
+const BACKEND_URL = process.env.BACKEND_URL || 'https://web-production-c9eaf.up.railway.app';
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || 'nutribuddy-secret-2024';
 
 // ==========================================
 // LOGS BUFFER (em memória - últimos 200 logs)
@@ -46,6 +51,26 @@ function addLog(level, category, message, metadata = {}) {
   console.log(`[${level.toUpperCase()}] [${category}] ${message}`, metadata);
   
   return entry;
+}
+
+// ==========================================
+// ENVIAR ALERTAS PARA O BACKEND (Firestore)
+// ==========================================
+
+async function sendAlertToBackend(alertData) {
+  try {
+    await axios.post(`${BACKEND_URL}/api/n8n/system-alerts`, alertData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Secret': WEBHOOK_SECRET
+      },
+      timeout: 5000
+    });
+    console.log('✅ Alerta enviado ao backend:', alertData.type);
+  } catch (error) {
+    // Não falha se não conseguir enviar alerta
+    console.error('⚠️ Falha ao enviar alerta (não bloqueante):', error.message);
+  }
 }
 
 // ==========================================
@@ -434,6 +459,26 @@ Qualquer dúvida, é só perguntar. Vamos juntos! 🚀`
       patientId: mensagem?.patientId,
       error: error.message,
       elapsedMs: elapsed
+    });
+
+    // ========================================
+    // ENVIAR ALERTA PARA O FRONTEND
+    // ========================================
+    sendAlertToBackend({
+      type: 'agent_error',
+      severity: 'high',
+      title: 'Erro no AgentPaul',
+      message: `Falha ao processar mensagem do paciente`,
+      details: {
+        error: error.message,
+        patientId: mensagem?.patientId,
+        patientName: mensagem?.patientName,
+        conversationId: mensagem?.conversationId,
+        messageId: mensagem?.messageId,
+        elapsedMs: elapsed
+      },
+      link: mensagem?.conversationId ? `/conversations/${mensagem.conversationId}` : null,
+      resolved: false
     });
 
     // Tenta enviar mensagem de erro pro paciente
