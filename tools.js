@@ -358,6 +358,22 @@ const tools = [
   {
     type: 'function',
     function: {
+      name: 'aplicar_correcao_peso',
+      description: 'Aplica correção aprendida a uma estimativa de peso. Use DEPOIS de analisar_foto_refeicao para ajustar pesos com base no histórico de correções do sistema.',
+      parameters: {
+        type: 'object',
+        properties: {
+          foodName: { type: 'string', description: 'Nome do alimento (ex: "Arroz branco")' },
+          foodType: { type: 'string', description: 'Tipo genérico do alimento (ex: "arroz", "feijao", "frango")' },
+          aiEstimate: { type: 'number', description: 'Peso estimado pela IA em gramas' }
+        },
+        required: ['foodName', 'aiEstimate']
+      }
+    }
+  },
+  {
+    type: 'function',
+    function: {
       name: 'buscar_produto_internet',
       description: 'Busca informações nutricionais de um produto embalado na internet. Use quando identificar um produto que NÃO está no banco local (iogurtes, barras, bebidas, etc).',
       parameters: {
@@ -739,6 +755,39 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     }
 
     return resposta;
+  },
+
+  async aplicar_correcao_peso({ foodName, foodType, aiEstimate }) {
+    console.log(`🎯 Aplicando correção para: ${foodName} (${aiEstimate}g)`);
+    
+    try {
+      const response = await api.post('/api/n8n/food-weight/apply-correction', {
+        foodName,
+        foodType: foodType || foodName.toLowerCase().split(' ')[0],
+        aiEstimate
+      });
+      
+      const data = response.data;
+      
+      if (data.applied && data.corrected !== aiEstimate) {
+        console.log(`✅ Correção aplicada: ${aiEstimate}g → ${data.corrected}g (fator: ${data.correctionFactor})`);
+      } else {
+        console.log(`ℹ️ Sem correção necessária para ${foodName}`);
+      }
+      
+      return data;
+    } catch (error) {
+      // Se o endpoint não existir ou falhar, retorna o valor original
+      console.log(`⚠️ Correção não disponível: ${error.message}`);
+      return {
+        success: true,
+        original: aiEstimate,
+        corrected: aiEstimate,
+        correctionFactor: 1.0,
+        applied: false,
+        source: 'fallback'
+      };
+    }
   },
 
   async buscar_produto_internet({ produto, marca }) {
