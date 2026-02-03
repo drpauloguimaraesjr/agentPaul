@@ -6,6 +6,7 @@
 const axios = require('axios');
 const OpenAI = require('openai');
 const { TEMAS_FORA_ESCOPO } = require('./prompts');
+const { buscarProdutoFirestore, salvarProdutoFirestore, carregarProdutosFirestore } = require('./firebase');
 
 // Configuração
 const BACKEND_URL = process.env.BACKEND_URL || 'https://web-production-c9eaf.up.railway.app';
@@ -155,9 +156,41 @@ function buscarProdutoNoBancoLocal(texto) {
     const palavrasChave = chave.split(' ');
     const coincidencias = palavrasChave.filter(p => textoNorm.includes(p));
     if (coincidencias.length >= 2 || (coincidencias.length === 1 && palavrasChave.length === 1)) {
-      return { encontrado: true, chave, dados };
+      return { encontrado: true, chave, dados, fonte: 'memoria' };
     }
   }
+  return { encontrado: false };
+}
+
+// Versão async que também busca no Firestore
+async function buscarProdutoCompleto(texto) {
+  // 1. Primeiro busca em memória (mais rápido)
+  const buscaLocal = buscarProdutoNoBancoLocal(texto);
+  if (buscaLocal.encontrado) {
+    return buscaLocal;
+  }
+  
+  // 2. Se não encontrar, busca no Firestore
+  const textoNorm = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const dadosFirestore = await buscarProdutoFirestore(textoNorm);
+  
+  if (dadosFirestore) {
+    // Adiciona ao cache em memória para próximas buscas
+    BANCO_PRODUTOS_BR[dadosFirestore.chave || textoNorm] = {
+      nome: dadosFirestore.nome,
+      peso: dadosFirestore.peso,
+      macros: dadosFirestore.macros,
+      observacoes: dadosFirestore.observacoes || ''
+    };
+    
+    return { 
+      encontrado: true, 
+      chave: dadosFirestore.chave || textoNorm, 
+      dados: dadosFirestore,
+      fonte: 'firestore'
+    };
+  }
+  
   return { encontrado: false };
 }
 
@@ -791,19 +824,20 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
   },
 
   async buscar_produto_internet({ produto, marca }) {
-    console.log(`🌐 Buscando na internet: ${produto}`);
+    console.log(`🌐 Buscando: ${produto}`);
     
-    // Primeiro verifica se já não está no banco local
-    const buscaLocal = buscarProdutoNoBancoLocal(produto);
-    if (buscaLocal.encontrado) {
-      console.log(`✅ Encontrado no banco local: ${buscaLocal.chave}`);
+    // Primeiro verifica se já não está no banco local OU Firestore
+    const buscaCompleta = await buscarProdutoCompleto(produto);
+    if (buscaCompleta.encontrado) {
+      console.log(`✅ Encontrado (${buscaCompleta.fonte}): ${buscaCompleta.chave}`);
       return {
-        fonte: 'banco_local',
-        produto: buscaLocal.dados.nome,
-        peso: buscaLocal.dados.peso,
-        macros: buscaLocal.dados.macros,
-        observacoes: buscaLocal.dados.observacoes || '',
-        mensagem: 'Produto já estava no banco local!'
+        encontrado: true,
+        fonte: buscaCompleta.fonte,
+        produto: buscaCompleta.dados.nome,
+        peso: buscaCompleta.dados.peso,
+        macros: buscaCompleta.dados.macros,
+        observacoes: buscaCompleta.dados.observacoes || '',
+        mensagem: `Produto encontrado no ${buscaCompleta.fonte === 'firestore' ? 'Firebase' : 'banco local'}!`
       };
     }
     
@@ -882,8 +916,7 @@ Se não encontrar informações confiáveis:
       throw new Error('Calorias devem ser entre 0 e 2000 kcal');
     }
     
-    // Adiciona ao banco em memória
-    BANCO_PRODUTOS_BR[chaveNorm] = {
+    const dadosProduto = {
       nome,
       peso,
       macros: {
@@ -892,40 +925,30 @@ Se não encontrar informações confiáveis:
         gorduras: gorduras || 0,
         calorias: calorias || 0
       },
-      observacoes: observacoes || '',
+      observacoes: observacoes || ''
+    };
+    
+    // 1. Adiciona ao banco em memória (cache rápido)
+    BANCO_PRODUTOS_BR[chaveNorm] = {
+      ...dadosProduto,
       adicionadoEm: new Date().toISOString(),
       fonte: 'busca_internet'
     };
     
-    console.log(`💾 Produto salvo no banco: ${chaveNorm}`);
+    console.log(`💾 Produto salvo em memória: ${chaveNorm}`);
     console.log(`   ${nome} (${peso}g) - P:${proteinas} C:${carboidratos} G:${gorduras} Cal:${calorias}`);
     
-    // Tenta persistir no backend também (para não perder em restarts)
-    try {
-      await api.post('/api/n8n/produtos-locais', {
-        chave: chaveNorm,
-        nome,
-        peso,
-        macros: { proteinas, carboidratos, gorduras, calorias },
-        observacoes,
-        fonte: 'agent_paul_web_search'
-      });
-      console.log(`☁️ Produto sincronizado com backend`);
-    } catch (e) {
-      // Não falha se o backend não suportar esse endpoint ainda
-      console.log(`⚠️ Backend não suporta persistência de produtos (ok, salvo em memória)`);
-    }
+    // 2. Persiste no Firestore (permanente)
+    const salvoFirestore = await salvarProdutoFirestore(chaveNorm, dadosProduto);
     
     return {
       sucesso: true,
       chave: chaveNorm,
-      produto: {
-        nome,
-        peso,
-        macros: { proteinas, carboidratos, gorduras, calorias },
-        observacoes
-      },
-      mensagem: `Produto "${nome}" salvo! Próximas fotos com esse produto serão reconhecidas automaticamente.`
+      produto: dadosProduto,
+      persistido: salvoFirestore ? 'firestore' : 'memoria_apenas',
+      mensagem: salvoFirestore 
+        ? `Produto "${nome}" salvo no Firebase! 🔥 Próximas fotos serão reconhecidas automaticamente.`
+        : `Produto "${nome}" salvo em memória. (Firebase não disponível)`
     };
   }
 };
