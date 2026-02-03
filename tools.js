@@ -354,6 +354,42 @@ const tools = [
         required: ['restaurante']
       }
     }
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'buscar_produto_internet',
+      description: 'Busca informações nutricionais de um produto embalado na internet. Use quando identificar um produto que NÃO está no banco local (iogurtes, barras, bebidas, etc).',
+      parameters: {
+        type: 'object',
+        properties: {
+          produto: { type: 'string', description: 'Nome completo do produto (marca + linha + sabor). Ex: "Danone Grego Tradicional 100g"' },
+          marca: { type: 'string', description: 'Marca do produto (opcional)' }
+        },
+        required: ['produto']
+      }
+    }
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'salvar_produto_banco',
+      description: 'Salva um novo produto no banco local para uso futuro. Use DEPOIS de buscar_produto_internet quando encontrar dados confiáveis.',
+      parameters: {
+        type: 'object',
+        properties: {
+          chave: { type: 'string', description: 'Chave de busca em minúsculas (ex: "danone grego tradicional")' },
+          nome: { type: 'string', description: 'Nome completo do produto' },
+          peso: { type: 'number', description: 'Peso da porção em gramas' },
+          proteinas: { type: 'number', description: 'Proteínas em gramas' },
+          carboidratos: { type: 'number', description: 'Carboidratos em gramas' },
+          gorduras: { type: 'number', description: 'Gorduras em gramas' },
+          calorias: { type: 'number', description: 'Calorias em kcal' },
+          observacoes: { type: 'string', description: 'Observações (ex: "zero lactose", "light")' }
+        },
+        required: ['chave', 'nome', 'peso', 'proteinas', 'carboidratos', 'gorduras', 'calorias']
+      }
+    }
   }
 ];
 
@@ -703,6 +739,145 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     }
 
     return resposta;
+  },
+
+  async buscar_produto_internet({ produto, marca }) {
+    console.log(`🌐 Buscando na internet: ${produto}`);
+    
+    // Primeiro verifica se já não está no banco local
+    const buscaLocal = buscarProdutoNoBancoLocal(produto);
+    if (buscaLocal.encontrado) {
+      console.log(`✅ Encontrado no banco local: ${buscaLocal.chave}`);
+      return {
+        fonte: 'banco_local',
+        produto: buscaLocal.dados.nome,
+        peso: buscaLocal.dados.peso,
+        macros: buscaLocal.dados.macros,
+        observacoes: buscaLocal.dados.observacoes || '',
+        mensagem: 'Produto já estava no banco local!'
+      };
+    }
+    
+    // Busca via GPT-4 (que tem conhecimento de produtos brasileiros)
+    const prompt = `Você é um nutricionista brasileiro. Busque informações nutricionais PRECISAS do produto:
+
+PRODUTO: ${produto}
+${marca ? `MARCA: ${marca}` : ''}
+
+INSTRUÇÕES:
+1. Use seu conhecimento sobre produtos alimentícios brasileiros
+2. Busque a tabela nutricional por PORÇÃO (não por 100g, a menos que seja a porção padrão)
+3. Se for iogurte, considere o pote individual típico (100g, 140g, 170g, etc)
+4. Se não tiver certeza dos valores, indique "confianca": "baixa"
+
+Retorne APENAS um JSON:
+{
+  "encontrado": true/false,
+  "produto": "nome completo do produto",
+  "marca": "marca",
+  "peso": peso_da_porcao_em_gramas,
+  "macros": {
+    "proteinas": gramas,
+    "carboidratos": gramas,
+    "gorduras": gramas,
+    "calorias": kcal
+  },
+  "confianca": "alta/media/baixa",
+  "fonte": "conhecimento geral / tabela nutricional oficial",
+  "observacoes": "ex: zero lactose, light, etc"
+}
+
+Se não encontrar informações confiáveis:
+{
+  "encontrado": false,
+  "produto": "${produto}",
+  "motivo": "explicação"
+}`;
+
+    try {
+      const response = await getOpenAI().chat.completions.create({
+        model: process.env.AGENT_MODEL || 'gpt-4o-mini',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 500,
+        temperature: 0.2
+      });
+
+      const content = response.choices[0].message.content;
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      
+      if (jsonMatch) {
+        const resultado = JSON.parse(jsonMatch[0]);
+        console.log(`🌐 Resultado da busca:`, resultado);
+        return resultado;
+      }
+      
+      return { encontrado: false, produto, motivo: 'Não foi possível processar a resposta' };
+    } catch (error) {
+      console.error('❌ Erro na busca:', error.message);
+      return { encontrado: false, produto, motivo: error.message };
+    }
+  },
+
+  async salvar_produto_banco({ chave, nome, peso, proteinas, carboidratos, gorduras, calorias, observacoes }) {
+    // Normaliza a chave
+    const chaveNorm = chave.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+    
+    // Valida os dados
+    if (peso <= 0 || peso > 2000) {
+      throw new Error('Peso deve ser entre 1 e 2000g');
+    }
+    if (calorias < 0 || calorias > 2000) {
+      throw new Error('Calorias devem ser entre 0 e 2000 kcal');
+    }
+    
+    // Adiciona ao banco em memória
+    BANCO_PRODUTOS_BR[chaveNorm] = {
+      nome,
+      peso,
+      macros: {
+        proteinas: proteinas || 0,
+        carboidratos: carboidratos || 0,
+        gorduras: gorduras || 0,
+        calorias: calorias || 0
+      },
+      observacoes: observacoes || '',
+      adicionadoEm: new Date().toISOString(),
+      fonte: 'busca_internet'
+    };
+    
+    console.log(`💾 Produto salvo no banco: ${chaveNorm}`);
+    console.log(`   ${nome} (${peso}g) - P:${proteinas} C:${carboidratos} G:${gorduras} Cal:${calorias}`);
+    
+    // Tenta persistir no backend também (para não perder em restarts)
+    try {
+      await api.post('/api/n8n/produtos-locais', {
+        chave: chaveNorm,
+        nome,
+        peso,
+        macros: { proteinas, carboidratos, gorduras, calorias },
+        observacoes,
+        fonte: 'agent_paul_web_search'
+      });
+      console.log(`☁️ Produto sincronizado com backend`);
+    } catch (e) {
+      // Não falha se o backend não suportar esse endpoint ainda
+      console.log(`⚠️ Backend não suporta persistência de produtos (ok, salvo em memória)`);
+    }
+    
+    return {
+      sucesso: true,
+      chave: chaveNorm,
+      produto: {
+        nome,
+        peso,
+        macros: { proteinas, carboidratos, gorduras, calorias },
+        observacoes
+      },
+      mensagem: `Produto "${nome}" salvo! Próximas fotos com esse produto serão reconhecidas automaticamente.`
+    };
   }
 };
 
