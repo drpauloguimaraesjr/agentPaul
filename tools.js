@@ -209,6 +209,33 @@ function sanitizarMensagem(mensagem) {
   return sanitizada;
 }
 
+// Palavras que indicam urgência/escalação para humano
+const PALAVRAS_ESCALACAO = [
+  'suicídio', 'suicidio', 'me matar', 'matar', 'morrer',
+  'emergência', 'emergencia', 'urgente', 'hospital',
+  'transtorno alimentar', 'anorexia', 'bulimia',
+  'abuso', 'violência', 'violencia',
+  'depressão', 'depressao', 'ansiedade grave'
+];
+
+function verificarEscalacao(texto) {
+  if (!texto) return { escalar: false };
+  
+  const textoLower = texto.toLowerCase();
+  
+  for (const palavra of PALAVRAS_ESCALACAO) {
+    if (textoLower.includes(palavra)) {
+      return {
+        escalar: true,
+        motivo: `Palavra de urgência detectada: "${palavra}"`,
+        gatilho: palavra
+      };
+    }
+  }
+  
+  return { escalar: false };
+}
+
 // ==========================================
 // FUNÇÕES AUXILIARES
 // ==========================================
@@ -1279,5 +1306,6 @@ module.exports = {
   toolImplementations,
   validarEscopo,
   sanitizarMensagem,
+  verificarEscalacao,
   BANCO_PRODUTOS_BR,
 };
