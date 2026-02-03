@@ -868,12 +868,14 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       throw new Error("Peso real fora do intervalo válido (1-5000g)");
     }
 
-    const response = await api.post("/api/n8n/food-weight/feedback", {
+    // Salvar no Calibration Studio para aparecer nas sugestões do frontend
+    const response = await api.post("/api/n8n/food-calibration/suggestions", {
       foodName: alimento,
+      foodType: alimento.toLowerCase().split(' ')[0], // Ex: "Arroz branco" → "arroz"
       aiEstimate: pesoEstimado,
       userCorrection: pesoReal,
       patientId: patientId || contexto?.patientId,
-      timestamp: new Date().toISOString(),
+      conversationId: contexto?.conversationId,
     });
     return response.data;
   },
