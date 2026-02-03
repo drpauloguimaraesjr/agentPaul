@@ -310,6 +310,79 @@ app.post('/webhook', async (req, res) => {
       });
     }
 
+    // ========================================
+    // VERIFICAÇÃO DE ASSINATURA (Status do Paciente)
+    // ========================================
+    if (mensagem.patientStatus && mensagem.patientStatus !== 'active') {
+      addLog('warn', 'subscription', '⚠️ Paciente com assinatura inativa', {
+        patientId: mensagem.patientId,
+        status: mensagem.patientStatus
+      });
+      
+      // Enviar mensagem de regularização
+      try {
+        const { executeTool } = require('./tools');
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: `⚠️ Seu acesso ao NutriBuddy está pendente de regularização.
+
+Para continuar registrando suas refeições e recebendo acompanhamento nutricional inteligente, regularize seu plano agora.
+
+Acesse: https://nutribuddy.dog/regularizar?p=${mensagem.patientId}`
+        }, mensagem);
+      } catch (e) {
+        console.error('Erro ao enviar mensagem de regularização:', e.message);
+      }
+      
+      return res.json({
+        success: false,
+        blocked: true,
+        reason: 'subscription_inactive',
+        patientStatus: mensagem.patientStatus
+      });
+    }
+
+    // ========================================
+    // DETECÇÃO DE ONBOARDING (Primeiro Acesso)
+    // ========================================
+    if (mensagem.isFirstMessage || mensagem.requiresOnboarding) {
+      addLog('info', 'onboarding', '👋 Novo paciente - iniciando onboarding', {
+        patientId: mensagem.patientId,
+        patientName: mensagem.patientName
+      });
+      
+      // Mensagem de boas-vindas personalizada
+      try {
+        const { executeTool } = require('./tools');
+        const nomeCompleto = mensagem.patientName || 'Paciente';
+        const primeiroNome = nomeCompleto.split(' ')[0];
+        
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: `👋 Olá, ${primeiroNome}! Bem-vindo(a) ao NutriBuddy! 🥗
+
+Sou seu assistente de nutrição inteligente. Estou aqui para te ajudar a:
+
+📸 Registrar suas refeições (basta enviar uma foto!)
+📊 Acompanhar seus macros diários
+💪 Manter o foco na sua dieta
+
+Para começar, basta me enviar uma foto da sua próxima refeição! 
+
+Qualquer dúvida, é só perguntar. Vamos juntos! 🚀`
+        }, mensagem);
+        
+        return res.json({
+          success: true,
+          onboarding: true,
+          message: 'Mensagem de boas-vindas enviada'
+        });
+      } catch (e) {
+        console.error('Erro ao enviar mensagem de onboarding:', e.message);
+        // Continua mesmo se falhar o onboarding
+      }
+    }
+
     // PRÉ-VERIFICAÇÃO: Checar se precisa escalar antes de processar
     if (mensagem.content) {
       const escalacao = verificarEscalacao(mensagem.content);
