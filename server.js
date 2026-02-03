@@ -137,14 +137,35 @@ const agent = new NutriBuddyAgent({
 // ==========================================
 
 /**
- * GET /health - Health check
+ * GET /health - Health check com teste de conectividade OpenAI
  */
-app.get('/health', (req, res) => {
+app.get('/health', async (req, res) => {
+  let openaiStatus = 'unknown';
+  let openaiError = null;
+  
+  // Teste rápido de conectividade com OpenAI
+  try {
+    const testResponse = await agent.openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'user', content: 'ping' }],
+      max_tokens: 5
+    });
+    openaiStatus = 'connected';
+  } catch (error) {
+    openaiStatus = 'error';
+    openaiError = error.message;
+    logger.error('Health check - OpenAI falhou', { error: error.message });
+  }
+  
   res.json({
-    status: 'ok',
+    status: openaiStatus === 'connected' ? 'ok' : 'degraded',
     service: 'nutribuddy-agent',
     version: '2.0.0',
     model: process.env.AGENT_MODEL || 'gpt-4o',
+    openai: {
+      status: openaiStatus,
+      error: openaiError
+    },
     timestamp: new Date().toISOString()
   });
 });
@@ -185,6 +206,43 @@ app.get('/stats', (req, res) => {
     logsCount: logsBuffer.length,
     timestamp: new Date().toISOString()
   });
+});
+
+/**
+ * GET /diag - Diagnóstico completo (para troubleshooting)
+ */
+app.get('/diag', async (req, res) => {
+  const diag = {
+    timestamp: new Date().toISOString(),
+    environment: {
+      NODE_ENV: process.env.NODE_ENV || 'not set',
+      PORT: process.env.PORT || '3001',
+      AGENT_MODEL: process.env.AGENT_MODEL || 'gpt-4o',
+      DEBUG: process.env.DEBUG || 'false'
+    },
+    apiKey: {
+      defined: !!process.env.OPENAI_API_KEY,
+      length: process.env.OPENAI_API_KEY?.length || 0,
+      startsWithSk: process.env.OPENAI_API_KEY?.trim().startsWith('sk-') || false,
+      hasQuotes: /^["']|["']$/.test(process.env.OPENAI_API_KEY || ''),
+      hasNewline: /\n/.test(process.env.OPENAI_API_KEY || ''),
+      hasSpaces: process.env.OPENAI_API_KEY !== process.env.OPENAI_API_KEY?.trim()
+    },
+    connectivity: {
+      openai: 'testing...'
+    }
+  };
+  
+  // Teste de conectividade
+  try {
+    const start = Date.now();
+    await agent.openai.models.list();
+    diag.connectivity.openai = `ok (${Date.now() - start}ms)`;
+  } catch (error) {
+    diag.connectivity.openai = `error: ${error.message}`;
+  }
+  
+  res.json(diag);
 });
 
 /**

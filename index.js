@@ -10,8 +10,32 @@ const { logger } = require('./logger');
 
 class NutriBuddyAgent {
   constructor(config = {}) {
+    // Limpa a API key (remove aspas, espaços, quebras de linha)
+    const rawKey = config.openaiKey || process.env.OPENAI_API_KEY || '';
+    const cleanKey = rawKey.trim().replace(/^["']|["']$/g, '').replace(/\n/g, '');
+    
+    // Valida a key
+    if (!cleanKey) {
+      logger.error('OPENAI_API_KEY não definida!');
+      throw new Error('OPENAI_API_KEY não definida');
+    }
+    
+    if (!cleanKey.startsWith('sk-')) {
+      logger.error('OPENAI_API_KEY inválida - deve começar com sk-');
+      throw new Error('OPENAI_API_KEY inválida');
+    }
+    
+    // Log de diagnóstico (sem expor a key completa)
+    logger.info('OpenAI API Key configurada', {
+      length: cleanKey.length,
+      prefix: cleanKey.substring(0, 7) + '...',
+      suffix: '...' + cleanKey.slice(-4)
+    });
+    
     this.openai = new OpenAI({
-      apiKey: config.openaiKey || process.env.OPENAI_API_KEY
+      apiKey: cleanKey,
+      timeout: 60000,      // 60 segundos de timeout
+      maxRetries: 3        // 3 tentativas automáticas
     });
     this.model = config.model || 'gpt-4o';
     this.maxIterations = config.maxIterations || 10;
