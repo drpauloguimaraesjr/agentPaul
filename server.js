@@ -7,11 +7,15 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { NutriBuddyAgent } = require('./index');
 const { logger } = require('./logger');
 const { verificarEscalacao } = require('./tools');
 
 const app = express();
+
+// Servir arquivos estáticos (Dashboard)
+app.use('/dashboard', express.static(path.join(__dirname, 'public')));
 const PORT = process.env.PORT || 3001;
 
 // ==========================================
@@ -178,6 +182,7 @@ app.get('/', (req, res) => {
     name: 'NutriBuddy Agent',
     version: '2.0.0',
     description: 'Agente inteligente para processamento de mensagens',
+    dashboard: '/dashboard',
     features: [
       'Análise de fotos de refeições',
       'Registro de macros',
@@ -187,10 +192,13 @@ app.get('/', (req, res) => {
       'Escalação para humano'
     ],
     endpoints: {
+      dashboard: 'GET /dashboard',
       health: 'GET /health',
       webhook: 'POST /webhook',
       test: 'POST /test',
-      stats: 'GET /stats'
+      stats: 'GET /stats',
+      logs: 'GET /logs',
+      diag: 'GET /diag'
     }
   });
 });
