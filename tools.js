@@ -11,6 +11,19 @@ const {
   salvarProdutoFirestore,
   carregarProdutosFirestore,
 } = require("./firebase");
+const {
+  savePendingMeal,
+  getPendingMeal,
+  confirmPendingMeal,
+  cancelPendingMeal,
+  updatePendingMealFood,
+  removePendingMealFood,
+  addPendingMealFood,
+  formatPendingMealMessage,
+  isConfirmationMessage,
+  isCancellationMessage,
+  extractWeightCorrection,
+} = require("./pending-meals");
 
 // Configuração
 const BACKEND_URL =
@@ -400,6 +413,126 @@ const tools = [
           imageUrl: { type: "string", description: "URL da foto (opcional)" },
         },
         required: ["patientId", "conversationId", "mealType", "alimentos"],
+      },
+    },
+  },
+  // ================================================
+  // ✨ NOVA FERRAMENTA: preparar_refeicao
+  // ================================================
+  {
+    type: "function",
+    function: {
+      name: "preparar_refeicao",
+      description:
+        "Prepara uma refeição para confirmação do paciente. NÃO registra ainda - salva como pendente e pede confirmação. Use SEMPRE após analisar_foto_refeicao para mostrar ao paciente o que foi identificado e pedir confirmação antes de registrar.",
+      parameters: {
+        type: "object",
+        properties: {
+          patientId: { type: "string", description: "ID do paciente" },
+          conversationId: { type: "string", description: "ID da conversa" },
+          mealType: {
+            type: "string",
+            enum: [
+              "cafe_manha",
+              "lanche_manha",
+              "almoco",
+              "lanche_tarde",
+              "jantar",
+              "ceia",
+            ],
+            description: "Tipo da refeição",
+          },
+          alimentos: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                nome: { type: "string" },
+                peso: { type: "number" },
+                proteinas: { type: "number" },
+                carboidratos: { type: "number" },
+                gorduras: { type: "number" },
+                calorias: { type: "number" },
+              },
+            },
+            description: "Lista de alimentos com macros",
+          },
+          imageUrl: { type: "string", description: "URL da foto (opcional)" },
+        },
+        required: ["patientId", "conversationId", "mealType", "alimentos"],
+      },
+    },
+  },
+  // ================================================
+  // ✨ NOVA FERRAMENTA: confirmar_refeicao
+  // ================================================
+  {
+    type: "function",
+    function: {
+      name: "confirmar_refeicao",
+      description:
+        "Confirma e registra uma refeição que estava pendente. Use quando o paciente confirmar a refeição (responder 'sim', 'ok', 'confirma', etc).",
+      parameters: {
+        type: "object",
+        properties: {
+          conversationId: { type: "string", description: "ID da conversa" },
+        },
+        required: ["conversationId"],
+      },
+    },
+  },
+  // ================================================
+  // ✨ NOVA FERRAMENTA: cancelar_refeicao
+  // ================================================
+  {
+    type: "function",
+    function: {
+      name: "cancelar_refeicao",
+      description:
+        "Cancela uma refeição pendente. Use quando o paciente não quiser registrar (responder 'não', 'cancela', etc).",
+      parameters: {
+        type: "object",
+        properties: {
+          conversationId: { type: "string", description: "ID da conversa" },
+        },
+        required: ["conversationId"],
+      },
+    },
+  },
+  // ================================================
+  // ✨ NOVA FERRAMENTA: corrigir_refeicao
+  // ================================================
+  {
+    type: "function",
+    function: {
+      name: "corrigir_refeicao",
+      description:
+        "Corrige um item da refeição pendente. Use quando o paciente informar uma correção (ex: 'era 200g de arroz', 'remove a salada', 'adiciona 1 ovo').",
+      parameters: {
+        type: "object",
+        properties: {
+          conversationId: { type: "string", description: "ID da conversa" },
+          acao: {
+            type: "string",
+            enum: ["atualizar_peso", "remover", "adicionar"],
+            description: "Tipo de correção",
+          },
+          alimentoNome: { type: "string", description: "Nome do alimento" },
+          novoPeso: { type: "number", description: "Novo peso em gramas (para atualizar_peso)" },
+          novoAlimento: {
+            type: "object",
+            properties: {
+              nome: { type: "string" },
+              peso: { type: "number" },
+              proteinas: { type: "number" },
+              carboidratos: { type: "number" },
+              gorduras: { type: "number" },
+              calorias: { type: "number" },
+            },
+            description: "Dados do novo alimento (para adicionar)",
+          },
+        },
+        required: ["conversationId", "acao"],
       },
     },
   },
@@ -797,6 +930,286 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       },
     );
     return response.data;
+  },
+
+  // ================================================
+  // ✨ PREPARAR REFEIÇÃO (salva como pendente)
+  // ================================================
+  async preparar_refeicao(
+    { patientId, conversationId, mealType, alimentos, imageUrl },
+    contexto,
+  ) {
+    if (!TIPOS_REFEICAO_VALIDOS.includes(mealType)) {
+      throw new Error(`Tipo de refeição inválido: ${mealType}`);
+    }
+    if (contexto?.patientId && patientId !== contexto.patientId) {
+      throw new Error("Não autorizado a registrar para outro paciente");
+    }
+    if (!Array.isArray(alimentos) || alimentos.length === 0) {
+      throw new Error("Lista de alimentos não pode estar vazia");
+    }
+
+    console.log(`📋 [Tools] Preparando refeição para confirmação...`);
+
+    // Callback para auto-registro após timeout
+    const autoRegisterCallback = async (pending) => {
+      console.log(`⏰ [Tools] Auto-registrando refeição...`);
+      
+      try {
+        // Enviar mensagem de "registrando..."
+        await api.post(`/api/n8n/conversations/${pending.conversationId}/messages`, {
+          mensagem: "📝 _Registrando refeição automaticamente..._",
+          source: "agent_paul",
+        });
+
+        // Registrar a refeição
+        const response = await api.post(
+          `/api/n8n/patients/${pending.patientId}/food-diary`,
+          {
+            type: pending.mealType,
+            date: new Date().toISOString().split("T")[0],
+            foods: pending.alimentos.map((a) => ({
+              name: a.nome,
+              weight: a.peso,
+              calories: a.calorias || 0,
+              protein: a.proteinas || 0,
+              carbs: a.carboidratos || 0,
+              fats: a.gorduras || 0,
+            })),
+            macros: pending.macrosTotais,
+            imageUrl: pending.imageUrl || null,
+            conversationId: pending.conversationId,
+            source: "agent_paul_auto",
+          },
+        );
+
+        // Enviar confirmação
+        await api.post(`/api/n8n/conversations/${pending.conversationId}/messages`, {
+          mensagem: "✅ *Refeição registrada!*\n\nSe algo estiver errado, me avise que eu corrijo. 😊",
+          source: "agent_paul",
+        });
+
+        console.log(`✅ [Tools] Refeição auto-registrada com sucesso!`);
+      } catch (error) {
+        console.error(`❌ [Tools] Erro no auto-registro:`, error.message);
+      }
+    };
+
+    // Calcular macros totais
+    const macrosTotais = {
+      calorias: alimentos.reduce((sum, a) => sum + (a.calorias || 0), 0),
+      proteinas: alimentos.reduce((sum, a) => sum + (a.proteinas || 0), 0),
+      carboidratos: alimentos.reduce((sum, a) => sum + (a.carboidratos || 0), 0),
+      gorduras: alimentos.reduce((sum, a) => sum + (a.gorduras || 0), 0),
+    };
+
+    // Salvar como pendente
+    const pending = savePendingMeal(
+      conversationId,
+      {
+        patientId,
+        mealType,
+        alimentos,
+        imageUrl,
+        macrosTotais,
+      },
+      autoRegisterCallback
+    );
+
+    // Formatar mensagem para mostrar ao paciente
+    const mensagemConfirmacao = formatPendingMealMessage(pending);
+
+    return {
+      success: true,
+      status: "pending_confirmation",
+      message: "Refeição preparada. Aguardando confirmação do paciente.",
+      mensagemConfirmacao,
+      alimentos,
+      macrosTotais,
+      timeoutSeconds: 120,
+    };
+  },
+
+  // ================================================
+  // ✨ CONFIRMAR REFEIÇÃO (registra a pendente)
+  // ================================================
+  async confirmar_refeicao({ conversationId }, contexto) {
+    console.log(`✅ [Tools] Confirmando refeição para ${conversationId}...`);
+
+    // Buscar e remover do cache (cancela timer)
+    const pending = confirmPendingMeal(conversationId);
+
+    if (!pending) {
+      return {
+        success: false,
+        error: "Nenhuma refeição pendente para confirmar.",
+        message: "Não encontrei nenhuma refeição aguardando confirmação. Envie uma foto da sua refeição!",
+      };
+    }
+
+    // Enviar mensagem de "registrando..."
+    await api.post(`/api/n8n/conversations/${conversationId}/messages`, {
+      mensagem: "📝 _Registrando refeição no diário de hoje..._",
+      source: "agent_paul",
+    });
+
+    // Registrar a refeição
+    const response = await api.post(
+      `/api/n8n/patients/${pending.patientId}/food-diary`,
+      {
+        type: pending.mealType,
+        date: new Date().toISOString().split("T")[0],
+        foods: pending.alimentos.map((a) => ({
+          name: a.nome,
+          weight: a.peso,
+          calories: a.calorias || 0,
+          protein: a.proteinas || 0,
+          carbs: a.carboidratos || 0,
+          fats: a.gorduras || 0,
+        })),
+        macros: pending.macrosTotais,
+        imageUrl: pending.imageUrl || null,
+        conversationId,
+        source: "agent_paul",
+      },
+    );
+
+    console.log(`✅ [Tools] Refeição registrada com sucesso!`);
+
+    return {
+      success: true,
+      status: "registered",
+      message: "✅ *Refeição registrada!* Você está indo muito bem hoje! 🎯",
+      data: response.data,
+      alimentos: pending.alimentos,
+      macrosTotais: pending.macrosTotais,
+    };
+  },
+
+  // ================================================
+  // ✨ CANCELAR REFEIÇÃO (descarta a pendente)
+  // ================================================
+  async cancelar_refeicao({ conversationId }, contexto) {
+    console.log(`🗑️ [Tools] Cancelando refeição para ${conversationId}...`);
+
+    const cancelled = cancelPendingMeal(conversationId);
+
+    if (!cancelled) {
+      return {
+        success: false,
+        error: "Nenhuma refeição pendente para cancelar.",
+        message: "Não encontrei nenhuma refeição para cancelar.",
+      };
+    }
+
+    return {
+      success: true,
+      status: "cancelled",
+      message: "🗑️ Ok! Refeição descartada. Quando quiser, envie uma nova foto!",
+    };
+  },
+
+  // ================================================
+  // ✨ CORRIGIR REFEIÇÃO (atualiza a pendente)
+  // ================================================
+  async corrigir_refeicao(
+    { conversationId, acao, alimentoNome, novoPeso, novoAlimento },
+    contexto,
+  ) {
+    console.log(`✏️ [Tools] Corrigindo refeição: ${acao} - ${alimentoNome || "novo"}`);
+
+    const pending = getPendingMeal(conversationId);
+
+    if (!pending) {
+      return {
+        success: false,
+        error: "Nenhuma refeição pendente para corrigir.",
+        message: "Não encontrei nenhuma refeição para corrigir. Envie uma foto da sua refeição!",
+      };
+    }
+
+    let updated;
+
+    switch (acao) {
+      case "atualizar_peso":
+        // Encontrar o alimento pelo nome
+        const indexAtualizar = pending.alimentos.findIndex(
+          (a) => a.nome.toLowerCase().includes(alimentoNome.toLowerCase())
+        );
+
+        if (indexAtualizar === -1) {
+          return {
+            success: false,
+            error: `Alimento "${alimentoNome}" não encontrado na refeição.`,
+            alimentosDisponiveis: pending.alimentos.map((a) => a.nome),
+          };
+        }
+
+        // Recalcular macros baseado no novo peso
+        const alimentoOriginal = pending.alimentos[indexAtualizar];
+        const fatorCorrecao = novoPeso / alimentoOriginal.peso;
+
+        updated = updatePendingMealFood(conversationId, indexAtualizar, {
+          peso: novoPeso,
+          proteinas: Math.round(alimentoOriginal.proteinas * fatorCorrecao * 10) / 10,
+          carboidratos: Math.round(alimentoOriginal.carboidratos * fatorCorrecao * 10) / 10,
+          gorduras: Math.round(alimentoOriginal.gorduras * fatorCorrecao * 10) / 10,
+          calorias: Math.round(alimentoOriginal.calorias * fatorCorrecao),
+        });
+        break;
+
+      case "remover":
+        const indexRemover = pending.alimentos.findIndex(
+          (a) => a.nome.toLowerCase().includes(alimentoNome.toLowerCase())
+        );
+
+        if (indexRemover === -1) {
+          return {
+            success: false,
+            error: `Alimento "${alimentoNome}" não encontrado na refeição.`,
+            alimentosDisponiveis: pending.alimentos.map((a) => a.nome),
+          };
+        }
+
+        updated = removePendingMealFood(conversationId, indexRemover);
+        break;
+
+      case "adicionar":
+        if (!novoAlimento || !novoAlimento.nome) {
+          return {
+            success: false,
+            error: "Dados do novo alimento não informados.",
+          };
+        }
+
+        updated = addPendingMealFood(conversationId, novoAlimento);
+        break;
+
+      default:
+        return {
+          success: false,
+          error: `Ação desconhecida: ${acao}`,
+        };
+    }
+
+    if (!updated) {
+      return {
+        success: false,
+        error: "Erro ao atualizar refeição.",
+      };
+    }
+
+    // Formatar nova mensagem
+    const mensagemAtualizada = formatPendingMealMessage(updated);
+
+    return {
+      success: true,
+      status: "updated",
+      message: "✏️ Refeição atualizada! Confirma agora?",
+      mensagemConfirmacao: mensagemAtualizada,
+      alimentos: updated.alimentos,
+      macrosTotais: updated.macrosTotais,
+    };
   },
 
   async enviar_mensagem_whatsapp({ conversationId, mensagem }, contexto) {
