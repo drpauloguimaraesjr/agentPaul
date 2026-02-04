@@ -1036,8 +1036,8 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
   async confirmar_refeicao({ conversationId }, contexto) {
     console.log(`✅ [Tools] Confirmando refeição para ${conversationId}...`);
 
-    // Buscar e remover do cache (cancela timer)
-    const pending = confirmPendingMeal(conversationId);
+    // Buscar e remover do cache/Firebase (cancela timer)
+    const pending = await confirmPendingMeal(conversationId);
 
     if (!pending) {
       return {
@@ -1118,7 +1118,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
   ) {
     console.log(`✏️ [Tools] Corrigindo refeição: ${acao} - ${alimentoNome || "novo"}`);
 
-    const pending = getPendingMeal(conversationId);
+    const pending = await getPendingMeal(conversationId);
 
     if (!pending) {
       return {

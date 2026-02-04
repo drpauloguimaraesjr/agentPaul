@@ -6,15 +6,83 @@
  * - Guarda refeição analisada temporariamente
  * - Timer de auto-registro (2 minutos)
  * - Permite correções antes de confirmar
+ * - PERSISTÊNCIA NO FIREBASE para sobreviver a reinícios
  * ================================================
  */
 
-// Cache de refeições pendentes
+const { initFirebase } = require('./firebase');
+
+// Cache de refeições pendentes (memória + Firebase backup)
 // Estrutura: Map<conversationId, PendingMeal>
 const pendingMeals = new Map();
 
+// Coleção Firebase para refeições pendentes
+const PENDING_MEALS_COLLECTION = 'pending_meals';
+
 // Tempo para auto-registro (em millisegundos)
 const AUTO_REGISTER_TIMEOUT_MS = 2 * 60 * 1000; // 2 minutos
+
+/**
+ * Salva refeição pendente no Firebase (backup)
+ */
+async function savePendingToFirebase(conversationId, mealData) {
+  const db = initFirebase();
+  if (!db) return;
+  
+  try {
+    await db.collection(PENDING_MEALS_COLLECTION).doc(conversationId).set({
+      ...mealData,
+      conversationId,
+      createdAt: new Date(),
+      expiresAt: new Date(Date.now() + AUTO_REGISTER_TIMEOUT_MS)
+    });
+    console.log(`🔥 [PendingMeals] Backup salvo no Firebase: ${conversationId}`);
+  } catch (error) {
+    console.error(`⚠️ [PendingMeals] Erro ao salvar no Firebase:`, error.message);
+  }
+}
+
+/**
+ * Remove refeição pendente do Firebase
+ */
+async function removePendingFromFirebase(conversationId) {
+  const db = initFirebase();
+  if (!db) return;
+  
+  try {
+    await db.collection(PENDING_MEALS_COLLECTION).doc(conversationId).delete();
+    console.log(`🔥 [PendingMeals] Removido do Firebase: ${conversationId}`);
+  } catch (error) {
+    console.error(`⚠️ [PendingMeals] Erro ao remover do Firebase:`, error.message);
+  }
+}
+
+/**
+ * Busca refeição pendente do Firebase (fallback quando não está em memória)
+ */
+async function getPendingFromFirebase(conversationId) {
+  const db = initFirebase();
+  if (!db) return null;
+  
+  try {
+    const doc = await db.collection(PENDING_MEALS_COLLECTION).doc(conversationId).get();
+    if (doc.exists) {
+      const data = doc.data();
+      // Verificar se ainda está válida
+      if (data.expiresAt && data.expiresAt.toDate() > new Date()) {
+        console.log(`🔥 [PendingMeals] Recuperado do Firebase: ${conversationId}`);
+        return data;
+      } else {
+        // Expirou, remover
+        await removePendingFromFirebase(conversationId);
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error(`⚠️ [PendingMeals] Erro ao buscar do Firebase:`, error.message);
+    return null;
+  }
+}
 
 /**
  * @typedef {Object} PendingMeal
@@ -57,8 +125,9 @@ function savePendingMeal(conversationId, mealData, onAutoRegister) {
           await onAutoRegister(pending);
         }
         
-        // Limpar do cache
+        // Limpar do cache e Firebase
         pendingMeals.delete(conversationId);
+        removePendingFromFirebase(conversationId).catch(e => {});
         console.log(`✅ [PendingMeals] Refeição auto-registrada e removida do cache`);
       } catch (error) {
         console.error(`❌ [PendingMeals] Erro no auto-registro:`, error.message);
@@ -76,6 +145,9 @@ function savePendingMeal(conversationId, mealData, onAutoRegister) {
 
   pendingMeals.set(conversationId, pendingMeal);
 
+  // 🔥 Backup no Firebase (async, não bloqueia)
+  savePendingToFirebase(conversationId, mealData).catch(e => console.error('Firebase backup error:', e.message));
+
   console.log(`📝 [PendingMeals] Refeição salva como pendente para ${conversationId}`);
   console.log(`   ⏳ Auto-registro em ${AUTO_REGISTER_TIMEOUT_MS / 1000} segundos`);
   console.log(`   🍽️ Alimentos: ${mealData.alimentos?.length || 0} itens`);
@@ -88,14 +160,26 @@ function savePendingMeal(conversationId, mealData, onAutoRegister) {
  * @param {string} conversationId 
  * @returns {PendingMeal|null}
  */
-function getPendingMeal(conversationId) {
-  const pending = pendingMeals.get(conversationId);
+async function getPendingMeal(conversationId) {
+  // Primeiro tenta memória
+  let pending = pendingMeals.get(conversationId);
+  
+  // Se não encontrou em memória, tenta Firebase
+  if (!pending) {
+    pending = await getPendingFromFirebase(conversationId);
+    if (pending) {
+      // Colocar de volta em memória
+      pendingMeals.set(conversationId, pending);
+    }
+  }
+  
   if (!pending) {
     console.log(`🔍 [PendingMeals] Nenhuma refeição pendente para ${conversationId}`);
     return null;
   }
   
-  const ageSeconds = Math.round((Date.now() - pending.createdAt) / 1000);
+  const createdAt = pending.createdAt instanceof Date ? pending.createdAt.getTime() : pending.createdAt;
+  const ageSeconds = Math.round((Date.now() - createdAt) / 1000);
   console.log(`🔍 [PendingMeals] Refeição pendente encontrada (idade: ${ageSeconds}s)`);
   
   return pending;
@@ -106,8 +190,15 @@ function getPendingMeal(conversationId) {
  * @param {string} conversationId 
  * @returns {PendingMeal|null}
  */
-function confirmPendingMeal(conversationId) {
-  const pending = pendingMeals.get(conversationId);
+async function confirmPendingMeal(conversationId) {
+  // Primeiro tenta memória
+  let pending = pendingMeals.get(conversationId);
+  
+  // Se não encontrou em memória, tenta Firebase
+  if (!pending) {
+    pending = await getPendingFromFirebase(conversationId);
+  }
+  
   if (!pending) {
     return null;
   }
@@ -117,10 +208,11 @@ function confirmPendingMeal(conversationId) {
     clearTimeout(pending.timer);
   }
 
-  // Remover do cache
+  // Remover do cache e Firebase
   pendingMeals.delete(conversationId);
+  removePendingFromFirebase(conversationId).catch(e => {});
   
-  console.log(`✅ [PendingMeals] Refeição confirmada e removida do cache`);
+  console.log(`✅ [PendingMeals] Refeição confirmada e removida do cache/Firebase`);
   
   return pending;
 }
