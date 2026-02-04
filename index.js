@@ -1,6 +1,6 @@
 /**
  * NutriBuddy Agent - MVP
- * Versão 2.0 - Com guardrails e logging
+ * Versão 4.0 - Com confirmação de refeição e auto-registro
  */
 
 const OpenAI = require('openai');
