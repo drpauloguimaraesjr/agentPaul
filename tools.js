@@ -24,6 +24,10 @@ const {
   isCancellationMessage,
   extractWeightCorrection,
 } = require("./pending-meals");
+const {
+  formatDailyProgress,
+  evaluateMealAgainstGoals,
+} = require("./utils");
 
 // Configuração
 const BACKEND_URL =
@@ -1053,12 +1057,14 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       source: "agent_paul",
     });
 
+    const today = new Date().toISOString().split("T")[0];
+
     // Registrar a refeição
     const response = await api.post(
       `/api/n8n/patients/${pending.patientId}/food-diary`,
       {
         type: pending.mealType,
-        date: new Date().toISOString().split("T")[0],
+        date: today,
         foods: pending.alimentos.map((a) => ({
           name: a.nome,
           weight: a.peso,
@@ -1076,13 +1082,78 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
 
     console.log(`✅ [Tools] Refeição registrada com sucesso!`);
 
+    // ================================================
+    // 📊 BUSCAR PROGRESSO DIÁRIO E METAS
+    // ================================================
+    let progressMessage = "";
+    let evaluationMessage = "";
+    
+    try {
+      // Buscar aderência diária (totais consumidos hoje)
+      const adherenceRes = await api.get(
+        `/api/n8n/patients/${pending.patientId}/daily-adherence?date=${today}`
+      );
+      
+      // Buscar dieta prescrita do paciente
+      const dietRes = await api.get(
+        `/api/n8n/patients/${pending.patientId}/diet-plan`
+      );
+      
+      const consumed = adherenceRes.data?.data || adherenceRes.data || {
+        protein: pending.macrosTotais?.protein || 0,
+        carbs: pending.macrosTotais?.carbs || 0,
+        fats: pending.macrosTotais?.fats || 0,
+        calories: pending.macrosTotais?.calories || 0,
+      };
+      
+      const dietPlan = dietRes.data?.data || dietRes.data;
+      const targets = dietPlan?.macros || {
+        protein: dietPlan?.dailyProtein || 150,
+        carbs: dietPlan?.dailyCarbs || 200,
+        fats: dietPlan?.dailyFats || 60,
+        calories: dietPlan?.dailyCalories || dietPlan?.calories || 2000,
+      };
+      
+      console.log(`📊 [Tools] Consumido hoje:`, consumed);
+      console.log(`📊 [Tools] Metas:`, targets);
+      
+      // Gerar barra de progresso
+      if (targets.calories > 0) {
+        progressMessage = formatDailyProgress(consumed, targets);
+        
+        // Avaliar se está dentro da meta
+        const evaluation = evaluateMealAgainstGoals(consumed, targets, pending.mealType || 'refeição');
+        evaluationMessage = evaluation.message;
+        
+        console.log(`📊 [Tools] Progresso:`, progressMessage);
+        console.log(`📊 [Tools] Avaliação:`, evaluationMessage);
+      }
+    } catch (err) {
+      console.log(`⚠️ [Tools] Erro ao buscar progresso diário:`, err.message);
+      // Continua sem a barra de progresso
+    }
+
+    // Montar mensagem final
+    let finalMessage = "✅ *Refeição registrada!*";
+    
+    if (evaluationMessage) {
+      finalMessage += `\n\n${evaluationMessage}`;
+    } else {
+      finalMessage += " Você está indo muito bem hoje! 🎯";
+    }
+    
+    if (progressMessage) {
+      finalMessage += `\n\n${progressMessage}`;
+    }
+
     return {
       success: true,
       status: "registered",
-      message: "✅ *Refeição registrada!* Você está indo muito bem hoje! 🎯",
+      message: finalMessage,
       data: response.data,
       alimentos: pending.alimentos,
       macrosTotais: pending.macrosTotais,
+      progressMessage,
     };
   },
 
