@@ -10,6 +10,9 @@ const {
   buscarProdutoFirestore,
   salvarProdutoFirestore,
   carregarProdutosFirestore,
+  salvarAnalisePendente,
+  buscarAnalisePendente,
+  limparAnalisePendente,
 } = require("./firebase");
 const {
   savePendingMeal,
@@ -316,8 +319,19 @@ function detectarProdutoEmbalado(nomeAlimento) {
   return PALAVRAS_EMBALAGEM.some((p) => nome.includes(p));
 }
 
+// Detecta tipo de refeição baseado no horário atual
+function detectarTipoRefeicaoPorHorario() {
+  const hora = new Date().getHours();
+  if (hora >= 5 && hora < 10) return 'cafe_manha';
+  if (hora >= 10 && hora < 12) return 'lanche_manha';
+  if (hora >= 12 && hora < 15) return 'almoco';
+  if (hora >= 15 && hora < 18) return 'lanche_tarde';
+  if (hora >= 18 && hora < 22) return 'jantar';
+  return 'ceia';
+}
+
 // ==========================================
-// DEFINIÇÕES DAS FERRAMENTAS (11 total)
+// DEFINIÇÕES DAS FERRAMENTAS (17 total)
 // ==========================================
 
 const tools = [
@@ -749,6 +763,90 @@ const tools = [
       },
     },
   },
+  {
+    type: "function",
+    function: {
+      name: "salvar_analise_pendente",
+      description:
+        "Salva os dados de uma análise de refeição ANTES de pedir confirmação ao paciente. Use SEMPRE que for pedir 'Está correto?' ao paciente. Isso garante que quando ele responder SIM, você consegue recuperar os dados.",
+      parameters: {
+        type: "object",
+        properties: {
+          conversationId: { type: "string", description: "ID da conversa" },
+          patientId: { type: "string", description: "ID do paciente" },
+          mealType: {
+            type: "string",
+            enum: [
+              "cafe_manha",
+              "lanche_manha",
+              "almoco",
+              "lanche_tarde",
+              "jantar",
+              "ceia",
+            ],
+            description: "Tipo da refeição",
+          },
+          alimentos: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                nome: { type: "string" },
+                peso: { type: "number" },
+                proteinas: { type: "number" },
+                carboidratos: { type: "number" },
+                gorduras: { type: "number" },
+                calorias: { type: "number" },
+              },
+            },
+            description: "Lista de alimentos analisados com macros",
+          },
+          macrosTotais: {
+            type: "object",
+            properties: {
+              proteinas: { type: "number" },
+              carboidratos: { type: "number" },
+              gorduras: { type: "number" },
+              calorias: { type: "number" },
+            },
+            description: "Totais de macros da refeição",
+          },
+          imageUrl: { type: "string", description: "URL da foto (opcional)" },
+        },
+        required: ["conversationId", "patientId", "mealType", "alimentos"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "buscar_analise_pendente",
+      description:
+        "Busca uma análise pendente de confirmação. Use SEMPRE quando o paciente responder SIM, OK, CONFIRMA, REGISTRA, etc. para recuperar os dados da análise anterior.",
+      parameters: {
+        type: "object",
+        properties: {
+          conversationId: { type: "string", description: "ID da conversa" },
+        },
+        required: ["conversationId"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "limpar_analise_pendente",
+      description:
+        "Limpa uma análise pendente após registro ou cancelamento. Use após registrar a refeição ou se o paciente cancelar.",
+      parameters: {
+        type: "object",
+        properties: {
+          conversationId: { type: "string", description: "ID da conversa" },
+        },
+        required: ["conversationId"],
+      },
+    },
+  },
 ];
 
 // ==========================================
@@ -892,7 +990,45 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       );
     }
 
+    // ⭐ SALVAR AUTOMATICAMENTE para confirmação posterior
+    // Os dados são salvos aqui para que quando o paciente responder "SIM",
+    // possamos recuperar a análise e registrar a refeição
+    resultado.imageUrl = imageUrl;
+    resultado.aguardando_confirmacao = true;
+    
+    console.log('📝 Análise de foto concluída:', {
+      alimentos: resultado.alimentos?.length || 0,
+      macros: resultado.macros_totais,
+      mealType: resultado.mealType
+    });
+
     return resultado;
+  },
+
+  // Função auxiliar para salvar análise após agente processar
+  // O agente deve chamar esta função OU salvar_analise_pendente
+  async _salvar_analise_automatica(resultado, contexto) {
+    if (!contexto?.conversationId || !contexto?.patientId) {
+      console.log('⚠️ Contexto incompleto, não foi possível salvar análise automática');
+      return false;
+    }
+    
+    if (!resultado.alimentos || resultado.alimentos.length === 0) {
+      console.log('⚠️ Sem alimentos para salvar');
+      return false;
+    }
+    
+    const dados = {
+      patientId: contexto.patientId,
+      mealType: resultado.mealType || detectarTipoRefeicaoPorHorario(),
+      alimentos: resultado.alimentos,
+      macrosTotais: resultado.macros_totais,
+      imageUrl: resultado.imageUrl
+    };
+    
+    await salvarAnalisePendente(contexto.conversationId, dados);
+    console.log('✅ Análise salva automaticamente para confirmação');
+    return true;
   },
 
   async registrar_refeicao(
@@ -1752,6 +1888,123 @@ Se não encontrar informações confiáveis:
       mensagem: salvoFirestore
         ? `Produto "${nome}" salvo no Firebase! 🔥 Próximas fotos serão reconhecidas automaticamente.`
         : `Produto "${nome}" salvo em memória. (Firebase não disponível)`,
+    };
+  },
+
+  // ==========================================
+  // FERRAMENTAS DE ANÁLISE PENDENTE
+  // ==========================================
+
+  async salvar_analise_pendente(
+    { conversationId, patientId, mealType, alimentos, macrosTotais, imageUrl },
+    contexto
+  ) {
+    if (!conversationId) {
+      conversationId = contexto?.conversationId;
+    }
+    if (!patientId) {
+      patientId = contexto?.patientId;
+    }
+
+    if (!conversationId) {
+      throw new Error("conversationId é obrigatório");
+    }
+    if (!alimentos || !Array.isArray(alimentos) || alimentos.length === 0) {
+      throw new Error("Lista de alimentos não pode estar vazia");
+    }
+
+    // Calcula macros se não foram passados
+    if (!macrosTotais) {
+      macrosTotais = alimentos.reduce(
+        (t, a) => ({
+          proteinas: Math.round((t.proteinas + (a.proteinas || 0)) * 10) / 10,
+          carboidratos: Math.round((t.carboidratos + (a.carboidratos || 0)) * 10) / 10,
+          gorduras: Math.round((t.gorduras + (a.gorduras || 0)) * 10) / 10,
+          calorias: Math.round(t.calorias + (a.calorias || 0)),
+        }),
+        { proteinas: 0, carboidratos: 0, gorduras: 0, calorias: 0 }
+      );
+    }
+
+    const dados = {
+      patientId,
+      mealType,
+      alimentos,
+      macrosTotais,
+      imageUrl: imageUrl || null,
+    };
+
+    console.log(`📝 Salvando análise pendente para ${conversationId}:`, {
+      patientId,
+      mealType,
+      totalAlimentos: alimentos.length,
+    });
+
+    const resultado = await salvarAnalisePendente(conversationId, dados);
+
+    return {
+      sucesso: true,
+      ...resultado,
+      mensagem: "Análise salva! Aguardando confirmação do paciente.",
+      dados: {
+        mealType,
+        totalAlimentos: alimentos.length,
+        macrosTotais,
+      },
+    };
+  },
+
+  async buscar_analise_pendente({ conversationId }, contexto) {
+    if (!conversationId) {
+      conversationId = contexto?.conversationId;
+    }
+
+    if (!conversationId) {
+      throw new Error("conversationId é obrigatório");
+    }
+
+    console.log(`🔍 Buscando análise pendente: ${conversationId}`);
+
+    const dados = await buscarAnalisePendente(conversationId);
+
+    if (!dados) {
+      return {
+        encontrado: false,
+        conversationId,
+        mensagem: "Nenhuma análise pendente encontrada. O paciente pode ter enviado uma nova foto ou a análise expirou.",
+      };
+    }
+
+    return {
+      encontrado: true,
+      conversationId,
+      patientId: dados.patientId,
+      mealType: dados.mealType,
+      alimentos: dados.alimentos,
+      macrosTotais: dados.macrosTotais,
+      imageUrl: dados.imageUrl,
+      criadoEm: dados.criadoEm,
+      mensagem: "Análise pendente recuperada com sucesso!",
+    };
+  },
+
+  async limpar_analise_pendente({ conversationId }, contexto) {
+    if (!conversationId) {
+      conversationId = contexto?.conversationId;
+    }
+
+    if (!conversationId) {
+      throw new Error("conversationId é obrigatório");
+    }
+
+    console.log(`🗑️ Limpando análise pendente: ${conversationId}`);
+
+    const resultado = await limparAnalisePendente(conversationId);
+
+    return {
+      sucesso: true,
+      ...resultado,
+      mensagem: "Análise pendente removida.",
     };
   },
 };

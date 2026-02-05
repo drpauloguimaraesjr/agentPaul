@@ -429,6 +429,137 @@ Qualquer dúvida, é só perguntar. Vamos juntos! 🚀`
       }
     }
 
+    // ==========================================
+    // ⭐ VERIFICAÇÃO AUTOMÁTICA DE CONFIRMAÇÃO
+    // ==========================================
+    if (mensagem.content && !mensagem.hasImage && !mensagem.hasAudio) {
+      const { buscarAnalisePendente, limparAnalisePendente } = require('./firebase');
+      const { executeTool } = require('./tools');
+      
+      // Palavras que indicam confirmação
+      const PALAVRAS_CONFIRMACAO = [
+        'sim', 'yes', 's', 'ok', 'confirmo', 'isso', 'correto', 
+        'isso mesmo', 'confirma', 'pode registrar', 'pode', 
+        'certo', 'exato', 'perfeito', 'isso aí', 'tá certo',
+        'registra', 'salva', 'confirmar'
+      ];
+      
+      const msgLower = mensagem.content.toLowerCase().trim();
+      
+      // Verificar se é uma confirmação curta (até 30 caracteres)
+      const ehConfirmacao = msgLower.length <= 30 && PALAVRAS_CONFIRMACAO.some(palavra => 
+        msgLower === palavra || 
+        msgLower.startsWith(palavra + ' ') || 
+        msgLower.startsWith(palavra + ',') ||
+        msgLower.startsWith(palavra + '!')
+      );
+      
+      if (ehConfirmacao) {
+        addLog('info', 'confirmation', '🔍 Detectada possível confirmação', {
+          patientId: mensagem.patientId,
+          conversationId: mensagem.conversationId,
+          mensagem: mensagem.content
+        });
+        
+        // Buscar análise pendente
+        const analisePendente = await buscarAnalisePendente(mensagem.conversationId);
+        
+        if (analisePendente && analisePendente.alimentos && analisePendente.alimentos.length > 0) {
+          addLog('info', 'confirmation', '✅ Análise pendente encontrada!', {
+            patientId: analisePendente.patientId,
+            totalAlimentos: analisePendente.alimentos.length,
+            macros: analisePendente.macrosTotais
+          });
+          
+          try {
+            // Registrar a refeição automaticamente
+            const resultadoRegistro = await executeTool('registrar_refeicao', {
+              patientId: analisePendente.patientId,
+              conversationId: mensagem.conversationId,
+              mealType: analisePendente.mealType || detectarTipoRefeicao(),
+              alimentos: analisePendente.alimentos,
+              imageUrl: analisePendente.imageUrl
+            }, mensagem);
+            
+            addLog('info', 'confirmation', '📝 Refeição registrada automaticamente!', {
+              resultado: resultadoRegistro
+            });
+            
+            // Limpar análise pendente
+            await limparAnalisePendente(mensagem.conversationId);
+            
+            // Gerar mensagem de sucesso
+            const macros = analisePendente.macrosTotais || {};
+            const tipoEmoji = {
+              cafe_manha: '🌅',
+              lanche_manha: '🍎',
+              almoco: '☀️',
+              lanche_tarde: '🍎',
+              jantar: '🌙',
+              ceia: '🌙'
+            };
+            const tipoNome = {
+              cafe_manha: 'Café da manhã',
+              lanche_manha: 'Lanche da manhã',
+              almoco: 'Almoço',
+              lanche_tarde: 'Lanche da tarde',
+              jantar: 'Jantar',
+              ceia: 'Ceia'
+            };
+            const tipo = analisePendente.mealType || 'almoco';
+            
+            const mensagemSucesso = `✅ ${tipoEmoji[tipo] || '🍽️'} ${tipoNome[tipo] || 'Refeição'} registrada com sucesso!
+
+📊 *Total registrado:*
+• 🔥 ${macros.calorias || 0} kcal
+• 🥩 ${macros.proteinas || 0}g proteína
+• 🍚 ${macros.carboidratos || 0}g carboidratos
+• 🥑 ${macros.gorduras || 0}g gorduras
+
+✨ Continue assim! Seu progresso está sendo acompanhado.
+
+Se algum peso estava errado, me avisa que eu corrijo! 😊`;
+            
+            // Enviar mensagem de sucesso
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: mensagemSucesso
+            }, mensagem);
+            
+            const elapsed = Date.now() - startTime;
+            
+            return res.json({
+              success: true,
+              messageId: mensagem.messageId,
+              autoConfirmation: true,
+              elapsedMs: elapsed
+            });
+            
+          } catch (registroError) {
+            addLog('error', 'confirmation', '❌ Erro ao registrar refeição automaticamente', {
+              error: registroError.message
+            });
+            // Se falhar, deixa o agente processar normalmente
+          }
+        } else {
+          addLog('debug', 'confirmation', '⚠️ Nenhuma análise pendente encontrada', {
+            conversationId: mensagem.conversationId
+          });
+        }
+      }
+    }
+
+    // Função auxiliar para detectar tipo de refeição pelo horário
+    function detectarTipoRefeicao() {
+      const hora = new Date().getHours();
+      if (hora >= 5 && hora < 10) return 'cafe_manha';
+      if (hora >= 10 && hora < 12) return 'lanche_manha';
+      if (hora >= 12 && hora < 15) return 'almoco';
+      if (hora >= 15 && hora < 18) return 'lanche_tarde';
+      if (hora >= 18 && hora < 22) return 'jantar';
+      return 'ceia';
+    }
+
     // Processa com o agente
     addLog('info', 'agent', '🤖 Processando com agente...', { patientId: mensagem.patientId });
     const resultado = await agent.processar(mensagem);
