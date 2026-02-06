@@ -22,6 +22,39 @@ const PENDING_MEALS_COLLECTION = 'pending_meals';
 // Tempo para auto-registro (em millisegundos)
 const AUTO_REGISTER_TIMEOUT_MS = 2 * 60 * 1000; // 2 minutos
 
+// Tempo máximo para manter pendente (Bug 11 fix: evitar memory leak)
+const MAX_PENDING_AGE_MS = 10 * 60 * 1000; // 10 minutos máximo
+
+/**
+ * Bug 11 fix: Limpa refeições antigas para evitar memory leak
+ */
+function cleanupExpiredPendingMeals() {
+  const now = Date.now();
+  let cleaned = 0;
+  
+  for (const [conversationId, pending] of pendingMeals.entries()) {
+    const age = now - (pending.createdAt || 0);
+    if (age > MAX_PENDING_AGE_MS) {
+      // Limpar timer
+      if (pending.timer) {
+        clearTimeout(pending.timer);
+      }
+      // Remover do cache
+      pendingMeals.delete(conversationId);
+      // Remover do Firebase
+      removePendingFromFirebase(conversationId).catch(() => {});
+      cleaned++;
+    }
+  }
+  
+  if (cleaned > 0) {
+    console.log(`🧹 [PendingMeals] Cleanup: ${cleaned} refeições expiradas removidas`);
+  }
+}
+
+// Executar cleanup a cada 5 minutos
+setInterval(cleanupExpiredPendingMeals, 5 * 60 * 1000);
+
 /**
  * Salva refeição pendente no Firebase (backup)
  */

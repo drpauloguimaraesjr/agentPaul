@@ -124,11 +124,21 @@ class NutriBuddyAgent {
           try {
             toolArgs = JSON.parse(toolCall.function.arguments);
           } catch (e) {
-            logger.error('Erro ao parsear argumentos da ferramenta', { 
+            logger.error('❌ Erro ao parsear argumentos da ferramenta - Bug 10 fix', { 
               tool: toolName, 
-              args: toolCall.function.arguments 
+              args: toolCall.function.arguments,
+              error: e.message
             });
-            toolArgs = {};
+            // Retornar erro para o modelo em vez de continuar silenciosamente
+            messages.push({
+              role: 'tool',
+              tool_call_id: toolCall.id,
+              content: JSON.stringify({ 
+                error: true, 
+                message: `Erro de parsing nos argumentos: ${e.message}` 
+              })
+            });
+            continue; // Pula para próxima tool
           }
           
           this.log(`🔧 Executando: ${toolName}`, toolArgs);
