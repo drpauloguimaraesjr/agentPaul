@@ -20,7 +20,8 @@ const pendingMeals = new Map();
 const PENDING_MEALS_COLLECTION = 'pending_meals';
 
 // Tempo para auto-registro (em millisegundos)
-const AUTO_REGISTER_TIMEOUT_MS = 2 * 60 * 1000; // 2 minutos
+// ⚠️ AUMENTADO de 2 para 5 minutos (2026-02-06) - evitar race condition quando paciente responde
+const AUTO_REGISTER_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutos
 
 // Tempo máximo para manter pendente (Bug 11 fix: evitar memory leak)
 const MAX_PENDING_AGE_MS = 10 * 60 * 1000; // 10 minutos máximo
