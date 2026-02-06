@@ -157,44 +157,35 @@ async function carregarProdutosFirestore() {
 }
 
 /**
+ * ============================================
+ * 🔄 FUNÇÕES DE PENDING MEALS (DELEGAM PARA pending-meals.js)
+ * ============================================
+ * Bug 4 fix: Unificação de caches
+ * Estas funções agora delegam para o sistema unificado em pending-meals.js
+ * Mantidas para compatibilidade com código existente
+ * ============================================
+ */
+
+// IMPORTAR o sistema unificado (lazy load para evitar circular dependency)
+let pendingMealsSystem = null;
+function getPendingMealsSystem() {
+  if (!pendingMealsSystem) {
+    pendingMealsSystem = require('./pending-meals');
+  }
+  return pendingMealsSystem;
+}
+
+/**
  * Salva análise pendente de confirmação
  * @param {string} conversationId - ID da conversa
  * @param {object} dados - Dados da análise (alimentos, macros, imageUrl, mealType)
  */
 async function salvarAnalisePendente(conversationId, dados) {
-  const firestore = initFirebase();
-  
-  // Sempre salva em memória como fallback
-  if (!global.pendingMealsCache) {
-    global.pendingMealsCache = {};
-  }
-  
-  const documento = {
-    ...dados,
-    conversationId,
-    criadoEm: new Date().toISOString(),
-    expiraEm: new Date(Date.now() + 30 * 60 * 1000).toISOString() // 30 minutos
-  };
-  
-  global.pendingMealsCache[conversationId] = documento;
-  console.log(`💾 Análise pendente salva em memória: ${conversationId}`);
-  
-  if (!firestore) {
-    return { sucesso: true, fonte: 'memoria' };
-  }
-  
-  try {
-    await firestore.collection(PENDING_MEALS_COLLECTION).doc(conversationId).set({
-      ...documento,
-      criadoEm: admin.firestore.FieldValue.serverTimestamp()
-    });
-    
-    console.log(`🔥 Análise pendente salva no Firestore: ${conversationId}`);
-    return { sucesso: true, fonte: 'firestore' };
-  } catch (error) {
-    console.error('❌ Erro ao salvar análise pendente:', error.message);
-    return { sucesso: true, fonte: 'memoria', erro: error.message };
-  }
+  const pm = getPendingMealsSystem();
+  // savePendingMeal já salva em memória + Firebase
+  pm.savePendingMeal(conversationId, dados);
+  console.log(`💾 [firebase.js] Delegado para pending-meals.js: ${conversationId}`);
+  return { sucesso: true, fonte: 'unificado' };
 }
 
 /**
@@ -202,54 +193,12 @@ async function salvarAnalisePendente(conversationId, dados) {
  * @param {string} conversationId - ID da conversa
  */
 async function buscarAnalisePendente(conversationId) {
-  // Primeiro busca em memória (mais rápido)
-  if (global.pendingMealsCache && global.pendingMealsCache[conversationId]) {
-    const dados = global.pendingMealsCache[conversationId];
-    
-    // Verifica se não expirou
-    if (new Date(dados.expiraEm) > new Date()) {
-      console.log(`💾 Análise pendente encontrada em memória: ${conversationId}`);
-      return dados;
-    } else {
-      // Expirou, remove
-      delete global.pendingMealsCache[conversationId];
-    }
+  const pm = getPendingMealsSystem();
+  const pending = await pm.getPendingMeal(conversationId);
+  if (pending) {
+    console.log(`🔍 [firebase.js] Encontrado via pending-meals.js: ${conversationId}`);
   }
-  
-  const firestore = initFirebase();
-  if (!firestore) {
-    return null;
-  }
-  
-  try {
-    const doc = await firestore.collection(PENDING_MEALS_COLLECTION).doc(conversationId).get();
-    
-    if (doc.exists) {
-      const dados = doc.data();
-      
-      // Verifica se não expirou (30 minutos)
-      const criadoEm = dados.criadoEm?.toDate?.() || new Date(dados.criadoEm);
-      const agora = new Date();
-      const diffMinutos = (agora - criadoEm) / (1000 * 60);
-      
-      if (diffMinutos <= 30) {
-        console.log(`🔥 Análise pendente encontrada no Firestore: ${conversationId}`);
-        // Cacheia em memória
-        if (!global.pendingMealsCache) global.pendingMealsCache = {};
-        global.pendingMealsCache[conversationId] = dados;
-        return dados;
-      } else {
-        // Expirou, remove
-        await firestore.collection(PENDING_MEALS_COLLECTION).doc(conversationId).delete();
-        console.log(`⏰ Análise pendente expirada: ${conversationId}`);
-      }
-    }
-    
-    return null;
-  } catch (error) {
-    console.error('❌ Erro ao buscar análise pendente:', error.message);
-    return null;
-  }
+  return pending;
 }
 
 /**
@@ -257,25 +206,10 @@ async function buscarAnalisePendente(conversationId) {
  * @param {string} conversationId - ID da conversa
  */
 async function limparAnalisePendente(conversationId) {
-  // Remove da memória
-  if (global.pendingMealsCache && global.pendingMealsCache[conversationId]) {
-    delete global.pendingMealsCache[conversationId];
-    console.log(`🗑️ Análise pendente removida da memória: ${conversationId}`);
-  }
-  
-  const firestore = initFirebase();
-  if (!firestore) {
-    return { sucesso: true, fonte: 'memoria' };
-  }
-  
-  try {
-    await firestore.collection(PENDING_MEALS_COLLECTION).doc(conversationId).delete();
-    console.log(`🔥 Análise pendente removida do Firestore: ${conversationId}`);
-    return { sucesso: true, fonte: 'firestore' };
-  } catch (error) {
-    console.error('❌ Erro ao limpar análise pendente:', error.message);
-    return { sucesso: true, fonte: 'memoria', erro: error.message };
-  }
+  const pm = getPendingMealsSystem();
+  const result = await pm.confirmPendingMeal(conversationId);
+  console.log(`🗑️ [firebase.js] Limpeza delegada para pending-meals.js: ${conversationId}`);
+  return { sucesso: !!result, fonte: 'unificado' };
 }
 
 module.exports = {

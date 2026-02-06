@@ -137,12 +137,13 @@ function savePendingMeal(conversationId, mealData, onAutoRegister) {
     }
   }, AUTO_REGISTER_TIMEOUT_MS);
 
-  // Salvar no cache
+  // Salvar no cache (incluindo o callback para recriar timer se necessário)
   const pendingMeal = {
     ...mealData,
     conversationId,
     createdAt: Date.now(),
     timer,
+    onAutoRegister, // 🔧 Bug 5 fix: Salvar callback para usar em updatePendingMealFood
   };
 
   pendingMeals.set(conversationId, pendingMeal);
@@ -235,10 +236,11 @@ function cancelPendingMeal(conversationId) {
     clearTimeout(pending.timer);
   }
 
-  // Remover do cache
+  // Remover do cache e Firebase (Bug 6 fix)
   pendingMeals.delete(conversationId);
+  removePendingFromFirebase(conversationId).catch(e => {});
   
-  console.log(`🗑️ [PendingMeals] Refeição cancelada e removida do cache`);
+  console.log(`🗑️ [PendingMeals] Refeição cancelada e removida do cache/Firebase`);
   
   return true;
 }
@@ -282,6 +284,9 @@ function updatePendingMealFood(conversationId, index, updates) {
 
   console.log(`✏️ [PendingMeals] Alimento ${index} atualizado:`, updates);
   
+  // Bug 7 fix: Persistir no Firebase
+  savePendingToFirebase(conversationId, pending).catch(e => {});
+  
   return pending;
 }
 
@@ -305,6 +310,9 @@ function removePendingMealFood(conversationId, index) {
 
   console.log(`🗑️ [PendingMeals] Alimento removido: ${removed.nome}`);
   
+  // Bug 7 fix: Persistir no Firebase
+  savePendingToFirebase(conversationId, pending).catch(e => {});
+  
   return pending;
 }
 
@@ -327,6 +335,9 @@ function addPendingMealFood(conversationId, alimento) {
   pending.macrosTotais = calculateTotalMacros(pending.alimentos);
 
   console.log(`➕ [PendingMeals] Alimento adicionado: ${alimento.nome}`);
+  
+  // Bug 7 fix: Persistir no Firebase
+  savePendingToFirebase(conversationId, pending).catch(e => {});
   
   return pending;
 }
