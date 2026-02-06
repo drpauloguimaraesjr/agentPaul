@@ -216,6 +216,45 @@ const TIPOS_REFEICAO_VALIDOS = [
   "ceia",
 ];
 
+// Normaliza o mealType para o formato aceito pela API
+function normalizarMealType(mealType) {
+  if (!mealType) return "almoco"; // default
+  
+  // Mapa de conversão (acentuado/espaço -> underscore sem acento)
+  const mapa = {
+    "almoço": "almoco",
+    "café da manhã": "cafe_manha",
+    "café_da_manhã": "cafe_manha",
+    "cafe da manha": "cafe_manha",
+    "lanche da manhã": "lanche_manha",
+    "lanche_da_manhã": "lanche_manha",
+    "lanche da manha": "lanche_manha",
+    "lanche da tarde": "lanche_tarde",
+    "lanche_da_tarde": "lanche_tarde",
+  };
+  
+  const normalizado = mapa[mealType.toLowerCase()] || mealType.toLowerCase();
+  
+  // Se ainda não estiver na lista, tenta encontrar aproximação
+  if (!TIPOS_REFEICAO_VALIDOS.includes(normalizado)) {
+    // Tenta remover acentos e espaços
+    const semAcento = normalizado
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, "_");
+    
+    if (TIPOS_REFEICAO_VALIDOS.includes(semAcento)) {
+      return semAcento;
+    }
+    
+    // Fallback: retorna almoco como default
+    console.log(`⚠️ mealType "${mealType}" não reconhecido, usando "almoco"`);
+    return "almoco";
+  }
+  
+  return normalizado;
+}
+
 function sanitizarMensagem(mensagem) {
   let sanitizada = mensagem
     .replace(/ignore previous instructions/gi, "")
@@ -1080,7 +1119,10 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     { patientId, conversationId, mealType, alimentos, imageUrl },
     contexto,
   ) {
-    if (!TIPOS_REFEICAO_VALIDOS.includes(mealType)) {
+    // Normaliza o mealType para o formato aceito
+    const mealTypeNormalizado = normalizarMealType(mealType);
+    
+    if (!TIPOS_REFEICAO_VALIDOS.includes(mealTypeNormalizado)) {
       throw new Error(`Tipo de refeição inválido: ${mealType}`);
     }
     if (contexto?.patientId && patientId !== contexto.patientId) {
@@ -1154,7 +1196,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       conversationId,
       {
         patientId,
-        mealType,
+        mealType: mealTypeNormalizado,
         alimentos,
         imageUrl,
         macrosTotais,
