@@ -125,12 +125,14 @@ function savePendingMeal(conversationId, mealData, onAutoRegister) {
           await onAutoRegister(pending);
         }
         
-        // Limpar do cache e Firebase
+        // SÓ limpar do cache e Firebase SE o registro foi bem-sucedido
         pendingMeals.delete(conversationId);
         removePendingFromFirebase(conversationId).catch(e => {});
         console.log(`✅ [PendingMeals] Refeição auto-registrada e removida do cache`);
       } catch (error) {
         console.error(`❌ [PendingMeals] Erro no auto-registro:`, error.message);
+        // NÃO remove do cache - paciente ainda pode confirmar manualmente
+        console.log(`⚠️ [PendingMeals] Refeição mantida no cache para confirmação manual`);
       }
     }
   }, AUTO_REGISTER_TIMEOUT_MS);
