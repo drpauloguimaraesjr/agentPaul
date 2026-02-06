@@ -358,6 +358,31 @@ function detectarProdutoEmbalado(nomeAlimento) {
   return PALAVRAS_EMBALAGEM.some((p) => nome.includes(p));
 }
 
+// Normaliza o mealType para o formato esperado pelo backend (sem acentos)
+function normalizarMealType(mealType) {
+  if (!mealType) return null;
+  
+  const normalized = mealType
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+    .replace(/\s+/g, '_'); // Substitui espaços por underscores
+  
+  // Mapeamento de variações para o formato padrão
+  const mapeamento = {
+    'cafe_da_manha': 'cafe_manha',
+    'cafe': 'cafe_manha',
+    'almoco': 'almoco',
+    'jantar': 'jantar',
+    'lanche': 'lanche_tarde',
+    'lanche_da_manha': 'lanche_manha',
+    'lanche_da_tarde': 'lanche_tarde',
+    'ceia': 'ceia',
+  };
+  
+  return mapeamento[normalized] || normalized;
+}
+
 // Detecta tipo de refeição baseado no horário atual
 function detectarTipoRefeicaoPorHorario() {
   const hora = new Date().getHours();
@@ -1060,7 +1085,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     
     const dados = {
       patientId: contexto.patientId,
-      mealType: resultado.mealType || detectarTipoRefeicaoPorHorario(),
+      mealType: normalizarMealType(resultado.mealType) || detectarTipoRefeicaoPorHorario(),
       alimentos: resultado.alimentos,
       macrosTotais: resultado.macros_totais,
       imageUrl: resultado.imageUrl
@@ -1075,8 +1100,11 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     { patientId, conversationId, mealType, alimentos, imageUrl },
     contexto,
   ) {
-    if (!TIPOS_REFEICAO_VALIDOS.includes(mealType)) {
-      throw new Error(`Tipo de refeição inválido: ${mealType}`);
+    // Normalizar mealType para garantir formato correto
+    const mealTypeNormalizado = normalizarMealType(mealType) || mealType;
+    
+    if (!TIPOS_REFEICAO_VALIDOS.includes(mealTypeNormalizado)) {
+      throw new Error(`Tipo de refeição inválido: ${mealType} (normalizado: ${mealTypeNormalizado})`);
     }
     if (contexto?.patientId && patientId !== contexto.patientId) {
       throw new Error("Não autorizado a registrar para outro paciente");
@@ -1088,7 +1116,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     const response = await api.post(
       `/api/n8n/patients/${patientId}/food-diary`,
       {
-        type: mealType,
+        type: mealTypeNormalizado,
         date: new Date().toISOString().split("T")[0],
         foods: alimentos.map((a) => ({
           name: a.nome,
