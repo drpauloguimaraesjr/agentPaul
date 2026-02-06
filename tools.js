@@ -507,7 +507,7 @@ const tools = [
     function: {
       name: "cancelar_refeicao",
       description:
-        "Cancela uma refeição pendente. Use quando o paciente não quiser registrar (responder 'não', 'cancela', etc).",
+        "Cancela TODA a refeição pendente. Use SOMENTE quando o paciente disser que NÃO quer registrar NADA (ex: 'não registra', 'cancela tudo', 'não quero'). ⚠️ NÃO USE se o paciente quiser remover/trocar apenas UM ITEM específico - nesses casos use corrigir_refeicao com acao='remover' ou acao='substituir'.",
       parameters: {
         type: "object",
         properties: {
@@ -525,17 +525,17 @@ const tools = [
     function: {
       name: "corrigir_refeicao",
       description:
-        "Corrige um item da refeição pendente. Use quando o paciente informar uma correção (ex: 'era 200g de arroz', 'remove a salada', 'adiciona 1 ovo').",
+        "Corrige um item da refeição pendente. Use quando: 'era X de arroz' (atualizar_peso), 'remove a batata' ou 'cancela a batata' (remover), 'adiciona ovo' (adicionar), 'era pequi não batata' ou 'troca batata por pequi' (substituir). ⚠️ 'Cancela a batata' = REMOVER esse item, não cancelar tudo!",
       parameters: {
         type: "object",
         properties: {
           conversationId: { type: "string", description: "ID da conversa" },
           acao: {
             type: "string",
-            enum: ["atualizar_peso", "remover", "adicionar"],
-            description: "Tipo de correção",
+            enum: ["atualizar_peso", "remover", "adicionar", "substituir"],
+            description: "Tipo de correção: atualizar_peso (mudar gramagem), remover (tirar item), adicionar (incluir novo), substituir (trocar um por outro)",
           },
-          alimentoNome: { type: "string", description: "Nome do alimento" },
+          alimentoNome: { type: "string", description: "Nome do alimento a corrigir/remover/substituir" },
           novoPeso: { type: "number", description: "Novo peso em gramas (para atualizar_peso)" },
           novoAlimento: {
             type: "object",
@@ -547,7 +547,7 @@ const tools = [
               gorduras: { type: "number" },
               calorias: { type: "number" },
             },
-            description: "Dados do novo alimento (para adicionar)",
+            description: "Dados do novo alimento (para adicionar ou substituir)",
           },
         },
         required: ["conversationId", "acao"],
@@ -633,11 +633,12 @@ const tools = [
     type: "function",
     function: {
       name: "buscar_resumo_diario",
-      description: "Busca resumo de macros consumidos vs metas do dia.",
+      description: "Busca TODAS as refeições do dia e soma de macros. Use quando paciente perguntar: 'o que eu comi hoje?', 'quantas calorias?', 'quanto de proteína consumi?', 'meu resumo do dia', 'como estou hoje?'. Retorna lista de refeições com alimentos e totais vs metas.",
       parameters: {
         type: "object",
         properties: {
           patientId: { type: "string", description: "ID do paciente" },
+          data: { type: "string", description: "Data no formato YYYY-MM-DD (opcional, padrão: hoje)" },
         },
         required: ["patientId"],
       },
@@ -1392,6 +1393,34 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
         updated = addPendingMealFood(conversationId, novoAlimento);
         break;
 
+      case "substituir":
+        // Primeiro remove o alimento antigo
+        const indexSubstituir = pending.alimentos.findIndex(
+          (a) => a.nome.toLowerCase().includes(alimentoNome.toLowerCase())
+        );
+
+        if (indexSubstituir === -1) {
+          return {
+            success: false,
+            error: `Alimento "${alimentoNome}" não encontrado na refeição.`,
+            alimentosDisponiveis: pending.alimentos.map((a) => a.nome),
+          };
+        }
+
+        if (!novoAlimento || !novoAlimento.nome) {
+          return {
+            success: false,
+            error: "Dados do novo alimento não informados para substituição.",
+          };
+        }
+
+        // Remove o antigo e adiciona o novo
+        removePendingMealFood(conversationId, indexSubstituir);
+        updated = addPendingMealFood(conversationId, novoAlimento);
+        
+        console.log(`✅ Substituído "${alimentoNome}" por "${novoAlimento.nome}"`);
+        break;
+
       default:
         return {
           success: false,
@@ -1500,12 +1529,16 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     return response.data;
   },
 
-  async buscar_resumo_diario({ patientId }, contexto) {
+  async buscar_resumo_diario({ patientId, data }, contexto) {
     if (contexto?.patientId && patientId !== contexto.patientId) {
       throw new Error("Não autorizado a acessar dados de outro paciente");
     }
+    
+    // Se não informou data, usa hoje
+    const dataConsulta = data || new Date().toISOString().split('T')[0];
+    
     const response = await api.get(
-      `/api/n8n/patients/${patientId}/meals/summary`,
+      `/api/n8n/patients/${patientId}/meals/summary?date=${dataConsulta}`,
     );
     return response.data;
   },
