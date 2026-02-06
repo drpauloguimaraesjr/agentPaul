@@ -1117,7 +1117,12 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
               carbs: a.carboidratos || 0,
               fats: a.gorduras || 0,
             })),
-            macros: pending.macrosTotais,
+            macros: {
+              calories: pending.macrosTotais?.calorias || 0,
+              protein: pending.macrosTotais?.proteinas || 0,
+              carbs: pending.macrosTotais?.carboidratos || 0,
+              fats: pending.macrosTotais?.gorduras || 0,
+            },
             imageUrl: pending.imageUrl || null,
             conversationId: pending.conversationId,
             source: "agent_paul_auto",
