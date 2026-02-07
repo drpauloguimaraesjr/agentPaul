@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+:root {
+  --background: #0a0a0f;
+  --foreground: #ededed;
+  --card: #12121a;
+  --border: #2a2a3a;
+  --accent: #6366f1;
+  --accent-glow: rgba(99, 102, 241, 0.3);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  overflow: hidden;
+}
+
+/* React Flow customization */
+.react-flow__background {
+  background-color: var(--background) !important;
+}
+
+.react-flow__minimap {
+  background-color: var(--card) !important;
+  border-radius: 8px;
+}
+
+.react-flow__controls {
+  background-color: var(--card) !important;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.react-flow__controls-button {
+  background-color: var(--card) !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+.react-flow__controls-button:hover {
+  background-color: var(--accent) !important;
+}
