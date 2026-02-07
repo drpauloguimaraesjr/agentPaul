@@ -1631,13 +1631,15 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       timeout: 30000,
     });
 
-    // Criar um File-like object para a API do OpenAI
+    // Converter para Buffer
     const audioBuffer = Buffer.from(audioResponse.data);
-    const audioFile = new File([audioBuffer], "audio.ogg", {
-      type: "audio/ogg",
-    });
+    
+    console.log("🎤 Enviando para Whisper... (tamanho:", audioBuffer.length, "bytes)");
 
-    console.log("🎤 Enviando para Whisper...");
+    // 🔧 FIX: Usar toFile do OpenAI SDK (funciona em Node.js)
+    // A API aceita Buffer diretamente quando passamos com nome e tipo
+    const { toFile } = require('openai');
+    const audioFile = await toFile(audioBuffer, 'audio.ogg', { type: 'audio/ogg' });
 
     // Transcrever com Whisper
     const transcription = await getOpenAI().audio.transcriptions.create({
