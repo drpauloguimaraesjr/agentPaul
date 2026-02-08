@@ -1,8 +1,13 @@
 "use client";
 
-import { Handle, Position, NodeProps } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
 
-export default function ConditionNode({ data }: NodeProps) {
+type NodeData = {
+  label?: string;
+  condition?: string;
+};
+
+export default function ConditionNode({ data }: { data: NodeData }) {
   return (
     <div className="rounded-lg border-2 border-purple-500 bg-purple-500/20 px-4 py-3 min-w-[120px]">
       <Handle type="target" position={Position.Left} className="!bg-purple-500 !w-3 !h-3" />

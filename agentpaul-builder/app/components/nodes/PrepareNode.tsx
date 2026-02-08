@@ -1,8 +1,12 @@
 "use client";
 
-import { Handle, Position, NodeProps } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
 
-export default function PrepareNode({ data }: NodeProps) {
+type NodeData = {
+  label?: string;
+};
+
+export default function PrepareNode({ data }: { data: NodeData }) {
   return (
     <div className="rounded-lg border-2 border-orange-500 bg-orange-500/20 px-4 py-3 min-w-[150px]">
       <Handle type="target" position={Position.Left} className="!bg-orange-500 !w-3 !h-3" />

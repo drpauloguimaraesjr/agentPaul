@@ -1,8 +1,12 @@
 "use client";
 
-import { Handle, Position, NodeProps } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
 
-export default function TriggerNode({ data }: NodeProps) {
+type NodeData = {
+  label?: string;
+};
+
+export default function TriggerNode({ data }: { data: NodeData }) {
   return (
     <div className="rounded-lg border-2 border-blue-500 bg-blue-500/20 px-4 py-3 min-w-[150px]">
       <div className="flex items-center gap-2">
