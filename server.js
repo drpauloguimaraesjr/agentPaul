@@ -558,8 +558,103 @@ Se algum peso estava errado, me avisa que eu corrijo! 😊`;
       if (hora >= 18 && hora < 22) return 'jantar';
       return 'ceia';
     }
+    // ==========================================
+    // ⚡ INTERCEPTAÇÃO INTELIGENTE DE MENSAGENS
+    // Responde diretamente sem gastar tokens GPT
+    // ==========================================
+    if (mensagem.content && !mensagem.hasImage && !mensagem.hasAudio) {
+      const msgLower = mensagem.content.toLowerCase().trim();
+      const { executeTool } = require('./tools');
+      
+      // 1. EMOJI PURO (👍, ❤️, 🙏, etc.) — ignora silenciosamente
+      const EMOJI_REGEX = /^[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{200D}\u{20E3}\u{E0020}-\u{E007F}\s]+$/u;
+      if (EMOJI_REGEX.test(mensagem.content.trim())) {
+        addLog('info', 'intercept', '😀 Emoji interceptado (sem GPT)', { 
+          emoji: mensagem.content, patientId: mensagem.patientId 
+        });
+        return res.json({ 
+          success: true, intercepted: true, type: 'emoji',
+          tokensSaved: true, elapsedMs: Date.now() - startTime 
+        });
+      }
+      
+      // 2. AGRADECIMENTOS — responde direto
+      const AGRADECIMENTOS = [
+        'obrigado', 'obrigada', 'obg', 'vlw', 'valeu', 'thanks', 
+        'thank you', 'brigadão', 'brigado', 'brigada', 'muito obrigado',
+        'muito obrigada', 'agradecido', 'agradecida', 'tmj', 'top',
+        'show', 'massa', 'boa', 'ótimo', 'otimo', 'maravilha'
+      ];
+      if (msgLower.length <= 30 && AGRADECIMENTOS.some(a => 
+        msgLower === a || msgLower === a + '!' || msgLower === a + '!!'
+      )) {
+        addLog('info', 'intercept', '🙏 Agradecimento interceptado', { 
+          msg: mensagem.content, patientId: mensagem.patientId 
+        });
+        
+        const respostasAgradecimento = [
+          'De nada! 😊 Estou aqui sempre que precisar!',
+          'Por nada! 💪 Continue firme na dieta!',
+          'Disponha! 🥗 Se precisar de algo, é só chamar!',
+          'Imagina! 😄 Qualquer coisa, manda uma foto da próxima refeição!'
+        ];
+        const resposta = respostasAgradecimento[Math.floor(Math.random() * respostasAgradecimento.length)];
+        
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: resposta
+        }, mensagem);
+        
+        return res.json({ 
+          success: true, intercepted: true, type: 'agradecimento',
+          tokensSaved: true, elapsedMs: Date.now() - startTime 
+        });
+      }
+      
+      // 3. CUMPRIMENTOS SIMPLES — responde e convida a interagir
+      const CUMPRIMENTOS = [
+        'oi', 'olá', 'ola', 'hey', 'ei', 'eae', 'e aí', 'e ai',
+        'bom dia', 'boa tarde', 'boa noite', 'hello', 'hi'
+      ];
+      if (msgLower.length <= 20 && CUMPRIMENTOS.some(c => 
+        msgLower === c || msgLower === c + '!' || msgLower === c + '!!'
+      )) {
+        addLog('info', 'intercept', '👋 Cumprimento interceptado', { 
+          msg: mensagem.content, patientId: mensagem.patientId 
+        });
+        
+        const hora = new Date().getHours();
+        let saudacao;
+        if (hora >= 5 && hora < 12) saudacao = 'Bom dia';
+        else if (hora >= 12 && hora < 18) saudacao = 'Boa tarde';
+        else saudacao = 'Boa noite';
+        
+        const nome = (mensagem.patientName || '').split(' ')[0] || '';
+        
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: `${saudacao}${nome ? ', ' + nome : ''}! 😊\n\nComo posso te ajudar?\n\n📸 Manda uma *foto da refeição* para eu analisar\n📝 Ou descreve o que comeu por texto\n❓ Também respondo dúvidas sobre nutrição!`
+        }, mensagem);
+        
+        return res.json({ 
+          success: true, intercepted: true, type: 'cumprimento',
+          tokensSaved: true, elapsedMs: Date.now() - startTime 
+        });
+      }
+      
+      // 4. STICKERS / MENSAGENS VAZIAS — ignora silenciosamente
+      if (msgLower.length <= 2 || msgLower === '.' || msgLower === '...' || msgLower === '?') {
+        addLog('debug', 'intercept', '⏭️ Mensagem mínima ignorada', { 
+          msg: mensagem.content, patientId: mensagem.patientId 
+        });
+        return res.json({ 
+          success: true, intercepted: true, type: 'minimal',
+          tokensSaved: true, elapsedMs: Date.now() - startTime 
+        });
+      }
+    }
 
-    // Processa com o agente
+    // Processa com o agente (somente mensagens que REALMENTE precisam de IA)
     addLog('info', 'agent', '🤖 Processando com agente...', { patientId: mensagem.patientId });
     const resultado = await agent.processar(mensagem);
 
