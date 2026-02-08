@@ -173,9 +173,9 @@ app.get('/health', async (req, res) => {
   let openaiStatus = 'unknown';
   let openaiError = null;
   
-  // Teste de conectividade GRATUITO - lista modelos (não gasta tokens)
+  // Teste de conectividade GRATUITO - busca 1 modelo só (não gasta tokens, logs mínimos)
   try {
-    const models = await agent.openai.models.list();
+    await agent.openai.models.retrieve('gpt-4o-mini');
     openaiStatus = 'connected';
   } catch (error) {
     openaiStatus = 'error';
