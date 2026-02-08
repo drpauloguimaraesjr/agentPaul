@@ -166,19 +166,16 @@ const agent = new NutriBuddyAgent({
 // ==========================================
 
 /**
- * GET /health - Health check com teste de conectividade OpenAI
+ * GET /health - Health check SEM gastar tokens OpenAI
+ * Usa models.list() que é gratuito para verificar conectividade
  */
 app.get('/health', async (req, res) => {
   let openaiStatus = 'unknown';
   let openaiError = null;
   
-  // Teste rápido de conectividade com OpenAI
+  // Teste de conectividade GRATUITO - lista modelos (não gasta tokens)
   try {
-    const testResponse = await agent.openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: 'ping' }],
-      max_tokens: 5
-    });
+    const models = await agent.openai.models.list();
     openaiStatus = 'connected';
   } catch (error) {
     openaiStatus = 'error';
@@ -195,6 +192,8 @@ app.get('/health', async (req, res) => {
       status: openaiStatus,
       error: openaiError
     },
+    uptime: Math.floor(process.uptime()),
+    memoryMB: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
     timestamp: new Date().toISOString()
   });
 });
