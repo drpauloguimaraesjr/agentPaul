@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const AGENTPAUL_URL = process.env.NEXT_PUBLIC_AGENTPAUL_URL || "https://agentpaul-production.up.railway.app";
+const AGENTPAUL_URL = process.env.NEXT_PUBLIC_AGENTPAUL_URL || "https://agentpaul-production-d5f8.up.railway.app";
 
 type LogEntry = {
   timestamp: string;
