@@ -268,7 +268,7 @@ app.get('/diag', async (req, res) => {
   // Teste de conectividade
   try {
     const start = Date.now();
-    await agent.openai.models.list();
+    await agent.openai.models.retrieve('gpt-4o-mini');
     diag.connectivity.openai = `ok (${Date.now() - start}ms)`;
   } catch (error) {
     diag.connectivity.openai = `error: ${error.message}`;
