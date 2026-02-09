@@ -1069,17 +1069,31 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       );
     }
 
-    // ⭐ SALVAR AUTOMATICAMENTE para confirmação posterior
-    // Os dados são salvos aqui para que quando o paciente responder "SIM",
-    // possamos recuperar a análise e registrar a refeição
+    // ⭐ SALVAR AUTOMATICAMENTE no Firebase para confirmação posterior
+    // Quando o paciente responder "SIM", buscarAnalisePendente() vai encontrar esses dados
     resultado.imageUrl = imageUrl;
     resultado.aguardando_confirmacao = true;
     
-    console.log('📝 Análise de foto concluída:', {
-      alimentos: resultado.alimentos?.length || 0,
-      macros: resultado.macros_totais,
-      mealType: resultado.mealType
-    });
+    // REALMENTE salvar no Firebase/memória (antes só setava flag sem salvar!)
+    try {
+      const mealTypeDetectado = normalizarMealType(resultado.mealType) || detectarTipoRefeicaoPorHorario();
+      await salvarAnalisePendente(contexto?.conversationId || 'unknown', {
+        patientId: contexto?.patientId,
+        mealType: mealTypeDetectado,
+        alimentos: resultado.alimentos,
+        macrosTotais: resultado.macros_totais,
+        imageUrl: imageUrl
+      });
+      console.log('✅ Análise salva no Firebase para confirmação:', {
+        conversationId: contexto?.conversationId,
+        alimentos: resultado.alimentos?.length || 0,
+        macros: resultado.macros_totais,
+        mealType: mealTypeDetectado
+      });
+    } catch (saveError) {
+      console.error('⚠️ Erro ao salvar análise pendente:', saveError.message);
+      // Continua mesmo se falhar o save - o agente pode tentar preparar_refeicao
+    }
 
     return resultado;
   },
