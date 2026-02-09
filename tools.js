@@ -982,20 +982,34 @@ Se a imagem não for de comida, retorne:
 
 Seja preciso. Na dúvida, pergunte ao paciente.`;
 
-    const response = await getOpenAI().chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "user",
-          content: [
-            { type: "image_url", image_url: { url: imageUrl, detail: "high" } },
-            { type: "text", text: prompt },
-          ],
-        },
-      ],
-      max_tokens: 2000,
-      temperature: 0.3,
-    });
+    // Timeout de 30 segundos para não travar
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    
+    let response;
+    try {
+      response = await getOpenAI().chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "image_url", image_url: { url: imageUrl, detail: "high" } },
+              { type: "text", text: prompt },
+            ],
+          },
+        ],
+        max_tokens: 2000,
+        temperature: 0.3,
+      }, { signal: controller.signal });
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error.name === 'AbortError') {
+        throw new Error('Análise da foto expirou (timeout de 30s). Tente novamente.');
+      }
+      throw new Error(`Erro ao analisar foto: ${error.message}`);
+    }
+    clearTimeout(timeoutId);
 
     const content = response.choices[0].message.content;
     let resultado;
