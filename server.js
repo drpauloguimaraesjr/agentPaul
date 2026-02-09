@@ -429,125 +429,16 @@ Qualquer dúvida, é só perguntar. Vamos juntos! 🚀`
     }
 
     // ==========================================
-    // ⭐ VERIFICAÇÃO AUTOMÁTICA DE CONFIRMAÇÃO
+    // 🏗️ FLUXOS DETERMINÍSTICOS
+    // O código controla o fluxo. GPT só é usado para inteligência.
     // ==========================================
-    if (mensagem.content && !mensagem.hasImage && !mensagem.hasAudio) {
-      const { buscarAnalisePendente, limparAnalisePendente } = require('./firebase');
-      const { executeTool } = require('./tools');
-      
-      // Palavras que indicam confirmação
-      const PALAVRAS_CONFIRMACAO = [
-        'sim', 'yes', 's', 'ok', 'confirmo', 'isso', 'correto', 
-        'isso mesmo', 'confirma', 'pode registrar', 'pode', 
-        'certo', 'exato', 'perfeito', 'isso aí', 'tá certo',
-        'registra', 'salva', 'confirmar'
-      ];
-      
-      const msgLower = mensagem.content.toLowerCase().trim();
-      
-      // Verificar se é uma confirmação curta (até 30 caracteres)
-      const ehConfirmacao = msgLower.length <= 30 && PALAVRAS_CONFIRMACAO.some(palavra => 
-        msgLower === palavra || 
-        msgLower.startsWith(palavra + ' ') || 
-        msgLower.startsWith(palavra + ',') ||
-        msgLower.startsWith(palavra + '!')
-      );
-      
-      if (ehConfirmacao) {
-        addLog('info', 'confirmation', '🔍 Detectada possível confirmação', {
-          patientId: mensagem.patientId,
-          conversationId: mensagem.conversationId,
-          mensagem: mensagem.content
-        });
-        
-        // Buscar análise pendente
-        const analisePendente = await buscarAnalisePendente(mensagem.conversationId);
-        
-        if (analisePendente && analisePendente.alimentos && analisePendente.alimentos.length > 0) {
-          addLog('info', 'confirmation', '✅ Análise pendente encontrada!', {
-            patientId: analisePendente.patientId,
-            totalAlimentos: analisePendente.alimentos.length,
-            macros: analisePendente.macrosTotais
-          });
-          
-          try {
-            // Registrar a refeição automaticamente
-            const resultadoRegistro = await executeTool('registrar_refeicao', {
-              patientId: analisePendente.patientId,
-              conversationId: mensagem.conversationId,
-              mealType: analisePendente.mealType || detectarTipoRefeicao(),
-              alimentos: analisePendente.alimentos,
-              imageUrl: analisePendente.imageUrl
-            }, mensagem);
-            
-            addLog('info', 'confirmation', '📝 Refeição registrada automaticamente!', {
-              resultado: resultadoRegistro
-            });
-            
-            // Limpar análise pendente
-            await limparAnalisePendente(mensagem.conversationId);
-            
-            // Gerar mensagem de sucesso
-            const macros = analisePendente.macrosTotais || {};
-            const tipoEmoji = {
-              cafe_manha: '🌅',
-              lanche_manha: '🍎',
-              almoco: '☀️',
-              lanche_tarde: '🍎',
-              jantar: '🌙',
-              ceia: '🌙'
-            };
-            const tipoNome = {
-              cafe_manha: 'Café da manhã',
-              lanche_manha: 'Lanche da manhã',
-              almoco: 'Almoço',
-              lanche_tarde: 'Lanche da tarde',
-              jantar: 'Jantar',
-              ceia: 'Ceia'
-            };
-            const tipo = analisePendente.mealType || 'almoco';
-            
-            const mensagemSucesso = `✅ ${tipoEmoji[tipo] || '🍽️'} ${tipoNome[tipo] || 'Refeição'} registrada com sucesso!
-
-📊 *Total registrado:*
-• 🔥 ${macros.calorias || 0} kcal
-• 🥩 ${macros.proteinas || 0}g proteína
-• 🍚 ${macros.carboidratos || 0}g carboidratos
-• 🥑 ${macros.gorduras || 0}g gorduras
-
-✨ Continue assim! Seu progresso está sendo acompanhado.
-
-Se algum peso estava errado, me avisa que eu corrijo! 😊`;
-            
-            // Enviar mensagem de sucesso
-            await executeTool('enviar_mensagem_whatsapp', {
-              conversationId: mensagem.conversationId,
-              mensagem: mensagemSucesso
-            }, mensagem);
-            
-            const elapsed = Date.now() - startTime;
-            
-            return res.json({
-              success: true,
-              messageId: mensagem.messageId,
-              autoConfirmation: true,
-              elapsedMs: elapsed
-            });
-            
-          } catch (registroError) {
-            addLog('error', 'confirmation', '❌ Erro ao registrar refeição automaticamente', {
-              error: registroError.message
-            });
-            // Se falhar, deixa o agente processar normalmente
-          }
-        } else {
-          addLog('debug', 'confirmation', '⚠️ Nenhuma análise pendente encontrada', {
-            conversationId: mensagem.conversationId
-          });
-        }
-      }
-    }
-
+    
+    const { executeTool, toolImplementations } = require('./tools');
+    const { buscarAnalisePendente, limparAnalisePendente, salvarAnalisePendente } = require('./firebase');
+    const { normalizarMealType, detectarTipoRefeicaoPorHorario } = require('./tools').toolImplementations 
+      ? { normalizarMealType: null, detectarTipoRefeicaoPorHorario: null } 
+      : {};
+    
     // Função auxiliar para detectar tipo de refeição pelo horário
     function detectarTipoRefeicao() {
       const hora = new Date().getHours();
@@ -558,27 +449,234 @@ Se algum peso estava errado, me avisa que eu corrijo! 😊`;
       if (hora >= 18 && hora < 22) return 'jantar';
       return 'ceia';
     }
+
     // ==========================================
-    // ⚡ INTERCEPTAÇÃO INTELIGENTE DE MENSAGENS
-    // Responde diretamente sem gastar tokens GPT
+    // 📸 FLUXO 1: FOTO (determinístico)
+    // Código analisa → salva → pede confirmação
+    // Apenas 1 call GPT Vision (sem agent loop)
+    // ==========================================
+    if (mensagem.hasImage && mensagem.imageUrl) {
+      addLog('info', 'photo-flow', '📸 Foto detectada - fluxo determinístico', {
+        patientId: mensagem.patientId,
+        imageUrl: mensagem.imageUrl?.substring(0, 50) + '...'
+      });
+
+      try {
+        // 1. Enviar "Analisando..." imediatamente
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: '🔍 *Analisando sua foto...*\n\n_Aguarde alguns segundos enquanto identifico os alimentos._'
+        }, mensagem);
+
+        // 2. Chamar GPT Vision diretamente (sem agent loop)
+        const analise = await toolImplementations.analisar_foto_refeicao(
+          { 
+            imageUrl: mensagem.imageUrl,
+            instrucaoExtra: mensagem.content || undefined
+          }, 
+          mensagem  // contexto com patientId e conversationId
+        );
+
+        // 3. Verificar se a análise retornou alimentos
+        if (!analise.alimentos || analise.alimentos.length === 0) {
+          await executeTool('enviar_mensagem_whatsapp', {
+            conversationId: mensagem.conversationId,
+            mensagem: '🤔 Não consegui identificar alimentos nessa foto.\n\nTente tirar a foto com melhor iluminação ou mais de perto! 📸'
+          }, mensagem);
+          
+          return res.json({
+            success: true, flow: 'photo', result: 'no_food_detected',
+            elapsedMs: Date.now() - startTime
+          });
+        }
+
+        // 4. Salvar análise como pendente (já feito dentro de analisar_foto_refeicao, mas garantir)
+        const mealType = analise.mealType || detectarTipoRefeicao();
+        const macros = analise.macros_totais || analise.alimentos.reduce(
+          (t, a) => ({
+            calorias: Math.round(t.calorias + (a.calorias || 0)),
+            proteinas: Math.round((t.proteinas + (a.proteinas || 0)) * 10) / 10,
+            carboidratos: Math.round((t.carboidratos + (a.carboidratos || 0)) * 10) / 10,
+            gorduras: Math.round((t.gorduras + (a.gorduras || 0)) * 10) / 10,
+          }),
+          { calorias: 0, proteinas: 0, carboidratos: 0, gorduras: 0 }
+        );
+
+        // 5. Garantir que está salvo no Firebase
+        try {
+          await salvarAnalisePendente(mensagem.conversationId, {
+            patientId: mensagem.patientId,
+            mealType: mealType,
+            alimentos: analise.alimentos,
+            macrosTotais: macros,
+            imageUrl: mensagem.imageUrl
+          });
+          addLog('info', 'photo-flow', '💾 Análise salva no Firebase', {
+            conversationId: mensagem.conversationId,
+            alimentos: analise.alimentos.length
+          });
+        } catch (saveErr) {
+          addLog('error', 'photo-flow', '⚠️ Erro ao salvar pendente', { error: saveErr.message });
+        }
+
+        // 6. Montar e enviar mensagem de confirmação
+        const alimentosFormatados = analise.alimentos.map(a => {
+          const emoji = a.calorias > 200 ? '🍖' : a.proteinas > 10 ? '🥩' : '🥗';
+          return `${emoji} ${a.nome} - ${a.peso}g (${a.calorias || 0} kcal)`;
+        }).join('\n');
+
+        const mensagemConfirmacao = `📋 *Vi aqui:*
+
+${alimentosFormatados}
+
+📊 *Total:* ~${macros.calorias} kcal | ${macros.proteinas}g prot | ${macros.carboidratos}g carbs | ${macros.gorduras}g gord
+
+✅ *Confirma essa refeição?*
+_Responda 'sim' para registrar ou me diz se quer corrigir algo!_
+
+_(registro automático em 2 min se não responder)_`;
+
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: mensagemConfirmacao
+        }, mensagem);
+
+        addLog('info', 'photo-flow', '✅ Foto analisada e confirmação enviada', {
+          patientId: mensagem.patientId,
+          alimentos: analise.alimentos.length,
+          macros: macros,
+          elapsedMs: Date.now() - startTime
+        });
+
+        return res.json({
+          success: true, flow: 'photo', 
+          alimentos: analise.alimentos.length,
+          macros: macros,
+          elapsedMs: Date.now() - startTime
+        });
+
+      } catch (photoError) {
+        addLog('error', 'photo-flow', '❌ Erro na análise de foto', {
+          error: photoError.message, patientId: mensagem.patientId
+        });
+
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: '😅 Tive um problema ao analisar a foto. Pode tentar enviar novamente?'
+        }, mensagem).catch(() => {});
+
+        return res.status(500).json({
+          success: false, flow: 'photo', error: photoError.message,
+          elapsedMs: Date.now() - startTime
+        });
+      }
+    }
+
+    // ==========================================
+    // ✅ FLUXO 2: CONFIRMAÇÃO (determinístico)
+    // Código busca pendente → registra → responde
+    // Zero calls GPT
     // ==========================================
     if (mensagem.content && !mensagem.hasImage && !mensagem.hasAudio) {
       const msgLower = mensagem.content.toLowerCase().trim();
-      const { executeTool } = require('./tools');
       
-      // 1. EMOJI PURO (👍, ❤️, 🙏, etc.) — ignora silenciosamente
+      // Palavras que indicam confirmação
+      const PALAVRAS_CONFIRMACAO = [
+        'sim', 'yes', 's', 'ok', 'confirmo', 'isso', 'correto', 
+        'isso mesmo', 'confirma', 'pode registrar', 'pode', 
+        'certo', 'exato', 'perfeito', 'isso aí', 'tá certo',
+        'registra', 'salva', 'confirmar'
+      ];
+      
+      const ehConfirmacao = msgLower.length <= 30 && PALAVRAS_CONFIRMACAO.some(palavra => 
+        msgLower === palavra || 
+        msgLower.startsWith(palavra + ' ') || 
+        msgLower.startsWith(palavra + ',') ||
+        msgLower.startsWith(palavra + '!')
+      );
+      
+      if (ehConfirmacao) {
+        addLog('info', 'confirm-flow', '🔍 Confirmação detectada', {
+          patientId: mensagem.patientId,
+          conversationId: mensagem.conversationId
+        });
+        
+        const analisePendente = await buscarAnalisePendente(mensagem.conversationId);
+        
+        if (analisePendente && analisePendente.alimentos && analisePendente.alimentos.length > 0) {
+          try {
+            // Registrar a refeição
+            const resultadoRegistro = await executeTool('registrar_refeicao', {
+              patientId: analisePendente.patientId,
+              conversationId: mensagem.conversationId,
+              mealType: analisePendente.mealType || detectarTipoRefeicao(),
+              alimentos: analisePendente.alimentos,
+              imageUrl: analisePendente.imageUrl
+            }, mensagem);
+            
+            // Limpar pendente
+            await limparAnalisePendente(mensagem.conversationId);
+            
+            // Montar mensagem de sucesso
+            const macros = analisePendente.macrosTotais || {};
+            const tipoEmoji = {
+              cafe_manha: '🌅', lanche_manha: '🍎', almoco: '☀️',
+              lanche_tarde: '🍎', jantar: '🌙', ceia: '🌙'
+            };
+            const tipoNome = {
+              cafe_manha: 'Café da manhã', lanche_manha: 'Lanche da manhã',
+              almoco: 'Almoço', lanche_tarde: 'Lanche da tarde',
+              jantar: 'Jantar', ceia: 'Ceia'
+            };
+            const tipo = analisePendente.mealType || 'almoco';
+            
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: `✅ ${tipoEmoji[tipo] || '🍽️'} ${tipoNome[tipo] || 'Refeição'} registrada com sucesso!\n\n📊 *Total registrado:*\n• 🔥 ${macros.calorias || 0} kcal\n• 🥩 ${macros.proteinas || 0}g proteína\n• 🍚 ${macros.carboidratos || 0}g carboidratos\n• 🥑 ${macros.gorduras || 0}g gorduras\n\n✨ Continue assim! Seu progresso está sendo acompanhado.\n\nSe algum peso estava errado, me avisa que eu corrijo! 😊`
+            }, mensagem);
+            
+            addLog('info', 'confirm-flow', '✅ Refeição registrada na primeira confirmação!', {
+              patientId: analisePendente.patientId,
+              tipo: tipo,
+              macros: macros
+            });
+            
+            return res.json({
+              success: true, flow: 'confirmation',
+              autoConfirmation: true, elapsedMs: Date.now() - startTime
+            });
+            
+          } catch (registroError) {
+            addLog('error', 'confirm-flow', '❌ Erro ao registrar', {
+              error: registroError.message
+            });
+            // Se falhar, deixa o agente tentar
+          }
+        } else {
+          addLog('debug', 'confirm-flow', '⚠️ Confirmação sem pendente - enviando pro agente', {
+            conversationId: mensagem.conversationId
+          });
+          // Sem pendente: cai pro agente inteligente ou interception abaixo
+        }
+      }
+    }
+
+    // ==========================================
+    // ⚡ FLUXO 3: INTERCEPTAÇÃO (determinístico)
+    // Emojis, cumprimentos, agradecimentos
+    // Zero calls GPT
+    // ==========================================
+    if (mensagem.content && !mensagem.hasImage && !mensagem.hasAudio) {
+      const msgLower = mensagem.content.toLowerCase().trim();
+      
+      // 3a. EMOJI PURO
       const EMOJI_REGEX = /^[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{200D}\u{20E3}\u{E0020}-\u{E007F}\s]+$/u;
       if (EMOJI_REGEX.test(mensagem.content.trim())) {
-        addLog('info', 'intercept', '😀 Emoji interceptado (sem GPT)', { 
-          emoji: mensagem.content, patientId: mensagem.patientId 
-        });
-        return res.json({ 
-          success: true, intercepted: true, type: 'emoji',
-          tokensSaved: true, elapsedMs: Date.now() - startTime 
-        });
+        addLog('info', 'intercept', '😀 Emoji interceptado', { patientId: mensagem.patientId });
+        return res.json({ success: true, flow: 'intercept', type: 'emoji', elapsedMs: Date.now() - startTime });
       }
       
-      // 2. AGRADECIMENTOS — responde direto
+      // 3b. AGRADECIMENTOS
       const AGRADECIMENTOS = [
         'obrigado', 'obrigada', 'obg', 'vlw', 'valeu', 'thanks', 
         'thank you', 'brigadão', 'brigado', 'brigada', 'muito obrigado',
@@ -588,30 +686,20 @@ Se algum peso estava errado, me avisa que eu corrijo! 😊`;
       if (msgLower.length <= 30 && AGRADECIMENTOS.some(a => 
         msgLower === a || msgLower === a + '!' || msgLower === a + '!!'
       )) {
-        addLog('info', 'intercept', '🙏 Agradecimento interceptado', { 
-          msg: mensagem.content, patientId: mensagem.patientId 
-        });
-        
-        const respostasAgradecimento = [
+        const respostas = [
           'De nada! 😊 Estou aqui sempre que precisar!',
           'Por nada! 💪 Continue firme na dieta!',
           'Disponha! 🥗 Se precisar de algo, é só chamar!',
           'Imagina! 😄 Qualquer coisa, manda uma foto da próxima refeição!'
         ];
-        const resposta = respostasAgradecimento[Math.floor(Math.random() * respostasAgradecimento.length)];
-        
         await executeTool('enviar_mensagem_whatsapp', {
           conversationId: mensagem.conversationId,
-          mensagem: resposta
+          mensagem: respostas[Math.floor(Math.random() * respostas.length)]
         }, mensagem);
-        
-        return res.json({ 
-          success: true, intercepted: true, type: 'agradecimento',
-          tokensSaved: true, elapsedMs: Date.now() - startTime 
-        });
+        return res.json({ success: true, flow: 'intercept', type: 'agradecimento', elapsedMs: Date.now() - startTime });
       }
       
-      // 3. CUMPRIMENTOS SIMPLES — responde e convida a interagir
+      // 3c. CUMPRIMENTOS
       const CUMPRIMENTOS = [
         'oi', 'olá', 'ola', 'hey', 'ei', 'eae', 'e aí', 'e ai',
         'bom dia', 'boa tarde', 'boa noite', 'hello', 'hi'
@@ -619,43 +707,35 @@ Se algum peso estava errado, me avisa que eu corrijo! 😊`;
       if (msgLower.length <= 20 && CUMPRIMENTOS.some(c => 
         msgLower === c || msgLower === c + '!' || msgLower === c + '!!'
       )) {
-        addLog('info', 'intercept', '👋 Cumprimento interceptado', { 
-          msg: mensagem.content, patientId: mensagem.patientId 
-        });
-        
         const hora = new Date().getHours();
-        let saudacao;
-        if (hora >= 5 && hora < 12) saudacao = 'Bom dia';
-        else if (hora >= 12 && hora < 18) saudacao = 'Boa tarde';
-        else saudacao = 'Boa noite';
-        
+        let saudacao = hora >= 5 && hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
         const nome = (mensagem.patientName || '').split(' ')[0] || '';
         
         await executeTool('enviar_mensagem_whatsapp', {
           conversationId: mensagem.conversationId,
           mensagem: `${saudacao}${nome ? ', ' + nome : ''}! 😊\n\nComo posso te ajudar?\n\n📸 Manda uma *foto da refeição* para eu analisar\n📝 Ou descreve o que comeu por texto\n❓ Também respondo dúvidas sobre nutrição!`
         }, mensagem);
-        
-        return res.json({ 
-          success: true, intercepted: true, type: 'cumprimento',
-          tokensSaved: true, elapsedMs: Date.now() - startTime 
-        });
+        return res.json({ success: true, flow: 'intercept', type: 'cumprimento', elapsedMs: Date.now() - startTime });
       }
       
-      // 4. STICKERS / MENSAGENS VAZIAS — ignora silenciosamente
+      // 3d. MENSAGENS MÍNIMAS
       if (msgLower.length <= 2 || msgLower === '.' || msgLower === '...' || msgLower === '?') {
-        addLog('debug', 'intercept', '⏭️ Mensagem mínima ignorada', { 
-          msg: mensagem.content, patientId: mensagem.patientId 
-        });
-        return res.json({ 
-          success: true, intercepted: true, type: 'minimal',
-          tokensSaved: true, elapsedMs: Date.now() - startTime 
-        });
+        return res.json({ success: true, flow: 'intercept', type: 'minimal', elapsedMs: Date.now() - startTime });
       }
     }
 
-    // Processa com o agente (somente mensagens que REALMENTE precisam de IA)
-    addLog('info', 'agent', '🤖 Processando com agente...', { patientId: mensagem.patientId });
+    // ==========================================
+    // 🧠 FLUXO 4: INTELIGENTE (usa GPT)
+    // Somente para mensagens que PRECISAM de IA:
+    // - Perguntas sobre nutrição
+    // - Descrições de comida por texto
+    // - Correções de registros
+    // - Mensagens ambíguas
+    // ==========================================
+    addLog('info', 'agent', '🧠 Fluxo inteligente - processando com agente', { 
+      patientId: mensagem.patientId,
+      contentPreview: (mensagem.content || '').substring(0, 50)
+    });
     const resultado = await agent.processar(mensagem);
 
     const elapsed = Date.now() - startTime;
