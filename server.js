@@ -345,7 +345,8 @@ app.post('/webhook', async (req, res) => {
     // ========================================
     // VERIFICAÇÃO DE ASSINATURA (Status do Paciente)
     // ========================================
-    if (mensagem.patientStatus && mensagem.patientStatus !== 'active') {
+    // 🔧 FIX: Pacientes isentos (isExempt) NUNCA devem ser bloqueados
+    if (mensagem.patientStatus && mensagem.patientStatus !== 'active' && !mensagem.isExempt) {
       addLog('warn', 'subscription', '⚠️ Paciente com assinatura inativa', {
         patientId: mensagem.patientId,
         status: mensagem.patientStatus
@@ -371,6 +372,14 @@ Acesse: https://nutribuddy.dog/regularizar?p=${mensagem.patientId}`
         blocked: true,
         reason: 'subscription_inactive',
         patientStatus: mensagem.patientStatus
+      });
+    }
+
+    // Se paciente é isento, logar para rastreamento
+    if (mensagem.isExempt) {
+      addLog('info', 'subscription', '✅ Paciente isento - acesso liberado', {
+        patientId: mensagem.patientId,
+        patientName: mensagem.patientName
       });
     }
 
