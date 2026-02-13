@@ -1327,68 +1327,108 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     // ================================================
     let progressMessage = "";
     let evaluationMessage = "";
+    let isRecordatorioMode = false; // Paciente sem dieta prescrita
     
     try {
-      // Buscar aderência diária (totais consumidos hoje)
-      const adherenceRes = await api.get(
-        `/api/n8n/patients/${pending.patientId}/daily-adherence?date=${today}`
-      );
-      
       // Buscar dieta prescrita do paciente
       const dietRes = await api.get(
         `/api/n8n/patients/${pending.patientId}/diet-plan`
       );
       
-      const consumed = adherenceRes.data?.data || adherenceRes.data || {
-        protein: pending.macrosTotais?.protein || 0,
-        carbs: pending.macrosTotais?.carbs || 0,
-        fats: pending.macrosTotais?.fats || 0,
-        calories: pending.macrosTotais?.calories || 0,
-      };
-      
       const dietPlan = dietRes.data?.data || dietRes.data;
-      const targets = dietPlan?.macros || {
-        protein: dietPlan?.dailyProtein || 150,
-        carbs: dietPlan?.dailyCarbs || 200,
-        fats: dietPlan?.dailyFats || 60,
-        calories: dietPlan?.dailyCalories || dietPlan?.calories || 2000,
-      };
       
-      console.log(`📊 [Tools] Consumido hoje:`, consumed);
-      console.log(`📊 [Tools] Metas:`, targets);
+      // ========================================
+      // 📝 VERIFICAR SE TEM DIETA PRESCRITA
+      // ========================================
+      const hasDietPlan = dietPlan && (
+        dietPlan.macros || 
+        dietPlan.dailyProtein || 
+        dietPlan.dailyCalories || 
+        dietPlan.templates ||
+        dietPlan.weekSchedule
+      );
       
-      // Gerar barra de progresso
-      if (targets.calories > 0) {
-        progressMessage = formatDailyProgress(consumed, targets);
+      if (!hasDietPlan) {
+        // ========================================
+        // 📝 MODO RECORDATÓRIO - Sem dieta prescrita
+        // ========================================
+        isRecordatorioMode = true;
+        console.log(`📝 [Tools] MODO RECORDATÓRIO - Paciente ${pending.patientId} sem dieta prescrita`);
+      } else {
+        // ========================================
+        // 📊 MODO DIETA - Com dieta prescrita
+        // ========================================
+        // Buscar aderência diária (totais consumidos hoje)
+        const adherenceRes = await api.get(
+          `/api/n8n/patients/${pending.patientId}/daily-adherence?date=${today}`
+        );
         
-        // Avaliar se está dentro da meta
-        const evaluation = evaluateMealAgainstGoals(consumed, targets, pending.mealType || 'refeição');
-        evaluationMessage = evaluation.message;
+        const consumed = adherenceRes.data?.data || adherenceRes.data || {
+          protein: pending.macrosTotais?.protein || 0,
+          carbs: pending.macrosTotais?.carbs || 0,
+          fats: pending.macrosTotais?.fats || 0,
+          calories: pending.macrosTotais?.calories || 0,
+        };
         
-        console.log(`📊 [Tools] Progresso:`, progressMessage);
-        console.log(`📊 [Tools] Avaliação:`, evaluationMessage);
+        const targets = dietPlan.macros || {
+          protein: dietPlan.dailyProtein || 150,
+          carbs: dietPlan.dailyCarbs || 200,
+          fats: dietPlan.dailyFats || 60,
+          calories: dietPlan.dailyCalories || dietPlan.calories || 2000,
+        };
+        
+        console.log(`📊 [Tools] Consumido hoje:`, consumed);
+        console.log(`📊 [Tools] Metas:`, targets);
+        
+        // Gerar barra de progresso
+        if (targets.calories > 0) {
+          progressMessage = formatDailyProgress(consumed, targets);
+          
+          // Avaliar se está dentro da meta
+          const evaluation = evaluateMealAgainstGoals(consumed, targets, pending.mealType || 'refeição');
+          evaluationMessage = evaluation.message;
+          
+          console.log(`📊 [Tools] Progresso:`, progressMessage);
+          console.log(`📊 [Tools] Avaliação:`, evaluationMessage);
+        }
       }
     } catch (err) {
-      console.log(`⚠️ [Tools] Erro ao buscar progresso diário:`, err.message);
-      // Continua sem a barra de progresso
+      // Se erro ao buscar dieta, assume recordatório
+      isRecordatorioMode = true;
+      console.log(`⚠️ [Tools] Erro ao buscar dieta (modo recordatório):`, err.message);
     }
 
-    // Montar mensagem final
-    let finalMessage = "✅ *Refeição registrada!*";
+    // ================================================
+    // 📋 MONTAR MENSAGEM FINAL
+    // ================================================
+    let finalMessage;
     
-    if (evaluationMessage) {
-      finalMessage += `\n\n${evaluationMessage}`;
+    if (isRecordatorioMode) {
+      // MODO RECORDATÓRIO — sem dieta prescrita
+      const macros = pending.macrosTotais || {};
+      finalMessage = `✅ *Refeição registrada!*
+
+📝 *Modo Recordatório*
+Seu prescritor ainda não registrou sua dieta personalizada. Estamos registrando sua alimentação para calcularmos sua média de macronutrientes ao longo do dia.
+
+📊 *Registrado:* ${macros.calorias || macros.calories || 0} kcal | ${macros.proteinas || macros.protein || 0}g prot | ${macros.carboidratos || macros.carbs || 0}g carbs | ${macros.gorduras || macros.fats || 0}g gord`;
     } else {
-      finalMessage += " Você está indo muito bem hoje! 🎯";
-    }
-    
-    if (progressMessage) {
-      finalMessage += `\n\n${progressMessage}`;
+      // MODO DIETA — com dieta prescrita
+      finalMessage = "✅ *Refeição registrada!*";
+      
+      if (evaluationMessage) {
+        finalMessage += `\n\n${evaluationMessage}`;
+      }
+      
+      if (progressMessage) {
+        finalMessage += `\n\n${progressMessage}`;
+      }
     }
 
     return {
       success: true,
       status: "registered",
+      isRecordatorioMode,
       message: finalMessage,
       data: response.data,
       alimentos: pending.alimentos,

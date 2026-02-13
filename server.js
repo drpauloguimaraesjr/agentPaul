@@ -639,7 +639,7 @@ _(registro automático em 2 min se não responder)_`;
             // Limpar pendente
             await limparAnalisePendente(mensagem.conversationId);
             
-            // Montar mensagem de sucesso
+            // Usar mensagem do tool (já diferencia recordatório vs dieta)
             const macros = analisePendente.macrosTotais || {};
             const tipoEmoji = {
               cafe_manha: '🌅', lanche_manha: '🍎', almoco: '☀️',
@@ -652,9 +652,13 @@ _(registro automático em 2 min se não responder)_`;
             };
             const tipo = analisePendente.mealType || 'almoco';
             
+            // Se o tool retornou mensagem (modo recordatório ou dieta), usa ela
+            const mensagemFinal = resultadoRegistro.message || 
+              `✅ ${tipoEmoji[tipo] || '🍽️'} ${tipoNome[tipo] || 'Refeição'} registrada com sucesso!\n\n📊 *Total registrado:*\n• 🔥 ${macros.calorias || 0} kcal\n• 🥩 ${macros.proteinas || 0}g proteína\n• 🍚 ${macros.carboidratos || 0}g carboidratos\n• 🥑 ${macros.gorduras || 0}g gorduras`;
+            
             await executeTool('enviar_mensagem_whatsapp', {
               conversationId: mensagem.conversationId,
-              mensagem: `✅ ${tipoEmoji[tipo] || '🍽️'} ${tipoNome[tipo] || 'Refeição'} registrada com sucesso!\n\n📊 *Total registrado:*\n• 🔥 ${macros.calorias || 0} kcal\n• 🥩 ${macros.proteinas || 0}g proteína\n• 🍚 ${macros.carboidratos || 0}g carboidratos\n• 🥑 ${macros.gorduras || 0}g gorduras\n\n✨ Continue assim! Seu progresso está sendo acompanhado.\n\nSe algum peso estava errado, me avisa que eu corrijo! 😊`
+              mensagem: mensagemFinal
             }, mensagem);
             
             addLog('info', 'confirm-flow', '✅ Refeição registrada na primeira confirmação!', {
