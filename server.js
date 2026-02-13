@@ -557,6 +557,19 @@ _(registro automático em 2 min se não responder)_`;
           elapsedMs: Date.now() - startTime
         });
 
+        // Log de conversa completa
+        logger.conversation({
+          patientId: mensagem.patientId,
+          patientName: mensagem.patientName,
+          conversationId: mensagem.conversationId,
+          messageIn: mensagem.content || '[FOTO]',
+          responseOut: mensagemConfirmacao,
+          hasImage: true,
+          toolsCalled: ['analisar_foto_refeicao'],
+          elapsedMs: Date.now() - startTime,
+          flow: 'photo'
+        });
+
         return res.json({
           success: true, flow: 'photo', 
           alimentos: analise.alimentos.length,
@@ -648,6 +661,18 @@ _(registro automático em 2 min se não responder)_`;
               patientId: analisePendente.patientId,
               tipo: tipo,
               macros: macros
+            });
+
+            // Log de conversa completa
+            logger.conversation({
+              patientId: mensagem.patientId,
+              patientName: mensagem.patientName,
+              conversationId: mensagem.conversationId,
+              messageIn: mensagem.content,
+              responseOut: `✅ ${tipoNome[tipo] || 'Refeição'} registrada - ${macros.calorias || 0} kcal`,
+              toolsCalled: ['registrar_refeicao'],
+              elapsedMs: Date.now() - startTime,
+              flow: 'confirmation'
             });
             
             return res.json({
@@ -756,6 +781,22 @@ _(registro automático em 2 min se não responder)_`;
       iterations: resultado.iterations,
       success: resultado.success,
       elapsedMs: elapsed
+    });
+
+    // Log de conversa completa (agente inteligente)
+    logger.conversation({
+      patientId: mensagem.patientId,
+      patientName: mensagem.patientName,
+      conversationId: mensagem.conversationId,
+      messageIn: mensagem.content || (mensagem.hasAudio ? '[ÁUDIO]' : '[SEM TEXTO]'),
+      responseOut: resultado.finalResponse || resultado.lastMessage || 'Resposta enviada via ferramenta',
+      hasImage: mensagem.hasImage || false,
+      hasAudio: mensagem.hasAudio || false,
+      toolsCalled: resultado.toolsCalled || [],
+      iterations: resultado.iterations,
+      elapsedMs: elapsed,
+      model: process.env.AGENT_MODEL || 'gpt-4o',
+      flow: 'agent'
     });
 
     res.json({
