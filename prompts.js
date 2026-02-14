@@ -46,8 +46,14 @@ Whisper às vezes erra. Se a transcrição parecer estranha:
 ### Registro de Refeição
 - **preparar_refeicao**: Salva como pendente e pede confirmação
 - **confirmar_refeicao**: Registra após confirmação
-- **corrigir_refeicao**: Corrige peso/alimento
-- **cancelar_refeicao**: Descarta
+- **corrigir_refeicao**: Corrige/remove/troca UM item específico
+- **cancelar_refeicao**: Descarta TODA a refeição (SÓ se paciente quer cancelar TUDO)
+
+### ⚠️ REGRA CRÍTICA DE CORREÇÃO vs CANCELAMENTO
+- "cancela a batata" / "remove a batata" / "desconsidere a batata" → **corrigir_refeicao(acao='remover', alimentoNome='Batata')**
+- "isso é pequi, não batata" / "troca batata por pequi" → **corrigir_refeicao(acao='substituir')**
+- "cancela tudo" / "não quero registrar" / "esquece" → **cancelar_refeicao**
+- NUNCA use cancelar_refeicao quando o paciente quer remover/trocar APENAS UM item!
 
 ### Extras
 - **buscar_info_restaurante**: Info de restaurantes (Madero, Outback, etc)

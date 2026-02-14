@@ -571,7 +571,7 @@ const tools = [
     function: {
       name: "cancelar_refeicao",
       description:
-        "Cancela TODA a refeição pendente. Use SOMENTE quando o paciente disser que NÃO quer registrar NADA (ex: 'não registra', 'cancela tudo', 'não quero'). ⚠️ NÃO USE se o paciente quiser remover/trocar apenas UM ITEM específico - nesses casos use corrigir_refeicao com acao='remover' ou acao='substituir'.",
+        "Cancela TODA a refeição pendente. Use SOMENTE quando o paciente disser que NÃO quer registrar NADA (ex: 'não registra', 'cancela tudo', 'não quero'). ⚠️ NÃO USE se o paciente mencionar um alimento específico! 'Cancela a batata' / 'desconsidere a batata' / 'remove o arroz' = use corrigir_refeicao com acao='remover'. Esta ferramenta APAGA TUDO!",
       parameters: {
         type: "object",
         properties: {
@@ -1320,6 +1320,8 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       },
     );
 
+    const mealLogId = response.data?.logId;
+
     console.log(`✅ [Tools] Refeição registrada com sucesso!`);
 
     // ================================================
@@ -1396,6 +1398,20 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       // Se erro ao buscar dieta, assume recordatório
       isRecordatorioMode = true;
       console.log(`⚠️ [Tools] Erro ao buscar dieta (modo recordatório):`, err.message);
+    }
+
+    // ================================================
+    // 📝 ATUALIZAR FLAG RECORDATÓRIO NO FIRESTORE
+    // ================================================
+    if (mealLogId) {
+      try {
+        await api.patch(
+          `/api/n8n/patients/${pending.patientId}/food-diary/${mealLogId}`,
+          { recordatorio: isRecordatorioMode }
+        );
+      } catch (patchErr) {
+        console.log(`⚠️ [Tools] Erro ao atualizar flag recordatório:`, patchErr.message);
+      }
     }
 
     // ================================================
