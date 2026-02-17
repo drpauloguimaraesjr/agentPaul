@@ -776,6 +776,26 @@ _(registro automático em 2 min se não responder)_`;
     });
     const resultado = await agent.processar(mensagem);
 
+    // FALLBACK: Se o agente respondeu mas NÃO enviou via WhatsApp, enviar agora
+    if (resultado.success && resultado.response && !resultado.toolsUsed?.includes('enviar_mensagem_whatsapp')) {
+      addLog('info', 'agent', '📤 Fallback: enviando resposta do agente via WhatsApp', {
+        patientId: mensagem.patientId,
+        responsePreview: resultado.response.substring(0, 80)
+      });
+      try {
+        const { executeTool } = require('./tools');
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: resultado.response
+        }, mensagem);
+      } catch (sendError) {
+        addLog('error', 'agent', '❌ Fallback: erro ao enviar resposta', {
+          error: sendError.message,
+          patientId: mensagem.patientId
+        });
+      }
+    }
+
     const elapsed = Date.now() - startTime;
     
     // Log da interação completa
