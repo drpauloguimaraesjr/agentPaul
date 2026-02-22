@@ -6,6 +6,7 @@
 const axios = require("axios");
 const OpenAI = require("openai");
 const { TEMAS_FORA_ESCOPO } = require("./prompts");
+const { buscarAlimentoTACO, buscarMacrosPorPorcao, buscarMelhorMatch } = require("./taco-database");
 const {
   buscarProdutoFirestore,
   salvarProdutoFirestore,
@@ -318,7 +319,7 @@ function buscarProdutoNoBancoLocal(texto) {
   return { encontrado: false };
 }
 
-// Versão async que também busca no Firestore
+// Versão async que também busca no Firestore e TACO
 async function buscarProdutoCompleto(texto) {
   // 1. Primeiro busca em memória (mais rápido)
   const buscaLocal = buscarProdutoNoBancoLocal(texto);
@@ -347,6 +348,23 @@ async function buscarProdutoCompleto(texto) {
       chave: dadosFirestore.chave || textoNorm,
       dados: dadosFirestore,
       fonte: "firestore",
+    };
+  }
+
+  // 3. Fallback: busca na Tabela TACO (597 alimentos brasileiros)
+  const tacoResult = buscarMacrosPorPorcao(texto);
+  if (tacoResult) {
+    console.log(`🥗 TACO match: ${tacoResult.nome} (score: ${tacoResult.score.toFixed(2)})`);
+    return {
+      encontrado: true,
+      chave: textoNorm,
+      dados: {
+        nome: tacoResult.nome,
+        peso: tacoResult.peso,
+        macros: tacoResult.macros,
+        observacoes: `Dados da Tabela TACO (Unicamp). Grupo: ${tacoResult.grupo}`,
+      },
+      fonte: "taco",
     };
   }
 
@@ -493,6 +511,7 @@ const tools = [
             description: "Lista de alimentos com macros",
           },
           imageUrl: { type: "string", description: "URL da foto (opcional)" },
+          targetDate: { type: "string", description: "Data alvo no formato YYYY-MM-DD. Use quando o paciente mencionar 'ontem', 'anteontem', ou outra data. Se não informado, usa a data de hoje." },
         },
         required: ["patientId", "conversationId", "mealType", "alimentos"],
       },
@@ -540,6 +559,7 @@ const tools = [
             description: "Lista de alimentos com macros",
           },
           imageUrl: { type: "string", description: "URL da foto (opcional)" },
+          targetDate: { type: "string", description: "Data alvo no formato YYYY-MM-DD. Use quando o paciente mencionar 'ontem', 'anteontem', ou outra data. Se não informado, usa a data de hoje." },
         },
         required: ["patientId", "conversationId", "mealType", "alimentos"],
       },
@@ -912,6 +932,33 @@ const tools = [
       },
     },
   },
+  // ================================================
+  // 🥗 TOOL: buscar_alimento_taco
+  // Busca dados nutricionais na Tabela TACO (597 alimentos brasileiros)
+  // ================================================
+  {
+    type: "function",
+    function: {
+      name: "buscar_alimento_taco",
+      description:
+        "Busca informações nutricionais PRECISAS de alimentos naturais na Tabela TACO (Unicamp) - a principal referência nutricional do Brasil com 597 alimentos. Use SEMPRE para arroz, feijão, carnes, frutas, verduras, ovos, etc. NÃO use para produtos embalados (iogurtes, barras) - para esses use buscar_produto_internet.",
+      parameters: {
+        type: "object",
+        properties: {
+          alimento: {
+            type: "string",
+            description:
+              'Nome do alimento natural (ex: "arroz branco cozido", "frango grelhado", "banana", "feijão preto")',
+          },
+          peso_gramas: {
+            type: "number",
+            description: "Peso em gramas para calcular macros proporcionais (default: 100g)",
+          },
+        },
+        required: ["alimento"],
+      },
+    },
+  },
 ];
 
 // ==========================================
@@ -1125,7 +1172,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
   },
 
   async registrar_refeicao(
-    { patientId, conversationId, mealType, alimentos, imageUrl },
+    { patientId, conversationId, mealType, alimentos, imageUrl, targetDate },
     contexto,
   ) {
     // Normalizar mealType para garantir formato correto
@@ -1145,7 +1192,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       `/api/n8n/patients/${patientId}/food-diary`,
       {
         type: mealTypeNormalizado,
-        date: new Date().toISOString().split("T")[0],
+        date: targetDate || new Date().toISOString().split("T")[0],
         foods: alimentos.map((a) => ({
           name: a.nome,
           weight: a.peso,
@@ -1172,7 +1219,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
   // ✨ PREPARAR REFEIÇÃO (salva como pendente)
   // ================================================
   async preparar_refeicao(
-    { patientId, conversationId, mealType, alimentos, imageUrl },
+    { patientId, conversationId, mealType, alimentos, imageUrl, targetDate },
     contexto,
   ) {
     // Normaliza o mealType para o formato aceito
@@ -1206,7 +1253,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
           `/api/n8n/patients/${pending.patientId}/food-diary`,
           {
             type: pending.mealType,
-            date: new Date().toISOString().split("T")[0],
+            date: pending.targetDate || new Date().toISOString().split("T")[0],
             foods: pending.alimentos.map((a) => ({
               name: a.nome,
               weight: a.peso,
@@ -1256,6 +1303,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
         alimentos,
         imageUrl,
         macrosTotais,
+        targetDate: targetDate || null,
       },
       autoRegisterCallback
     );
@@ -1293,11 +1341,12 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
 
     // Enviar mensagem de "registrando..."
     await api.post(`/api/n8n/conversations/${conversationId}/messages`, {
-      mensagem: "📝 _Registrando refeição no diário de hoje..._",
+      mensagem: pending.targetDate ? `📝 _Registrando refeição no diário de ${pending.targetDate}..._` : "📝 _Registrando refeição no diário de hoje..._",
       source: "agent_paul",
     });
 
-    const today = new Date().toISOString().split("T")[0];
+    const today = pending.targetDate || new Date().toISOString().split("T")[0];
+    console.log(`📅 [Tools] Data da refeição: ${today}${pending.targetDate ? ' (data retroativa)' : ' (hoje)'}`);
 
     // Registrar a refeição
     const response = await api.post(
@@ -2199,6 +2248,54 @@ Se não encontrar informações confiáveis:
       sucesso: true,
       ...resultado,
       mensagem: "Análise pendente removida.",
+    };
+  },
+
+  // ==========================================
+  // 🥗 BUSCAR ALIMENTO TACO
+  // ==========================================
+  async buscar_alimento_taco({ alimento, peso_gramas }) {
+    const peso = peso_gramas || 100;
+    console.log(`🥗 Buscando na TACO: "${alimento}" (${peso}g)`);
+
+    // Busca com porção específica
+    const resultado = buscarMacrosPorPorcao(alimento, peso);
+
+    if (!resultado) {
+      // Tenta busca mais ampla e retorna opções
+      const opcoes = buscarAlimentoTACO(alimento, 5);
+      if (opcoes.length > 0) {
+        return {
+          encontrado: false,
+          sugestoes: opcoes.map(o => ({
+            nome: o.nome,
+            grupo: o.grupo,
+            energia_kcal_100g: o.energia_kcal,
+            proteina_g_100g: o.proteina_g,
+            score: Math.round(o.score * 100) + '%'
+          })),
+          mensagem: `Não encontrei exatamente "${alimento}", mas achei opções similares na Tabela TACO. Escolha a mais adequada.`
+        };
+      }
+
+      return {
+        encontrado: false,
+        sugestoes: [],
+        mensagem: `Alimento "${alimento}" não encontrado na Tabela TACO. Use sua estimativa ou buscar_produto_internet.`
+      };
+    }
+
+    return {
+      encontrado: true,
+      fonte: 'Tabela TACO (NEPA/Unicamp)',
+      alimento: resultado.nome,
+      grupo: resultado.grupo,
+      peso_g: resultado.peso,
+      macros: resultado.macros,
+      fibra_g: resultado.fibra_g,
+      confianca: resultado.score > 0.7 ? 'alta' : resultado.score > 0.5 ? 'media' : 'baixa',
+      score: Math.round(resultado.score * 100) + '%',
+      mensagem: `Dados da Tabela TACO para ${resultado.nome} (${peso}g): ${resultado.macros.calorias} kcal, ${resultado.macros.proteinas}g prot, ${resultado.macros.carboidratos}g carb, ${resultado.macros.gorduras}g gord`
     };
   },
 };

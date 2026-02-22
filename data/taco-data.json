@@ -1,0 +1,5972 @@
+[
+  {
+    "id": 1,
+    "nome": "Arroz, integral, cozido",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 123.5,
+    "proteina_g": 2.6,
+    "carboidrato_g": 25.8,
+    "lipideos_g": 1,
+    "fibra_g": 2.7
+  },
+  {
+    "id": 2,
+    "nome": "Arroz, integral, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 359.7,
+    "proteina_g": 7.3,
+    "carboidrato_g": 77.5,
+    "lipideos_g": 1.9,
+    "fibra_g": 4.8
+  },
+  {
+    "id": 3,
+    "nome": "Arroz, tipo 1, cozido",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 128.3,
+    "proteina_g": 2.5,
+    "carboidrato_g": 28.1,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 4,
+    "nome": "Arroz, tipo 1, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 357.8,
+    "proteina_g": 7.2,
+    "carboidrato_g": 78.8,
+    "lipideos_g": 0.3,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 5,
+    "nome": "Arroz, tipo 2, cozido",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 130.1,
+    "proteina_g": 2.6,
+    "carboidrato_g": 28.2,
+    "lipideos_g": 0.4,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 6,
+    "nome": "Arroz, tipo 2, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 358.1,
+    "proteina_g": 7.2,
+    "carboidrato_g": 78.9,
+    "lipideos_g": 0.3,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 7,
+    "nome": "Aveia, flocos, crua",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 393.8,
+    "proteina_g": 13.9,
+    "carboidrato_g": 66.6,
+    "lipideos_g": 8.5,
+    "fibra_g": 9.1
+  },
+  {
+    "id": 8,
+    "nome": "Biscoito, doce, maisena",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 442.8,
+    "proteina_g": 8.1,
+    "carboidrato_g": 75.2,
+    "lipideos_g": 12,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 9,
+    "nome": "Biscoito, doce, recheado com chocolate",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 471.8,
+    "proteina_g": 6.4,
+    "carboidrato_g": 70.5,
+    "lipideos_g": 19.6,
+    "fibra_g": 3
+  },
+  {
+    "id": 10,
+    "nome": "Biscoito, doce, recheado com morango",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 471.2,
+    "proteina_g": 5.7,
+    "carboidrato_g": 71,
+    "lipideos_g": 19.6,
+    "fibra_g": 1.5
+  },
+  {
+    "id": 11,
+    "nome": "Biscoito, doce, wafer, recheado de chocolate",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 502.5,
+    "proteina_g": 5.6,
+    "carboidrato_g": 67.5,
+    "lipideos_g": 24.7,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 12,
+    "nome": "Biscoito, doce, wafer, recheado de morango",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 513.4,
+    "proteina_g": 4.5,
+    "carboidrato_g": 67.4,
+    "lipideos_g": 26.4,
+    "fibra_g": 0.8
+  },
+  {
+    "id": 13,
+    "nome": "Biscoito, salgado, cream cracker",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 431.7,
+    "proteina_g": 10.1,
+    "carboidrato_g": 68.7,
+    "lipideos_g": 14.4,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 14,
+    "nome": "Bolo, mistura para",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 418.6,
+    "proteina_g": 6.2,
+    "carboidrato_g": 84.7,
+    "lipideos_g": 6.1,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 15,
+    "nome": "Bolo, pronto, aipim",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 323.9,
+    "proteina_g": 4.4,
+    "carboidrato_g": 47.9,
+    "lipideos_g": 12.7,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 16,
+    "nome": "Bolo, pronto, chocolate",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 410,
+    "proteina_g": 6.2,
+    "carboidrato_g": 54.7,
+    "lipideos_g": 18.5,
+    "fibra_g": 1.4
+  },
+  {
+    "id": 17,
+    "nome": "Bolo, pronto, coco",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 333.4,
+    "proteina_g": 5.7,
+    "carboidrato_g": 52.3,
+    "lipideos_g": 11.3,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 18,
+    "nome": "Bolo, pronto, milho",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 311.4,
+    "proteina_g": 4.8,
+    "carboidrato_g": 45.1,
+    "lipideos_g": 12.4,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 19,
+    "nome": "Canjica, branca, crua",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 357.6,
+    "proteina_g": 7.2,
+    "carboidrato_g": 78.1,
+    "lipideos_g": 1,
+    "fibra_g": 5.5
+  },
+  {
+    "id": 20,
+    "nome": "Canjica, com leite integral",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 112.5,
+    "proteina_g": 2.4,
+    "carboidrato_g": 23.6,
+    "lipideos_g": 1.2,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 21,
+    "nome": "Cereais, milho, flocos, com sal",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 369.6,
+    "proteina_g": 7.3,
+    "carboidrato_g": 80.8,
+    "lipideos_g": 1.6,
+    "fibra_g": 5.3
+  },
+  {
+    "id": 22,
+    "nome": "Cereais, milho, flocos, sem sal",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 363.3,
+    "proteina_g": 6.9,
+    "carboidrato_g": 80.4,
+    "lipideos_g": 1.2,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 23,
+    "nome": "Cereais, mingau, milho, infantil",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 394.4,
+    "proteina_g": 6.4,
+    "carboidrato_g": 87.3,
+    "lipideos_g": 1.1,
+    "fibra_g": 3.2
+  },
+  {
+    "id": 24,
+    "nome": "Cereais, mistura para vitamina, trigo, cevada e aveia",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 381.1,
+    "proteina_g": 8.9,
+    "carboidrato_g": 81.6,
+    "lipideos_g": 2.1,
+    "fibra_g": 5
+  },
+  {
+    "id": 25,
+    "nome": "Cereal matinal, milho",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 365.4,
+    "proteina_g": 7.2,
+    "carboidrato_g": 83.8,
+    "lipideos_g": 1,
+    "fibra_g": 4.1
+  },
+  {
+    "id": 26,
+    "nome": "Cereal matinal, milho, açúcar",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 376.6,
+    "proteina_g": 4.7,
+    "carboidrato_g": 88.8,
+    "lipideos_g": 0.7,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 27,
+    "nome": "Creme de arroz, pó",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 386,
+    "proteina_g": 7,
+    "carboidrato_g": 83.9,
+    "lipideos_g": 1.2,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 28,
+    "nome": "Creme de milho, pó",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 333,
+    "proteina_g": 4.8,
+    "carboidrato_g": 86.1,
+    "lipideos_g": 1.6,
+    "fibra_g": 3.7
+  },
+  {
+    "id": 29,
+    "nome": "Curau, milho verde",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 78.4,
+    "proteina_g": 2.4,
+    "carboidrato_g": 13.9,
+    "lipideos_g": 1.6,
+    "fibra_g": 0.5
+  },
+  {
+    "id": 30,
+    "nome": "Curau, milho verde, mistura para",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 402.3,
+    "proteina_g": 2.2,
+    "carboidrato_g": 79.8,
+    "lipideos_g": 13.4,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 31,
+    "nome": "Farinha, de arroz, enriquecida",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 363.1,
+    "proteina_g": 1.3,
+    "carboidrato_g": 85.5,
+    "lipideos_g": 0.3,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 32,
+    "nome": "Farinha, de centeio, integral",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 335.8,
+    "proteina_g": 12.5,
+    "carboidrato_g": 73.3,
+    "lipideos_g": 1.8,
+    "fibra_g": 15.5
+  },
+  {
+    "id": 33,
+    "nome": "Farinha, de milho, amarela",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 350.6,
+    "proteina_g": 7.2,
+    "carboidrato_g": 79.1,
+    "lipideos_g": 1.5,
+    "fibra_g": 5.5
+  },
+  {
+    "id": 34,
+    "nome": "Farinha, de rosca",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 370.6,
+    "proteina_g": 11.4,
+    "carboidrato_g": 75.8,
+    "lipideos_g": 1.5,
+    "fibra_g": 4.8
+  },
+  {
+    "id": 35,
+    "nome": "Farinha, de trigo",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 360.5,
+    "proteina_g": 9.8,
+    "carboidrato_g": 75.1,
+    "lipideos_g": 1.4,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 36,
+    "nome": "Farinha, láctea, de cereais",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 414.9,
+    "proteina_g": 11.9,
+    "carboidrato_g": 77.8,
+    "lipideos_g": 5.8,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 37,
+    "nome": "Lasanha, massa fresca, cozida",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 163.8,
+    "proteina_g": 5.8,
+    "carboidrato_g": 32.5,
+    "lipideos_g": 1.2,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 38,
+    "nome": "Lasanha, massa fresca, crua",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 220.3,
+    "proteina_g": 7,
+    "carboidrato_g": 45.1,
+    "lipideos_g": 1.3,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 39,
+    "nome": "Macarrão, instantâneo",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 435.9,
+    "proteina_g": 8.8,
+    "carboidrato_g": 62.4,
+    "lipideos_g": 17.2,
+    "fibra_g": 5.6
+  },
+  {
+    "id": 40,
+    "nome": "Macarrão, trigo, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 371.1,
+    "proteina_g": 10,
+    "carboidrato_g": 77.9,
+    "lipideos_g": 1.3,
+    "fibra_g": 2.9
+  },
+  {
+    "id": 41,
+    "nome": "Macarrão, trigo, cru, com ovos",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 370.6,
+    "proteina_g": 10.3,
+    "carboidrato_g": 76.6,
+    "lipideos_g": 2,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 42,
+    "nome": "Milho, amido, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 361.4,
+    "proteina_g": 0.6,
+    "carboidrato_g": 87.1,
+    "lipideos_g": 0,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 43,
+    "nome": "Milho, fubá, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 353.5,
+    "proteina_g": 7.2,
+    "carboidrato_g": 78.9,
+    "lipideos_g": 1.9,
+    "fibra_g": 4.7
+  },
+  {
+    "id": 44,
+    "nome": "Milho, verde, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 138.2,
+    "proteina_g": 6.6,
+    "carboidrato_g": 28.6,
+    "lipideos_g": 0.6,
+    "fibra_g": 3.9
+  },
+  {
+    "id": 45,
+    "nome": "Milho, verde, enlatado, drenado",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 97.6,
+    "proteina_g": 3.2,
+    "carboidrato_g": 17.1,
+    "lipideos_g": 2.4,
+    "fibra_g": 4.6
+  },
+  {
+    "id": 46,
+    "nome": "Mingau tradicional, pó",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 373.4,
+    "proteina_g": 0.6,
+    "carboidrato_g": 89.3,
+    "lipideos_g": 0.4,
+    "fibra_g": 0.9
+  },
+  {
+    "id": 47,
+    "nome": "Pamonha, barra para cozimento, pré-cozida",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 171.2,
+    "proteina_g": 2.6,
+    "carboidrato_g": 30.7,
+    "lipideos_g": 4.8,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 48,
+    "nome": "Pão, aveia, forma",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 343.1,
+    "proteina_g": 12.4,
+    "carboidrato_g": 59.6,
+    "lipideos_g": 5.7,
+    "fibra_g": 6
+  },
+  {
+    "id": 49,
+    "nome": "Pão, de soja",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 308.7,
+    "proteina_g": 11.3,
+    "carboidrato_g": 56.5,
+    "lipideos_g": 3.6,
+    "fibra_g": 5.7
+  },
+  {
+    "id": 50,
+    "nome": "Pão, glúten, forma",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 253,
+    "proteina_g": 12,
+    "carboidrato_g": 44.1,
+    "lipideos_g": 2.7,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 51,
+    "nome": "Pão, milho, forma",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 292,
+    "proteina_g": 8.3,
+    "carboidrato_g": 56.4,
+    "lipideos_g": 3.1,
+    "fibra_g": 4.3
+  },
+  {
+    "id": 52,
+    "nome": "Pão, trigo, forma, integral",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 253.2,
+    "proteina_g": 9.4,
+    "carboidrato_g": 49.9,
+    "lipideos_g": 3.7,
+    "fibra_g": 6.9
+  },
+  {
+    "id": 53,
+    "nome": "Pão, trigo, francês",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 299.8,
+    "proteina_g": 8,
+    "carboidrato_g": 58.6,
+    "lipideos_g": 3.1,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 54,
+    "nome": "Pão, trigo, sovado",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 311,
+    "proteina_g": 8.4,
+    "carboidrato_g": 61.5,
+    "lipideos_g": 2.8,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 55,
+    "nome": "Pastel, de carne, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 288.7,
+    "proteina_g": 10.7,
+    "carboidrato_g": 42,
+    "lipideos_g": 8.8,
+    "fibra_g": 1
+  },
+  {
+    "id": 56,
+    "nome": "Pastel, de carne, frito",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 388.4,
+    "proteina_g": 10.1,
+    "carboidrato_g": 43.8,
+    "lipideos_g": 20.1,
+    "fibra_g": 1
+  },
+  {
+    "id": 57,
+    "nome": "Pastel, de queijo, cru",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 308.5,
+    "proteina_g": 9.9,
+    "carboidrato_g": 45.9,
+    "lipideos_g": 9.6,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 58,
+    "nome": "Pastel, de queijo, frito",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 422.1,
+    "proteina_g": 8.7,
+    "carboidrato_g": 48.1,
+    "lipideos_g": 22.7,
+    "fibra_g": 0.9
+  },
+  {
+    "id": 59,
+    "nome": "Pastel, massa, crua",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 310.2,
+    "proteina_g": 6.9,
+    "carboidrato_g": 57.4,
+    "lipideos_g": 5.5,
+    "fibra_g": 1.4
+  },
+  {
+    "id": 60,
+    "nome": "Pastel, massa, frita",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 569.7,
+    "proteina_g": 6,
+    "carboidrato_g": 49.3,
+    "lipideos_g": 40.9,
+    "fibra_g": 1.3
+  },
+  {
+    "id": 61,
+    "nome": "Pipoca, com óleo de soja, sem sal",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 448.3,
+    "proteina_g": 9.9,
+    "carboidrato_g": 70.3,
+    "lipideos_g": 15.9,
+    "fibra_g": 14.3
+  },
+  {
+    "id": 62,
+    "nome": "Polenta, pré-cozida",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 102.7,
+    "proteina_g": 2.3,
+    "carboidrato_g": 23.3,
+    "lipideos_g": 0.3,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 63,
+    "nome": "Torrada, pão francês",
+    "grupo": "Cereais e derivados",
+    "energia_kcal": 377.4,
+    "proteina_g": 10.5,
+    "carboidrato_g": 74.6,
+    "lipideos_g": 3.3,
+    "fibra_g": 3.4
+  },
+  {
+    "id": 64,
+    "nome": "Abóbora, cabotian, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 48,
+    "proteina_g": 1.4,
+    "carboidrato_g": 10.8,
+    "lipideos_g": 0.7,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 65,
+    "nome": "Abóbora, cabotian, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 38.6,
+    "proteina_g": 1.7,
+    "carboidrato_g": 8.4,
+    "lipideos_g": 0.5,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 66,
+    "nome": "Abóbora, menina brasileira, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 13.6,
+    "proteina_g": 0.6,
+    "carboidrato_g": 3.3,
+    "lipideos_g": 0,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 67,
+    "nome": "Abóbora, moranga, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 12.4,
+    "proteina_g": 1,
+    "carboidrato_g": 2.7,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 68,
+    "nome": "Abóbora, moranga, refogada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 29,
+    "proteina_g": 0.4,
+    "carboidrato_g": 6,
+    "lipideos_g": 0.8,
+    "fibra_g": 1.5
+  },
+  {
+    "id": 69,
+    "nome": "Abóbora, pescoço, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 24.5,
+    "proteina_g": 0.7,
+    "carboidrato_g": 6.1,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 70,
+    "nome": "Abobrinha, italiana, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 15,
+    "proteina_g": 1.1,
+    "carboidrato_g": 3,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 71,
+    "nome": "Abobrinha, italiana, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 19.3,
+    "proteina_g": 1.1,
+    "carboidrato_g": 4.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.4
+  },
+  {
+    "id": 72,
+    "nome": "Abobrinha, italiana, refogada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 24.4,
+    "proteina_g": 1.1,
+    "carboidrato_g": 4.2,
+    "lipideos_g": 0.8,
+    "fibra_g": 1.4
+  },
+  {
+    "id": 73,
+    "nome": "Abobrinha, paulista, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 30.8,
+    "proteina_g": 0.6,
+    "carboidrato_g": 7.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 74,
+    "nome": "Acelga, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 20.9,
+    "proteina_g": 1.4,
+    "carboidrato_g": 4.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 75,
+    "nome": "Agrião, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 16.6,
+    "proteina_g": 2.7,
+    "carboidrato_g": 2.3,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 76,
+    "nome": "Aipo, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 19.1,
+    "proteina_g": 0.8,
+    "carboidrato_g": 4.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 1
+  },
+  {
+    "id": 77,
+    "nome": "Alface, americana, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 8.8,
+    "proteina_g": 0.6,
+    "carboidrato_g": 1.7,
+    "lipideos_g": 0.1,
+    "fibra_g": 1
+  },
+  {
+    "id": 78,
+    "nome": "Alface, crespa, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 10.7,
+    "proteina_g": 1.3,
+    "carboidrato_g": 1.7,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 79,
+    "nome": "Alface, lisa, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 13.8,
+    "proteina_g": 1.7,
+    "carboidrato_g": 2.4,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 80,
+    "nome": "Alface, roxa, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 12.7,
+    "proteina_g": 0.9,
+    "carboidrato_g": 2.5,
+    "lipideos_g": 0.2,
+    "fibra_g": 2
+  },
+  {
+    "id": 81,
+    "nome": "Alfavaca, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 29.2,
+    "proteina_g": 2.7,
+    "carboidrato_g": 5.2,
+    "lipideos_g": 0.5,
+    "fibra_g": 4.1
+  },
+  {
+    "id": 82,
+    "nome": "Alho, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 113.1,
+    "proteina_g": 7,
+    "carboidrato_g": 23.9,
+    "lipideos_g": 0.2,
+    "fibra_g": 4.3
+  },
+  {
+    "id": 83,
+    "nome": "Alho-poró, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 31.5,
+    "proteina_g": 1.4,
+    "carboidrato_g": 6.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 84,
+    "nome": "Almeirão, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 18,
+    "proteina_g": 1.8,
+    "carboidrato_g": 3.3,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 85,
+    "nome": "Almeirão, refogado",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 65.1,
+    "proteina_g": 1.7,
+    "carboidrato_g": 5.7,
+    "lipideos_g": 4.8,
+    "fibra_g": 3.4
+  },
+  {
+    "id": 86,
+    "nome": "Batata, baroa, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 80.1,
+    "proteina_g": 0.9,
+    "carboidrato_g": 18.9,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 87,
+    "nome": "Batata, baroa, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 101,
+    "proteina_g": 1,
+    "carboidrato_g": 24,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 88,
+    "nome": "Batata, doce, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 76.8,
+    "proteina_g": 0.6,
+    "carboidrato_g": 18.4,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 89,
+    "nome": "Batata, doce, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 118.2,
+    "proteina_g": 1.3,
+    "carboidrato_g": 28.2,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 90,
+    "nome": "Batata, frita, tipo chips, industrializada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 542.7,
+    "proteina_g": 5.6,
+    "carboidrato_g": 51.2,
+    "lipideos_g": 36.6,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 91,
+    "nome": "Batata, inglesa, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 51.6,
+    "proteina_g": 1.2,
+    "carboidrato_g": 11.9,
+    "lipideos_g": 0,
+    "fibra_g": 1.3
+  },
+  {
+    "id": 92,
+    "nome": "Batata, inglesa, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 64.4,
+    "proteina_g": 1.8,
+    "carboidrato_g": 14.7,
+    "lipideos_g": 0,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 93,
+    "nome": "Batata, inglesa, frita",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 267.2,
+    "proteina_g": 5,
+    "carboidrato_g": 35.6,
+    "lipideos_g": 13.1,
+    "fibra_g": 8.1
+  },
+  {
+    "id": 94,
+    "nome": "Batata, inglesa, sauté",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 67.9,
+    "proteina_g": 1.3,
+    "carboidrato_g": 14.1,
+    "lipideos_g": 0.9,
+    "fibra_g": 1.4
+  },
+  {
+    "id": 95,
+    "nome": "Berinjela, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 18.8,
+    "proteina_g": 0.7,
+    "carboidrato_g": 4.5,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 96,
+    "nome": "Berinjela, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 19.6,
+    "proteina_g": 1.2,
+    "carboidrato_g": 4.4,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.9
+  },
+  {
+    "id": 97,
+    "nome": "Beterraba, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 32.2,
+    "proteina_g": 1.3,
+    "carboidrato_g": 7.2,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 98,
+    "nome": "Beterraba, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 48.8,
+    "proteina_g": 1.9,
+    "carboidrato_g": 11.1,
+    "lipideos_g": 0.1,
+    "fibra_g": 3.4
+  },
+  {
+    "id": 99,
+    "nome": "Biscoito, polvilho doce",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 437.5,
+    "proteina_g": 1.3,
+    "carboidrato_g": 80.5,
+    "lipideos_g": 12.2,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 100,
+    "nome": "Brócolis, cozido",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 24.6,
+    "proteina_g": 2.1,
+    "carboidrato_g": 4.4,
+    "lipideos_g": 0.5,
+    "fibra_g": 3.4
+  },
+  {
+    "id": 101,
+    "nome": "Brócolis, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 25.5,
+    "proteina_g": 3.6,
+    "carboidrato_g": 4,
+    "lipideos_g": 0.3,
+    "fibra_g": 2.9
+  },
+  {
+    "id": 102,
+    "nome": "Cará, cozido",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 77.6,
+    "proteina_g": 1.5,
+    "carboidrato_g": 18.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 103,
+    "nome": "Cará, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 95.6,
+    "proteina_g": 2.3,
+    "carboidrato_g": 23,
+    "lipideos_g": 0.1,
+    "fibra_g": 7.3
+  },
+  {
+    "id": 104,
+    "nome": "Caruru, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 34,
+    "proteina_g": 3.2,
+    "carboidrato_g": 6,
+    "lipideos_g": 0.6,
+    "fibra_g": 4.5
+  },
+  {
+    "id": 105,
+    "nome": "Catalonha, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 23.9,
+    "proteina_g": 1.9,
+    "carboidrato_g": 4.8,
+    "lipideos_g": 0.3,
+    "fibra_g": 2
+  },
+  {
+    "id": 106,
+    "nome": "Catalonha, refogada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 63.4,
+    "proteina_g": 2,
+    "carboidrato_g": 4.8,
+    "lipideos_g": 4.8,
+    "fibra_g": 3.7
+  },
+  {
+    "id": 107,
+    "nome": "Cebola, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 39.4,
+    "proteina_g": 1.7,
+    "carboidrato_g": 8.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 108,
+    "nome": "Cebolinha, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 19.5,
+    "proteina_g": 1.9,
+    "carboidrato_g": 3.4,
+    "lipideos_g": 0.4,
+    "fibra_g": 3.6
+  },
+  {
+    "id": 109,
+    "nome": "Cenoura, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 29.9,
+    "proteina_g": 0.8,
+    "carboidrato_g": 6.7,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 110,
+    "nome": "Cenoura, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 34.1,
+    "proteina_g": 1.3,
+    "carboidrato_g": 7.7,
+    "lipideos_g": 0.2,
+    "fibra_g": 3.2
+  },
+  {
+    "id": 111,
+    "nome": "Chicória, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 13.8,
+    "proteina_g": 1.1,
+    "carboidrato_g": 2.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 112,
+    "nome": "Chuchu, cozido",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 18.5,
+    "proteina_g": 0.4,
+    "carboidrato_g": 4.8,
+    "lipideos_g": 0,
+    "fibra_g": 1
+  },
+  {
+    "id": 113,
+    "nome": "Chuchu, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 17,
+    "proteina_g": 0.7,
+    "carboidrato_g": 4.1,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.3
+  },
+  {
+    "id": 114,
+    "nome": "Coentro, folhas desidratadas",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 309.1,
+    "proteina_g": 20.9,
+    "carboidrato_g": 48,
+    "lipideos_g": 10.4,
+    "fibra_g": 37.3
+  },
+  {
+    "id": 115,
+    "nome": "Couve, manteiga, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 27.1,
+    "proteina_g": 2.9,
+    "carboidrato_g": 4.3,
+    "lipideos_g": 0.5,
+    "fibra_g": 3.1
+  },
+  {
+    "id": 116,
+    "nome": "Couve, manteiga, refogada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 90.3,
+    "proteina_g": 1.7,
+    "carboidrato_g": 8.7,
+    "lipideos_g": 6.6,
+    "fibra_g": 5.7
+  },
+  {
+    "id": 117,
+    "nome": "Couve-flor, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 22.6,
+    "proteina_g": 1.9,
+    "carboidrato_g": 4.5,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 118,
+    "nome": "Couve-flor, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 19.1,
+    "proteina_g": 1.2,
+    "carboidrato_g": 3.9,
+    "lipideos_g": 0.3,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 119,
+    "nome": "Espinafre, Nova Zelândia, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 16.1,
+    "proteina_g": 2,
+    "carboidrato_g": 2.6,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 120,
+    "nome": "Espinafre, Nova Zelândia, refogado",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 67.3,
+    "proteina_g": 2.7,
+    "carboidrato_g": 4.2,
+    "lipideos_g": 5.4,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 121,
+    "nome": "Farinha, de mandioca, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 360.9,
+    "proteina_g": 1.6,
+    "carboidrato_g": 87.9,
+    "lipideos_g": 0.3,
+    "fibra_g": 6.4
+  },
+  {
+    "id": 122,
+    "nome": "Farinha, de mandioca, torrada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 365.3,
+    "proteina_g": 1.2,
+    "carboidrato_g": 89.2,
+    "lipideos_g": 0.3,
+    "fibra_g": 6.5
+  },
+  {
+    "id": 123,
+    "nome": "Farinha, de puba",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 360.2,
+    "proteina_g": 1.6,
+    "carboidrato_g": 87.3,
+    "lipideos_g": 0.5,
+    "fibra_g": 4.2
+  },
+  {
+    "id": 124,
+    "nome": "Fécula, de mandioca",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 330.9,
+    "proteina_g": 0.5,
+    "carboidrato_g": 81.1,
+    "lipideos_g": 0.3,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 125,
+    "nome": "Feijão, broto, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 38.7,
+    "proteina_g": 4.2,
+    "carboidrato_g": 7.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 2
+  },
+  {
+    "id": 126,
+    "nome": "Inhame, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 96.7,
+    "proteina_g": 2.1,
+    "carboidrato_g": 23.2,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 127,
+    "nome": "Jiló, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 27.4,
+    "proteina_g": 1.4,
+    "carboidrato_g": 6.2,
+    "lipideos_g": 0.2,
+    "fibra_g": 4.8
+  },
+  {
+    "id": 128,
+    "nome": "Jurubeba, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 125.8,
+    "proteina_g": 4.4,
+    "carboidrato_g": 23.1,
+    "lipideos_g": 3.9,
+    "fibra_g": 23.9
+  },
+  {
+    "id": 129,
+    "nome": "Mandioca, cozida",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 125.4,
+    "proteina_g": 0.6,
+    "carboidrato_g": 30.1,
+    "lipideos_g": 0.3,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 130,
+    "nome": "Mandioca, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 151.4,
+    "proteina_g": 1.1,
+    "carboidrato_g": 36.2,
+    "lipideos_g": 0.3,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 131,
+    "nome": "Mandioca, farofa, temperada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 405.7,
+    "proteina_g": 2.1,
+    "carboidrato_g": 80.3,
+    "lipideos_g": 9.1,
+    "fibra_g": 7.8
+  },
+  {
+    "id": 132,
+    "nome": "Mandioca, frita",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 300.1,
+    "proteina_g": 1.4,
+    "carboidrato_g": 50.3,
+    "lipideos_g": 11.2,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 133,
+    "nome": "Manjericão, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 21.1,
+    "proteina_g": 2,
+    "carboidrato_g": 3.6,
+    "lipideos_g": 0.4,
+    "fibra_g": 3.3
+  },
+  {
+    "id": 134,
+    "nome": "Maxixe, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 13.7,
+    "proteina_g": 1.4,
+    "carboidrato_g": 2.7,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 135,
+    "nome": "Mostarda, folha, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 18.1,
+    "proteina_g": 2.1,
+    "carboidrato_g": 3.2,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 136,
+    "nome": "Nhoque, batata, cozido",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 180.8,
+    "proteina_g": 5.9,
+    "carboidrato_g": 36.8,
+    "lipideos_g": 1.9,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 137,
+    "nome": "Nabo, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 18.2,
+    "proteina_g": 1.2,
+    "carboidrato_g": 4.1,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 138,
+    "nome": "Palmito, Juçara, em conserva",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 23.2,
+    "proteina_g": 1.8,
+    "carboidrato_g": 4.3,
+    "lipideos_g": 0.4,
+    "fibra_g": 3.2
+  },
+  {
+    "id": 139,
+    "nome": "Palmito, pupunha, em conserva",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 29.4,
+    "proteina_g": 2.5,
+    "carboidrato_g": 5.5,
+    "lipideos_g": 0.5,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 140,
+    "nome": "Pão, de queijo, assado",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 363.1,
+    "proteina_g": 5.1,
+    "carboidrato_g": 34.2,
+    "lipideos_g": 24.6,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 141,
+    "nome": "Pão, de queijo, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 294.5,
+    "proteina_g": 3.6,
+    "carboidrato_g": 38.5,
+    "lipideos_g": 14,
+    "fibra_g": 1
+  },
+  {
+    "id": 142,
+    "nome": "Pepino, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 9.5,
+    "proteina_g": 0.9,
+    "carboidrato_g": 2,
+    "lipideos_g": 0,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 143,
+    "nome": "Pimentão, amarelo, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 27.9,
+    "proteina_g": 1.2,
+    "carboidrato_g": 6,
+    "lipideos_g": 0.4,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 144,
+    "nome": "Pimentão, verde, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 21.3,
+    "proteina_g": 1.1,
+    "carboidrato_g": 4.9,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 145,
+    "nome": "Pimentão, vermelho, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 23.3,
+    "proteina_g": 1,
+    "carboidrato_g": 5.5,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 146,
+    "nome": "Polvilho, doce",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 351.2,
+    "proteina_g": 0.4,
+    "carboidrato_g": 86.8,
+    "lipideos_g": 0,
+    "fibra_g": 0.2
+  },
+  {
+    "id": 147,
+    "nome": "Quiabo, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 29.9,
+    "proteina_g": 1.9,
+    "carboidrato_g": 6.4,
+    "lipideos_g": 0.3,
+    "fibra_g": 4.6
+  },
+  {
+    "id": 148,
+    "nome": "Rabanete, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 13.7,
+    "proteina_g": 1.4,
+    "carboidrato_g": 2.7,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 149,
+    "nome": "Repolho, branco, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 17.1,
+    "proteina_g": 0.9,
+    "carboidrato_g": 3.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 150,
+    "nome": "Repolho, roxo, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 30.9,
+    "proteina_g": 1.9,
+    "carboidrato_g": 7.2,
+    "lipideos_g": 0.1,
+    "fibra_g": 2
+  },
+  {
+    "id": 151,
+    "nome": "Repolho, roxo, refogado",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 41.8,
+    "proteina_g": 1.8,
+    "carboidrato_g": 7.6,
+    "lipideos_g": 1.2,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 152,
+    "nome": "Rúcula, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 13.1,
+    "proteina_g": 1.8,
+    "carboidrato_g": 2.2,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 153,
+    "nome": "Salsa, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 33.4,
+    "proteina_g": 3.3,
+    "carboidrato_g": 5.7,
+    "lipideos_g": 0.6,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 154,
+    "nome": "Seleta de legumes, enlatada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 56.5,
+    "proteina_g": 3.4,
+    "carboidrato_g": 12.7,
+    "lipideos_g": 0.4,
+    "fibra_g": 3.1
+  },
+  {
+    "id": 155,
+    "nome": "Serralha, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 30.4,
+    "proteina_g": 2.7,
+    "carboidrato_g": 4.9,
+    "lipideos_g": 0.7,
+    "fibra_g": 3.5
+  },
+  {
+    "id": 156,
+    "nome": "Taioba, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 34.2,
+    "proteina_g": 2.9,
+    "carboidrato_g": 5.4,
+    "lipideos_g": 0.9,
+    "fibra_g": 4.5
+  },
+  {
+    "id": 157,
+    "nome": "Tomate, com semente, cru",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 15.3,
+    "proteina_g": 1.1,
+    "carboidrato_g": 3.1,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 158,
+    "nome": "Tomate, extrato",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 60.9,
+    "proteina_g": 2.4,
+    "carboidrato_g": 15,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.8
+  },
+  {
+    "id": 159,
+    "nome": "Tomate, molho industrializado",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 38.4,
+    "proteina_g": 1.4,
+    "carboidrato_g": 7.7,
+    "lipideos_g": 0.9,
+    "fibra_g": 3.1
+  },
+  {
+    "id": 160,
+    "nome": "Tomate, purê",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 27.9,
+    "proteina_g": 1.4,
+    "carboidrato_g": 6.9,
+    "lipideos_g": 0,
+    "fibra_g": 1
+  },
+  {
+    "id": 161,
+    "nome": "Tomate, salada",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 20.5,
+    "proteina_g": 0.8,
+    "carboidrato_g": 5.1,
+    "lipideos_g": 0,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 162,
+    "nome": "Vagem, crua",
+    "grupo": "Verduras, hortaliças e derivados",
+    "energia_kcal": 24.9,
+    "proteina_g": 1.8,
+    "carboidrato_g": 5.3,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 163,
+    "nome": "Abacate, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 96.2,
+    "proteina_g": 1.2,
+    "carboidrato_g": 6,
+    "lipideos_g": 8.4,
+    "fibra_g": 6.3
+  },
+  {
+    "id": 164,
+    "nome": "Abacaxi, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 48.3,
+    "proteina_g": 0.9,
+    "carboidrato_g": 12.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 1
+  },
+  {
+    "id": 165,
+    "nome": "Abacaxi, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 30.6,
+    "proteina_g": 0.5,
+    "carboidrato_g": 7.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 0.3
+  },
+  {
+    "id": 166,
+    "nome": "Abiu, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 62.4,
+    "proteina_g": 0.8,
+    "carboidrato_g": 14.9,
+    "lipideos_g": 0.7,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 167,
+    "nome": "Açaí, polpa, com xarope de guaraná e glucose",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 110.3,
+    "proteina_g": 0.7,
+    "carboidrato_g": 21.5,
+    "lipideos_g": 3.7,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 168,
+    "nome": "Açaí, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 58,
+    "proteina_g": 0.8,
+    "carboidrato_g": 6.2,
+    "lipideos_g": 3.9,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 169,
+    "nome": "Acerola, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 33.5,
+    "proteina_g": 0.9,
+    "carboidrato_g": 8,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.5
+  },
+  {
+    "id": 170,
+    "nome": "Acerola, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 21.9,
+    "proteina_g": 0.6,
+    "carboidrato_g": 5.5,
+    "lipideos_g": 0,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 171,
+    "nome": "Ameixa, calda, enlatada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 182.8,
+    "proteina_g": 0.4,
+    "carboidrato_g": 46.9,
+    "lipideos_g": 0,
+    "fibra_g": 0.5
+  },
+  {
+    "id": 172,
+    "nome": "Ameixa, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 52.5,
+    "proteina_g": 0.8,
+    "carboidrato_g": 13.9,
+    "lipideos_g": 0,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 173,
+    "nome": "Ameixa, em calda, enlatada, drenada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 177.4,
+    "proteina_g": 1,
+    "carboidrato_g": 47.7,
+    "lipideos_g": 0.3,
+    "fibra_g": 4.5
+  },
+  {
+    "id": 174,
+    "nome": "Atemóia, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 97,
+    "proteina_g": 1,
+    "carboidrato_g": 25.3,
+    "lipideos_g": 0.3,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 175,
+    "nome": "Banana, da terra, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 128,
+    "proteina_g": 1.4,
+    "carboidrato_g": 33.7,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.5
+  },
+  {
+    "id": 176,
+    "nome": "Banana, doce em barra",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 280.1,
+    "proteina_g": 2.2,
+    "carboidrato_g": 75.7,
+    "lipideos_g": 0.1,
+    "fibra_g": 3.8
+  },
+  {
+    "id": 177,
+    "nome": "Banana, figo, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 105.1,
+    "proteina_g": 1.1,
+    "carboidrato_g": 27.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.8
+  },
+  {
+    "id": 178,
+    "nome": "Banana, maçã, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 86.8,
+    "proteina_g": 1.8,
+    "carboidrato_g": 22.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 179,
+    "nome": "Banana, nanica, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 91.5,
+    "proteina_g": 1.4,
+    "carboidrato_g": 23.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 180,
+    "nome": "Banana, ouro, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 112.4,
+    "proteina_g": 1.5,
+    "carboidrato_g": 29.3,
+    "lipideos_g": 0.2,
+    "fibra_g": 2
+  },
+  {
+    "id": 181,
+    "nome": "Banana, pacova, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 77.9,
+    "proteina_g": 1.2,
+    "carboidrato_g": 20.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 2
+  },
+  {
+    "id": 182,
+    "nome": "Banana, prata, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 98.2,
+    "proteina_g": 1.3,
+    "carboidrato_g": 26,
+    "lipideos_g": 0.1,
+    "fibra_g": 2
+  },
+  {
+    "id": 183,
+    "nome": "Cacau, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 74.3,
+    "proteina_g": 1,
+    "carboidrato_g": 19.4,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 184,
+    "nome": "Cajá-Manga, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 45.6,
+    "proteina_g": 1.3,
+    "carboidrato_g": 11.4,
+    "lipideos_g": 0,
+    "fibra_g": 2.6
+  },
+  {
+    "id": 185,
+    "nome": "Cajá, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 26.3,
+    "proteina_g": 0.6,
+    "carboidrato_g": 6.4,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.4
+  },
+  {
+    "id": 186,
+    "nome": "Caju, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 43.1,
+    "proteina_g": 1,
+    "carboidrato_g": 10.3,
+    "lipideos_g": 0.3,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 187,
+    "nome": "Caju, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 36.6,
+    "proteina_g": 0.5,
+    "carboidrato_g": 9.4,
+    "lipideos_g": 0.2,
+    "fibra_g": 0.8
+  },
+  {
+    "id": 188,
+    "nome": "Caju, suco concentrado, envasado",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 45.1,
+    "proteina_g": 0.4,
+    "carboidrato_g": 10.7,
+    "lipideos_g": 0.2,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 189,
+    "nome": "Caqui, chocolate, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 71.4,
+    "proteina_g": 0.4,
+    "carboidrato_g": 19.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 6.5
+  },
+  {
+    "id": 190,
+    "nome": "Carambola, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 45.7,
+    "proteina_g": 0.9,
+    "carboidrato_g": 11.5,
+    "lipideos_g": 0.2,
+    "fibra_g": 2
+  },
+  {
+    "id": 191,
+    "nome": "Ciriguela, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 75.6,
+    "proteina_g": 1.4,
+    "carboidrato_g": 18.9,
+    "lipideos_g": 0.4,
+    "fibra_g": 3.9
+  },
+  {
+    "id": 192,
+    "nome": "Cupuaçu, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 49.4,
+    "proteina_g": 1.2,
+    "carboidrato_g": 10.4,
+    "lipideos_g": 1,
+    "fibra_g": 3.1
+  },
+  {
+    "id": 193,
+    "nome": "Cupuaçu, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 48.8,
+    "proteina_g": 0.8,
+    "carboidrato_g": 11.4,
+    "lipideos_g": 0.6,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 194,
+    "nome": "Figo, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 41.4,
+    "proteina_g": 1,
+    "carboidrato_g": 10.2,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 195,
+    "nome": "Figo, enlatado, em calda",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 184.4,
+    "proteina_g": 0.6,
+    "carboidrato_g": 50.3,
+    "lipideos_g": 0.2,
+    "fibra_g": 2
+  },
+  {
+    "id": 196,
+    "nome": "Fruta-pão, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 67,
+    "proteina_g": 1.1,
+    "carboidrato_g": 17.2,
+    "lipideos_g": 0.2,
+    "fibra_g": 5.5
+  },
+  {
+    "id": 197,
+    "nome": "Goiaba, branca, com casca, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 51.7,
+    "proteina_g": 0.9,
+    "carboidrato_g": 12.4,
+    "lipideos_g": 0.5,
+    "fibra_g": 6.3
+  },
+  {
+    "id": 198,
+    "nome": "Goiaba, doce em pasta",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 269,
+    "proteina_g": 0.6,
+    "carboidrato_g": 74.1,
+    "lipideos_g": 0,
+    "fibra_g": 3.7
+  },
+  {
+    "id": 199,
+    "nome": "Goiaba, doce, cascão",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 285.6,
+    "proteina_g": 0.4,
+    "carboidrato_g": 78.7,
+    "lipideos_g": 0.1,
+    "fibra_g": 4.4
+  },
+  {
+    "id": 200,
+    "nome": "Goiaba, vermelha, com casca, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 54.2,
+    "proteina_g": 1.1,
+    "carboidrato_g": 13,
+    "lipideos_g": 0.4,
+    "fibra_g": 6.2
+  },
+  {
+    "id": 201,
+    "nome": "Graviola, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 61.6,
+    "proteina_g": 0.8,
+    "carboidrato_g": 15.8,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 202,
+    "nome": "Graviola, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 38.3,
+    "proteina_g": 0.6,
+    "carboidrato_g": 9.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 203,
+    "nome": "Jabuticaba, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 58.1,
+    "proteina_g": 0.6,
+    "carboidrato_g": 15.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 204,
+    "nome": "Jaca, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 87.9,
+    "proteina_g": 1.4,
+    "carboidrato_g": 22.5,
+    "lipideos_g": 0.3,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 205,
+    "nome": "Jambo, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 26.9,
+    "proteina_g": 0.9,
+    "carboidrato_g": 6.5,
+    "lipideos_g": 0.1,
+    "fibra_g": 5.1
+  },
+  {
+    "id": 206,
+    "nome": "Jamelão, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 41,
+    "proteina_g": 0.5,
+    "carboidrato_g": 10.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 207,
+    "nome": "Kiwi, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 51.1,
+    "proteina_g": 1.3,
+    "carboidrato_g": 11.5,
+    "lipideos_g": 0.6,
+    "fibra_g": 2.7
+  },
+  {
+    "id": 208,
+    "nome": "Laranja, baía, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 45.4,
+    "proteina_g": 1,
+    "carboidrato_g": 11.5,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 209,
+    "nome": "Laranja, baía, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 36.6,
+    "proteina_g": 0.7,
+    "carboidrato_g": 8.7,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 210,
+    "nome": "Laranja, da terra, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 51.5,
+    "proteina_g": 1.1,
+    "carboidrato_g": 12.9,
+    "lipideos_g": 0.2,
+    "fibra_g": 4
+  },
+  {
+    "id": 211,
+    "nome": "Laranja, da terra, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 41,
+    "proteina_g": 0.7,
+    "carboidrato_g": 9.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 1
+  },
+  {
+    "id": 212,
+    "nome": "Laranja, lima, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 45.7,
+    "proteina_g": 1.1,
+    "carboidrato_g": 11.5,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 213,
+    "nome": "Laranja, lima, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 39.3,
+    "proteina_g": 0.7,
+    "carboidrato_g": 9.2,
+    "lipideos_g": 0.1,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 214,
+    "nome": "Laranja, pêra, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 36.8,
+    "proteina_g": 1,
+    "carboidrato_g": 8.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 0.8
+  },
+  {
+    "id": 215,
+    "nome": "Laranja, pêra, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 32.7,
+    "proteina_g": 0.7,
+    "carboidrato_g": 7.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 216,
+    "nome": "Laranja, valência, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 46.1,
+    "proteina_g": 0.8,
+    "carboidrato_g": 11.7,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 217,
+    "nome": "Laranja, valência, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 36.2,
+    "proteina_g": 0.5,
+    "carboidrato_g": 8.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 218,
+    "nome": "Limão, cravo, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 14.1,
+    "proteina_g": 0.3,
+    "carboidrato_g": 5.2,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 219,
+    "nome": "Limão, galego, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 22.2,
+    "proteina_g": 0.6,
+    "carboidrato_g": 7.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 220,
+    "nome": "Limão, tahiti, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 31.8,
+    "proteina_g": 0.9,
+    "carboidrato_g": 11.1,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 221,
+    "nome": "Maçã, Argentina, com casca, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 62.5,
+    "proteina_g": 0.2,
+    "carboidrato_g": 16.6,
+    "lipideos_g": 0.2,
+    "fibra_g": 2
+  },
+  {
+    "id": 222,
+    "nome": "Maçã, Fuji, com casca, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 55.5,
+    "proteina_g": 0.3,
+    "carboidrato_g": 15.2,
+    "lipideos_g": 0,
+    "fibra_g": 1.3
+  },
+  {
+    "id": 223,
+    "nome": "Macaúba, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 404.3,
+    "proteina_g": 2.1,
+    "carboidrato_g": 13.9,
+    "lipideos_g": 40.7,
+    "fibra_g": 13.4
+  },
+  {
+    "id": 224,
+    "nome": "Mamão, doce em calda, drenado",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 195.6,
+    "proteina_g": 0.2,
+    "carboidrato_g": 54,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.3
+  },
+  {
+    "id": 225,
+    "nome": "Mamão, Formosa, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 45.3,
+    "proteina_g": 0.8,
+    "carboidrato_g": 11.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.8
+  },
+  {
+    "id": 226,
+    "nome": "Mamão, Papaia, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 40.2,
+    "proteina_g": 0.5,
+    "carboidrato_g": 10.4,
+    "lipideos_g": 0.1,
+    "fibra_g": 1
+  },
+  {
+    "id": 227,
+    "nome": "Mamão verde, doce em calda, drenado",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 209.4,
+    "proteina_g": 0.3,
+    "carboidrato_g": 57.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.2
+  },
+  {
+    "id": 228,
+    "nome": "Manga, Haden, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 63.5,
+    "proteina_g": 0.4,
+    "carboidrato_g": 16.7,
+    "lipideos_g": 0.3,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 229,
+    "nome": "Manga, Palmer, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 72.5,
+    "proteina_g": 0.4,
+    "carboidrato_g": 19.4,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 230,
+    "nome": "Manga, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 48.3,
+    "proteina_g": 0.4,
+    "carboidrato_g": 12.5,
+    "lipideos_g": 0.2,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 231,
+    "nome": "Manga, Tommy Atkins, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 50.7,
+    "proteina_g": 0.9,
+    "carboidrato_g": 12.8,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 232,
+    "nome": "Maracujá, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 68.4,
+    "proteina_g": 2,
+    "carboidrato_g": 12.3,
+    "lipideos_g": 2.1,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 233,
+    "nome": "Maracujá, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 38.8,
+    "proteina_g": 0.8,
+    "carboidrato_g": 9.6,
+    "lipideos_g": 0.2,
+    "fibra_g": 0.5
+  },
+  {
+    "id": 234,
+    "nome": "Maracujá, suco concentrado, envasado",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 42,
+    "proteina_g": 0.8,
+    "carboidrato_g": 9.6,
+    "lipideos_g": 0.2,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 235,
+    "nome": "Melancia, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 32.6,
+    "proteina_g": 0.9,
+    "carboidrato_g": 8.1,
+    "lipideos_g": 0,
+    "fibra_g": 0.1
+  },
+  {
+    "id": 236,
+    "nome": "Melão, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 29.4,
+    "proteina_g": 0.7,
+    "carboidrato_g": 7.5,
+    "lipideos_g": 0,
+    "fibra_g": 0.3
+  },
+  {
+    "id": 237,
+    "nome": "Mexerica, Murcote, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 57.6,
+    "proteina_g": 0.9,
+    "carboidrato_g": 14.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 3.1
+  },
+  {
+    "id": 238,
+    "nome": "Mexerica, Rio, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 36.9,
+    "proteina_g": 0.7,
+    "carboidrato_g": 9.3,
+    "lipideos_g": 0.1,
+    "fibra_g": 2.7
+  },
+  {
+    "id": 239,
+    "nome": "Morango, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 30.1,
+    "proteina_g": 0.9,
+    "carboidrato_g": 6.8,
+    "lipideos_g": 0.3,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 240,
+    "nome": "Nêspera, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 42.5,
+    "proteina_g": 0.3,
+    "carboidrato_g": 11.5,
+    "lipideos_g": 0,
+    "fibra_g": 3
+  },
+  {
+    "id": 241,
+    "nome": "Pequi, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 205,
+    "proteina_g": 2.3,
+    "carboidrato_g": 13,
+    "lipideos_g": 18,
+    "fibra_g": 19
+  },
+  {
+    "id": 242,
+    "nome": "Pêra, Park, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 60.6,
+    "proteina_g": 0.2,
+    "carboidrato_g": 16.1,
+    "lipideos_g": 0.2,
+    "fibra_g": 3
+  },
+  {
+    "id": 243,
+    "nome": "Pêra, Williams, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 53.3,
+    "proteina_g": 0.6,
+    "carboidrato_g": 14,
+    "lipideos_g": 0.1,
+    "fibra_g": 3
+  },
+  {
+    "id": 244,
+    "nome": "Pêssego, Aurora, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 36.3,
+    "proteina_g": 0.8,
+    "carboidrato_g": 9.3,
+    "lipideos_g": 0,
+    "fibra_g": 1.4
+  },
+  {
+    "id": 245,
+    "nome": "Pêssego, enlatado, em calda",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 63.1,
+    "proteina_g": 0.7,
+    "carboidrato_g": 16.9,
+    "lipideos_g": 0,
+    "fibra_g": 1
+  },
+  {
+    "id": 246,
+    "nome": "Pinha, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 88.5,
+    "proteina_g": 1.5,
+    "carboidrato_g": 22.4,
+    "lipideos_g": 0.3,
+    "fibra_g": 3.4
+  },
+  {
+    "id": 247,
+    "nome": "Pitanga, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 41.4,
+    "proteina_g": 0.9,
+    "carboidrato_g": 10.2,
+    "lipideos_g": 0.2,
+    "fibra_g": 3.2
+  },
+  {
+    "id": 248,
+    "nome": "Pitanga, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 19.1,
+    "proteina_g": 0.3,
+    "carboidrato_g": 4.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 249,
+    "nome": "Romã, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 55.7,
+    "proteina_g": 0.4,
+    "carboidrato_g": 15.1,
+    "lipideos_g": 0,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 250,
+    "nome": "Tamarindo, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 275.7,
+    "proteina_g": 3.2,
+    "carboidrato_g": 72.5,
+    "lipideos_g": 0.5,
+    "fibra_g": 6.4
+  },
+  {
+    "id": 251,
+    "nome": "Tangerina, Poncã, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 37.8,
+    "proteina_g": 0.8,
+    "carboidrato_g": 9.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 0.9
+  },
+  {
+    "id": 252,
+    "nome": "Tangerina, Poncã, suco",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 36.1,
+    "proteina_g": 0.5,
+    "carboidrato_g": 8.8,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 253,
+    "nome": "Tucumã, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 262,
+    "proteina_g": 2.1,
+    "carboidrato_g": 26.5,
+    "lipideos_g": 19.1,
+    "fibra_g": 12.7
+  },
+  {
+    "id": 254,
+    "nome": "Umbu, cru",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 37,
+    "proteina_g": 0.8,
+    "carboidrato_g": 9.4,
+    "lipideos_g": 0,
+    "fibra_g": 2
+  },
+  {
+    "id": 255,
+    "nome": "Umbu, polpa, congelada",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 33.9,
+    "proteina_g": 0.5,
+    "carboidrato_g": 8.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 1.3
+  },
+  {
+    "id": 256,
+    "nome": "Uva, Itália, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 52.9,
+    "proteina_g": 0.7,
+    "carboidrato_g": 13.6,
+    "lipideos_g": 0.2,
+    "fibra_g": 0.9
+  },
+  {
+    "id": 257,
+    "nome": "Uva, Rubi, crua",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 49.1,
+    "proteina_g": 0.6,
+    "carboidrato_g": 12.7,
+    "lipideos_g": 0.2,
+    "fibra_g": 0.9
+  },
+  {
+    "id": 258,
+    "nome": "Uva, suco concentrado, envasado",
+    "grupo": "Frutas e derivados",
+    "energia_kcal": 57.7,
+    "proteina_g": 0,
+    "carboidrato_g": 14.7,
+    "lipideos_g": 0,
+    "fibra_g": 0.2
+  },
+  {
+    "id": 259,
+    "nome": "Azeite, de dendê",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 260,
+    "nome": "Azeite, de oliva, extra virgem",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 261,
+    "nome": "Manteiga, com sal",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 726,
+    "proteina_g": 0.4,
+    "carboidrato_g": 0.1,
+    "lipideos_g": 82.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 262,
+    "nome": "Manteiga, sem sal",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 757.5,
+    "proteina_g": 0.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 86,
+    "fibra_g": 0
+  },
+  {
+    "id": 263,
+    "nome": "Margarina, com óleo hidrogenado, com sal (65% de lipídeos)",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 596.1,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 67.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 264,
+    "nome": "Margarina, com óleo hidrogenado, sem sal (80% de lipídeos)",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 722.5,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 81.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 265,
+    "nome": "Margarina, com óleo interesterificado, com sal (65%de lipídeos)",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 594.5,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 67.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 266,
+    "nome": "Margarina, com óleo interesterificado, sem sal (65% de lipídeos)",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 593.1,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 67.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 267,
+    "nome": "Óleo, de babaçu",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 268,
+    "nome": "Óleo, de canola",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 269,
+    "nome": "Óleo, de girassol",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 270,
+    "nome": "Óleo, de milho",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 271,
+    "nome": "Óleo, de pequi",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 272,
+    "nome": "Óleo, de soja",
+    "grupo": "Gorduras e óleos",
+    "energia_kcal": 884,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 100,
+    "fibra_g": 0
+  },
+  {
+    "id": 273,
+    "nome": "Abadejo, filé, congelado, assado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 111.6,
+    "proteina_g": 23.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 274,
+    "nome": "Abadejo, filé, congelado,cozido",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 91.1,
+    "proteina_g": 19.3,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 275,
+    "nome": "Abadejo, filé, congelado, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 59.1,
+    "proteina_g": 13.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 276,
+    "nome": "Abadejo, filé, congelado, grelhado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 129.6,
+    "proteina_g": 27.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 277,
+    "nome": "Atum, conserva em óleo",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 165.9,
+    "proteina_g": 26.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 6,
+    "fibra_g": 0
+  },
+  {
+    "id": 278,
+    "nome": "Atum, fresco, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 117.5,
+    "proteina_g": 25.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 279,
+    "nome": "Bacalhau, salgado, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 135.9,
+    "proteina_g": 29,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 280,
+    "nome": "Bacalhau, salgado, refogado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 139.7,
+    "proteina_g": 24,
+    "carboidrato_g": 1.2,
+    "lipideos_g": 3.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 281,
+    "nome": "Cação, posta, com farinha de trigo, frita",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 208.3,
+    "proteina_g": 25,
+    "carboidrato_g": 3.1,
+    "lipideos_g": 10,
+    "fibra_g": 0.5
+  },
+  {
+    "id": 282,
+    "nome": "Cação, posta, cozida",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 116,
+    "proteina_g": 25.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 283,
+    "nome": "Cação, posta, crua",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 83.3,
+    "proteina_g": 17.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 284,
+    "nome": "Camarão, Rio Grande, grande, cozido",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 90,
+    "proteina_g": 19,
+    "carboidrato_g": 0,
+    "lipideos_g": 1,
+    "fibra_g": 0
+  },
+  {
+    "id": 285,
+    "nome": "Camarão, Rio Grande, grande, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 47.2,
+    "proteina_g": 10,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 286,
+    "nome": "Camarão, Sete Barbas, sem cabeça, com casca, frito",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 231.2,
+    "proteina_g": 18.4,
+    "carboidrato_g": 2.9,
+    "lipideos_g": 15.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 287,
+    "nome": "Caranguejo, cozido",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 82.7,
+    "proteina_g": 18.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 288,
+    "nome": "Corimba, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 128.2,
+    "proteina_g": 17.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 6,
+    "fibra_g": 0
+  },
+  {
+    "id": 289,
+    "nome": "Corimbatá, assado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 261.5,
+    "proteina_g": 19.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 19.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 290,
+    "nome": "Corimbatá, cozido",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 238.7,
+    "proteina_g": 20.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 16.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 291,
+    "nome": "Corvina de água doce, crua",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 101,
+    "proteina_g": 18.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 2.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 292,
+    "nome": "Corvina do mar, crua",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 94,
+    "proteina_g": 18.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 293,
+    "nome": "Corvina grande, assada",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 146.5,
+    "proteina_g": 26.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 3.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 294,
+    "nome": "Corvina grande, cozida",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 100.1,
+    "proteina_g": 23.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 2.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 295,
+    "nome": "Dourada de água doce, fresca",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 131.2,
+    "proteina_g": 18.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 296,
+    "nome": "Lambari, congelado, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 130.8,
+    "proteina_g": 16.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 6.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 297,
+    "nome": "Lambari, congelado, frito",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 326.9,
+    "proteina_g": 28.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 22.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 298,
+    "nome": "Lambari, fresco,cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 151.6,
+    "proteina_g": 15.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 9.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 299,
+    "nome": "Manjuba, com farinha de trigo, frita",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 343.6,
+    "proteina_g": 23.5,
+    "carboidrato_g": 10.2,
+    "lipideos_g": 22.6,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 300,
+    "nome": "Manjuba, frita",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 349.3,
+    "proteina_g": 30.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 24.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 301,
+    "nome": "Merluza, filé, assado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 121.9,
+    "proteina_g": 26.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 302,
+    "nome": "Merluza, filé, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 89.1,
+    "proteina_g": 16.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 2,
+    "fibra_g": 0
+  },
+  {
+    "id": 303,
+    "nome": "Merluza, filé, frito",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 191.6,
+    "proteina_g": 26.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 8.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 304,
+    "nome": "Pescada, branca, crua",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 110.9,
+    "proteina_g": 16.3,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 305,
+    "nome": "Pescada, branca, frita",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 223,
+    "proteina_g": 27.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 11.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 306,
+    "nome": "Pescada, filé, com farinha de trigo, frito",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 283.4,
+    "proteina_g": 21.4,
+    "carboidrato_g": 5,
+    "lipideos_g": 19.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 307,
+    "nome": "Pescada, filé, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 107.2,
+    "proteina_g": 16.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 4,
+    "fibra_g": 0
+  },
+  {
+    "id": 308,
+    "nome": "Pescada, filé, frito",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 154.3,
+    "proteina_g": 28.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 3.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 309,
+    "nome": "Pescada, filé, molho escabeche",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 142,
+    "proteina_g": 11.8,
+    "carboidrato_g": 5,
+    "lipideos_g": 8,
+    "fibra_g": 0.8
+  },
+  {
+    "id": 310,
+    "nome": "Pescadinha, crua",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 76.4,
+    "proteina_g": 15.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 311,
+    "nome": "Pintado, assado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 191.6,
+    "proteina_g": 36.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 4,
+    "fibra_g": 0
+  },
+  {
+    "id": 312,
+    "nome": "Pintado, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 91.1,
+    "proteina_g": 18.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 313,
+    "nome": "Pintado, grelhado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 152.2,
+    "proteina_g": 30.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 2.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 314,
+    "nome": "Porquinho, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 93,
+    "proteina_g": 20.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 315,
+    "nome": "Salmão, filé, com pele, fresco,  grelhado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 228.7,
+    "proteina_g": 23.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 14,
+    "fibra_g": 0
+  },
+  {
+    "id": 316,
+    "nome": "Salmão, sem pele, fresco, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 169.8,
+    "proteina_g": 19.3,
+    "carboidrato_g": 0,
+    "lipideos_g": 9.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 317,
+    "nome": "Salmão, sem pele, fresco, grelhado",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 242.7,
+    "proteina_g": 26.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 14.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 318,
+    "nome": "Sardinha, assada",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 164.4,
+    "proteina_g": 32.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 3,
+    "fibra_g": 0
+  },
+  {
+    "id": 319,
+    "nome": "Sardinha, conserva em óleo",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 285,
+    "proteina_g": 15.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 24,
+    "fibra_g": 0
+  },
+  {
+    "id": 320,
+    "nome": "Sardinha, frita",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 257,
+    "proteina_g": 33.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 12.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 321,
+    "nome": "Sardinha, inteira, crua",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 113.9,
+    "proteina_g": 21.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 2.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 322,
+    "nome": "Tucunaré, filé, congelado, cru",
+    "grupo": "Pescados e frutos do mar",
+    "energia_kcal": 87.7,
+    "proteina_g": 18,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 323,
+    "nome": "Apresuntado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 128.9,
+    "proteina_g": 13.5,
+    "carboidrato_g": 2.9,
+    "lipideos_g": 6.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 324,
+    "nome": "Caldo de carne, tablete",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 240.6,
+    "proteina_g": 7.8,
+    "carboidrato_g": 15.1,
+    "lipideos_g": 16.6,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 325,
+    "nome": "Caldo de galinha, tablete",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 251.4,
+    "proteina_g": 6.3,
+    "carboidrato_g": 10.6,
+    "lipideos_g": 20.4,
+    "fibra_g": 11.8
+  },
+  {
+    "id": 326,
+    "nome": "Carne, bovina, acém, moído, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 212.4,
+    "proteina_g": 26.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 10.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 327,
+    "nome": "Carne, bovina, acém, moído, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 136.6,
+    "proteina_g": 19.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 328,
+    "nome": "Carne, bovina, acém, sem gordura, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 214.6,
+    "proteina_g": 27.3,
+    "carboidrato_g": 0,
+    "lipideos_g": 10.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 329,
+    "nome": "Carne, bovina, acém, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 144,
+    "proteina_g": 20.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 6.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 330,
+    "nome": "Carne, bovina, almôndegas, cruas",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 189.3,
+    "proteina_g": 12.3,
+    "carboidrato_g": 9.8,
+    "lipideos_g": 11.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 331,
+    "nome": "Carne, bovina, almôndegas, fritas",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 271.8,
+    "proteina_g": 18.2,
+    "carboidrato_g": 14.3,
+    "lipideos_g": 15.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 332,
+    "nome": "Carne, bovina, bucho, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 133,
+    "proteina_g": 21.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 333,
+    "nome": "Carne, bovina, bucho, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 137.3,
+    "proteina_g": 20.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 334,
+    "nome": "Carne, bovina, capa de contra-filé, com gordura, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 216.9,
+    "proteina_g": 19.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 15,
+    "fibra_g": 0
+  },
+  {
+    "id": 335,
+    "nome": "Carne, bovina, capa de contra-filé, com gordura, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 311.7,
+    "proteina_g": 30.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 20,
+    "fibra_g": 0
+  },
+  {
+    "id": 336,
+    "nome": "Carne, bovina, capa de contra-filé, sem gordura, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 131.1,
+    "proteina_g": 21.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 337,
+    "nome": "Carne, bovina, capa de contra-filé, sem gordura, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 239.4,
+    "proteina_g": 35.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 10,
+    "fibra_g": 0
+  },
+  {
+    "id": 338,
+    "nome": "Carne, bovina, charque, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 262.8,
+    "proteina_g": 36.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 11.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 339,
+    "nome": "Carne, bovina, charque, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 248.9,
+    "proteina_g": 22.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 16.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 340,
+    "nome": "Carne, bovina, contra-filé, à milanesa",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 351.6,
+    "proteina_g": 20.6,
+    "carboidrato_g": 12.2,
+    "lipideos_g": 24,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 341,
+    "nome": "Carne, bovina, contra-filé de costela, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 202.4,
+    "proteina_g": 19.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 13.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 342,
+    "nome": "Carne, bovina, contra-filé de costela, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 274.9,
+    "proteina_g": 29.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 16.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 343,
+    "nome": "Carne, bovina, contra-filé, com gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 205.9,
+    "proteina_g": 21.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 12.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 344,
+    "nome": "Carne, bovina, contra-filé, com gordura, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 278.1,
+    "proteina_g": 32.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 15.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 345,
+    "nome": "Carne, bovina, contra-filé, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 156.6,
+    "proteina_g": 24,
+    "carboidrato_g": 0,
+    "lipideos_g": 6,
+    "fibra_g": 0
+  },
+  {
+    "id": 346,
+    "nome": "Carne, bovina, contra-filé, sem gordura, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 193.7,
+    "proteina_g": 35.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 347,
+    "nome": "Carne, bovina, costela, assada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 373,
+    "proteina_g": 28.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 27.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 348,
+    "nome": "Carne, bovina, costela, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 357.7,
+    "proteina_g": 16.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 31.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 349,
+    "nome": "Carne, bovina, coxão duro, sem gordura, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 216.6,
+    "proteina_g": 31.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 8.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 350,
+    "nome": "Carne, bovina, coxão duro, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 148,
+    "proteina_g": 21.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 6.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 351,
+    "nome": "Carne, bovina, coxão mole, sem gordura, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 218.7,
+    "proteina_g": 32.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 8.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 352,
+    "nome": "Carne, bovina, coxão mole, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 169.1,
+    "proteina_g": 21.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 8.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 353,
+    "nome": "Carne, bovina, cupim, assado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 330.1,
+    "proteina_g": 28.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 23,
+    "fibra_g": 0
+  },
+  {
+    "id": 354,
+    "nome": "Carne, bovina, cupim, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 221.4,
+    "proteina_g": 19.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 15.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 355,
+    "nome": "Carne, bovina, fígado, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 141,
+    "proteina_g": 20.7,
+    "carboidrato_g": 1.1,
+    "lipideos_g": 5.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 356,
+    "nome": "Carne, bovina, fígado, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 225,
+    "proteina_g": 29.9,
+    "carboidrato_g": 4.2,
+    "lipideos_g": 9,
+    "fibra_g": 0
+  },
+  {
+    "id": 357,
+    "nome": "Carne, bovina, filé mingnon, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 142.9,
+    "proteina_g": 21.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 358,
+    "nome": "Carne, bovina, filé mingnon, sem gordura, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 219.7,
+    "proteina_g": 32.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 8.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 359,
+    "nome": "Carne, bovina, flanco, sem gordura, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 195.6,
+    "proteina_g": 29.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 360,
+    "nome": "Carne, bovina, flanco, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 141.5,
+    "proteina_g": 20,
+    "carboidrato_g": 0,
+    "lipideos_g": 6.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 361,
+    "nome": "Carne, bovina, fraldinha, com gordura, cozida",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 338.4,
+    "proteina_g": 24.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 26,
+    "fibra_g": 0
+  },
+  {
+    "id": 362,
+    "nome": "Carne, bovina, fraldinha, com gordura, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 220.7,
+    "proteina_g": 17.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 16.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 363,
+    "nome": "Carne, bovina, lagarto, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 222.5,
+    "proteina_g": 32.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 9.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 364,
+    "nome": "Carne, bovina, lagarto, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 134.9,
+    "proteina_g": 20.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 365,
+    "nome": "Carne, bovina, língua, cozida",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 314.9,
+    "proteina_g": 21.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 24.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 366,
+    "nome": "Carne, bovina, língua, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 215.2,
+    "proteina_g": 17.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 15.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 367,
+    "nome": "Carne, bovina, maminha, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 152.8,
+    "proteina_g": 20.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 7,
+    "fibra_g": 0
+  },
+  {
+    "id": 368,
+    "nome": "Carne, bovina, maminha, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 153.1,
+    "proteina_g": 30.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 2.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 369,
+    "nome": "Carne, bovina, miolo de alcatra, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 162.9,
+    "proteina_g": 21.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 370,
+    "nome": "Carne, bovina, miolo de alcatra, sem gordura, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 241.4,
+    "proteina_g": 31.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 11.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 371,
+    "nome": "Carne, bovina, músculo, sem gordura, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 193.8,
+    "proteina_g": 31.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 6.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 372,
+    "nome": "Carne, bovina, músculo, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 141.6,
+    "proteina_g": 21.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 373,
+    "nome": "Carne, bovina, paleta, com gordura, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 158.7,
+    "proteina_g": 21.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 374,
+    "nome": "Carne, bovina, paleta, sem gordura, cozida",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 193.7,
+    "proteina_g": 29.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 375,
+    "nome": "Carne, bovina, paleta, sem gordura, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 140.9,
+    "proteina_g": 21,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 376,
+    "nome": "Carne, bovina, patinho, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 133.5,
+    "proteina_g": 21.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 377,
+    "nome": "Carne, bovina, patinho, sem gordura, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 219.3,
+    "proteina_g": 35.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 378,
+    "nome": "Carne, bovina, peito, sem gordura, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 338.5,
+    "proteina_g": 22.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 27,
+    "fibra_g": 0
+  },
+  {
+    "id": 379,
+    "nome": "Carne, bovina, peito, sem gordura, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 259.3,
+    "proteina_g": 17.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 20.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 380,
+    "nome": "Carne, bovina, picanha, com gordura, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 212.9,
+    "proteina_g": 18.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 14.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 381,
+    "nome": "Carne, bovina, picanha, com gordura, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 288.8,
+    "proteina_g": 26.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 19.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 382,
+    "nome": "Carne, bovina, picanha, sem gordura, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 133.5,
+    "proteina_g": 21.3,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 383,
+    "nome": "Carne, bovina, picanha, sem gordura, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 238.5,
+    "proteina_g": 31.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 11.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 384,
+    "nome": "Carne, bovina, seca, cozida",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 312.8,
+    "proteina_g": 26.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 21.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 385,
+    "nome": "Carne, bovina, seca, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 312.7,
+    "proteina_g": 19.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 25.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 386,
+    "nome": "Coxinha de frango, frita",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 283,
+    "proteina_g": 9.6,
+    "carboidrato_g": 34.5,
+    "lipideos_g": 11.8,
+    "fibra_g": 5
+  },
+  {
+    "id": 387,
+    "nome": "Croquete, de carne, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 245.8,
+    "proteina_g": 12,
+    "carboidrato_g": 13.9,
+    "lipideos_g": 15.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 388,
+    "nome": "Croquete, de carne, frito",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 346.7,
+    "proteina_g": 16.9,
+    "carboidrato_g": 18.1,
+    "lipideos_g": 22.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 389,
+    "nome": "Empada de frango, pré-cozida, assada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 358.2,
+    "proteina_g": 6.9,
+    "carboidrato_g": 47.5,
+    "lipideos_g": 15.6,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 390,
+    "nome": "Empada, de frango, pré-cozida",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 377.5,
+    "proteina_g": 7.3,
+    "carboidrato_g": 35.5,
+    "lipideos_g": 22.9,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 391,
+    "nome": "Frango, asa, com pele, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 213.2,
+    "proteina_g": 18.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 15.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 392,
+    "nome": "Frango, caipira, inteiro, com pele, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 242.9,
+    "proteina_g": 23.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 15.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 393,
+    "nome": "Frango, caipira, inteiro, sem pele, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 195.8,
+    "proteina_g": 29.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 394,
+    "nome": "Frango, coração, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 221.5,
+    "proteina_g": 12.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 18.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 395,
+    "nome": "Frango, coração, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 207.3,
+    "proteina_g": 22.4,
+    "carboidrato_g": 0.6,
+    "lipideos_g": 12.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 396,
+    "nome": "Frango, coxa, com pele, assada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 215.1,
+    "proteina_g": 28.5,
+    "carboidrato_g": 0.1,
+    "lipideos_g": 10.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 397,
+    "nome": "Frango, coxa, com pele, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 161.5,
+    "proteina_g": 17.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 9.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 398,
+    "nome": "Frango, coxa, sem pele, cozida",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 167.4,
+    "proteina_g": 26.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 399,
+    "nome": "Frango, coxa, sem pele, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 119.9,
+    "proteina_g": 17.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 400,
+    "nome": "Frango, fígado, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 106.5,
+    "proteina_g": 17.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 3.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 401,
+    "nome": "Frango, filé, à milanesa",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 220.9,
+    "proteina_g": 28.5,
+    "carboidrato_g": 7.5,
+    "lipideos_g": 7.8,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 402,
+    "nome": "Frango, inteiro, com pele, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 226.3,
+    "proteina_g": 16.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 17.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 403,
+    "nome": "Frango, inteiro, sem pele, assado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 187.3,
+    "proteina_g": 28,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 404,
+    "nome": "Frango, inteiro, sem pele, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 170.4,
+    "proteina_g": 25,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 405,
+    "nome": "Frango, inteiro, sem pele, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 129.1,
+    "proteina_g": 20.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 406,
+    "nome": "Frango, peito, com pele, assado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 211.7,
+    "proteina_g": 33.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 7.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 407,
+    "nome": "Frango, peito, com pele, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 149.5,
+    "proteina_g": 20.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 6.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 408,
+    "nome": "Frango, peito, sem pele, cozido",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 162.9,
+    "proteina_g": 31.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 3.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 409,
+    "nome": "Frango, peito, sem pele, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 119.2,
+    "proteina_g": 21.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 3,
+    "fibra_g": 0
+  },
+  {
+    "id": 410,
+    "nome": "Frango, peito, sem pele, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 159.2,
+    "proteina_g": 32,
+    "carboidrato_g": 0,
+    "lipideos_g": 2.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 411,
+    "nome": "Frango, sobrecoxa, com pele, assada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 259.6,
+    "proteina_g": 28.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 15.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 412,
+    "nome": "Frango, sobrecoxa, com pele, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 254.5,
+    "proteina_g": 15.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 20.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 413,
+    "nome": "Frango, sobrecoxa, sem pele, assada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 232.9,
+    "proteina_g": 29.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 12,
+    "fibra_g": 0
+  },
+  {
+    "id": 414,
+    "nome": "Frango, sobrecoxa, sem pele, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 161.8,
+    "proteina_g": 17.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 9.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 415,
+    "nome": "Hambúrguer, bovino, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 214.8,
+    "proteina_g": 13.2,
+    "carboidrato_g": 4.2,
+    "lipideos_g": 16.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 416,
+    "nome": "Hambúrguer, bovino, frito",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 258.3,
+    "proteina_g": 20,
+    "carboidrato_g": 6.3,
+    "lipideos_g": 17,
+    "fibra_g": 0
+  },
+  {
+    "id": 417,
+    "nome": "Hambúrguer, bovino, grelhado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 209.8,
+    "proteina_g": 13.2,
+    "carboidrato_g": 11.3,
+    "lipideos_g": 12.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 418,
+    "nome": "Lingüiça, frango, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 218.1,
+    "proteina_g": 14.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 17.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 419,
+    "nome": "Lingüiça, frango, frita",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 245.5,
+    "proteina_g": 18.3,
+    "carboidrato_g": 0,
+    "lipideos_g": 18.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 420,
+    "nome": "Lingüiça, frango, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 243.7,
+    "proteina_g": 18.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 18.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 421,
+    "nome": "Lingüiça, porco, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 227.2,
+    "proteina_g": 16.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 17.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 422,
+    "nome": "Lingüiça, porco, frita",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 279.5,
+    "proteina_g": 20.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 21.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 423,
+    "nome": "Lingüiça, porco, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 296.5,
+    "proteina_g": 23.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 21.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 424,
+    "nome": "Mortadela",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 268.8,
+    "proteina_g": 12,
+    "carboidrato_g": 5.8,
+    "lipideos_g": 21.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 425,
+    "nome": "Peru, congelado, assado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 163.1,
+    "proteina_g": 26.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 5.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 426,
+    "nome": "Peru, congelado, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 93.7,
+    "proteina_g": 18.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 1.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 427,
+    "nome": "Porco, bisteca, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 164.1,
+    "proteina_g": 21.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 8,
+    "fibra_g": 0
+  },
+  {
+    "id": 428,
+    "nome": "Porco, bisteca, frita",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 311.2,
+    "proteina_g": 33.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 18.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 429,
+    "nome": "Porco, bisteca, grelhada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 280.1,
+    "proteina_g": 28.9,
+    "carboidrato_g": 0,
+    "lipideos_g": 17.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 430,
+    "nome": "Porco, costela, assada",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 402.2,
+    "proteina_g": 30.2,
+    "carboidrato_g": 0,
+    "lipideos_g": 30.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 431,
+    "nome": "Porco, costela, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 255.6,
+    "proteina_g": 18,
+    "carboidrato_g": 0,
+    "lipideos_g": 19.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 432,
+    "nome": "Porco, lombo, assado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 210.2,
+    "proteina_g": 35.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 6.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 433,
+    "nome": "Porco, lombo, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 175.6,
+    "proteina_g": 22.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 8.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 434,
+    "nome": "Porco, orelha, salgada, crua",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 258.5,
+    "proteina_g": 18.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 19.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 435,
+    "nome": "Porco, pernil, assado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 262.3,
+    "proteina_g": 32.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 13.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 436,
+    "nome": "Porco, pernil, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 186.1,
+    "proteina_g": 20.1,
+    "carboidrato_g": 0,
+    "lipideos_g": 11.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 437,
+    "nome": "Porco, rabo, salgado, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 377.4,
+    "proteina_g": 15.6,
+    "carboidrato_g": 0,
+    "lipideos_g": 34.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 438,
+    "nome": "Presunto, com capa de gordura",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 127.8,
+    "proteina_g": 14.4,
+    "carboidrato_g": 1.4,
+    "lipideos_g": 6.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 439,
+    "nome": "Presunto, sem capa de gordura",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 93.7,
+    "proteina_g": 14.3,
+    "carboidrato_g": 2.1,
+    "lipideos_g": 2.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 440,
+    "nome": "Quibe, assado",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 136.2,
+    "proteina_g": 14.6,
+    "carboidrato_g": 12.9,
+    "lipideos_g": 2.7,
+    "fibra_g": 1.9
+  },
+  {
+    "id": 441,
+    "nome": "Quibe, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 109.5,
+    "proteina_g": 12.4,
+    "carboidrato_g": 10.8,
+    "lipideos_g": 1.7,
+    "fibra_g": 1.6
+  },
+  {
+    "id": 442,
+    "nome": "Quibe, frito",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 253.8,
+    "proteina_g": 14.9,
+    "carboidrato_g": 12.3,
+    "lipideos_g": 15.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 443,
+    "nome": "Salame",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 397.8,
+    "proteina_g": 25.8,
+    "carboidrato_g": 2.9,
+    "lipideos_g": 30.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 444,
+    "nome": "Toucinho, cru",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 592.5,
+    "proteina_g": 11.5,
+    "carboidrato_g": 0,
+    "lipideos_g": 60.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 445,
+    "nome": "Toucinho, frito",
+    "grupo": "Carnes e derivados",
+    "energia_kcal": 696.6,
+    "proteina_g": 27.3,
+    "carboidrato_g": 0,
+    "lipideos_g": 64.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 446,
+    "nome": "Bebida láctea, pêssego",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 55.2,
+    "proteina_g": 2.1,
+    "carboidrato_g": 7.6,
+    "lipideos_g": 1.9,
+    "fibra_g": 0.3
+  },
+  {
+    "id": 447,
+    "nome": "Creme de Leite",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 221.5,
+    "proteina_g": 1.5,
+    "carboidrato_g": 4.5,
+    "lipideos_g": 22.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 448,
+    "nome": "Iogurte, natural",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 51.5,
+    "proteina_g": 4.1,
+    "carboidrato_g": 1.9,
+    "lipideos_g": 3,
+    "fibra_g": 0
+  },
+  {
+    "id": 449,
+    "nome": "Iogurte, natural, desnatado",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 41.5,
+    "proteina_g": 3.8,
+    "carboidrato_g": 5.8,
+    "lipideos_g": 0.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 450,
+    "nome": "Iogurte, sabor abacaxi",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 0,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 451,
+    "nome": "Iogurte, sabor morango",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 69.6,
+    "proteina_g": 2.7,
+    "carboidrato_g": 9.7,
+    "lipideos_g": 2.3,
+    "fibra_g": 0.2
+  },
+  {
+    "id": 452,
+    "nome": "Iogurte, sabor pêssego",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 67.8,
+    "proteina_g": 2.5,
+    "carboidrato_g": 9.4,
+    "lipideos_g": 2.3,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 453,
+    "nome": "Leite, condensado",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 312.6,
+    "proteina_g": 7.7,
+    "carboidrato_g": 57,
+    "lipideos_g": 6.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 454,
+    "nome": "Leite, de cabra",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 66.4,
+    "proteina_g": 3.1,
+    "carboidrato_g": 5.2,
+    "lipideos_g": 3.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 455,
+    "nome": "Leite, de vaca, achocolatado",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 82.8,
+    "proteina_g": 2.1,
+    "carboidrato_g": 14.2,
+    "lipideos_g": 2.2,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 456,
+    "nome": "Leite, de vaca, desnatado, pó",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 361.6,
+    "proteina_g": 34.7,
+    "carboidrato_g": 53,
+    "lipideos_g": 0.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 457,
+    "nome": "Leite, de vaca, desnatado, UHT",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 0,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 458,
+    "nome": "Leite, de vaca, integral",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 0,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 459,
+    "nome": "Leite, de vaca, integral, pó",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 496.7,
+    "proteina_g": 25.4,
+    "carboidrato_g": 39.2,
+    "lipideos_g": 26.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 460,
+    "nome": "Leite, fermentado",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 69.6,
+    "proteina_g": 1.9,
+    "carboidrato_g": 15.7,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 461,
+    "nome": "Queijo, minas, frescal",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 264.3,
+    "proteina_g": 17.4,
+    "carboidrato_g": 3.2,
+    "lipideos_g": 20.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 462,
+    "nome": "Queijo, minas, meia cura",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 320.7,
+    "proteina_g": 21.2,
+    "carboidrato_g": 3.6,
+    "lipideos_g": 24.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 463,
+    "nome": "Queijo, mozarela",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 329.9,
+    "proteina_g": 22.6,
+    "carboidrato_g": 3,
+    "lipideos_g": 25.2,
+    "fibra_g": 0
+  },
+  {
+    "id": 464,
+    "nome": "Queijo, parmesão",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 453,
+    "proteina_g": 35.6,
+    "carboidrato_g": 1.7,
+    "lipideos_g": 33.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 465,
+    "nome": "Queijo, pasteurizado",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 303.1,
+    "proteina_g": 9.4,
+    "carboidrato_g": 5.7,
+    "lipideos_g": 27.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 466,
+    "nome": "Queijo, petit suisse, morango",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 121.1,
+    "proteina_g": 5.8,
+    "carboidrato_g": 18.5,
+    "lipideos_g": 2.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 467,
+    "nome": "Queijo, prato",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 359.9,
+    "proteina_g": 22.7,
+    "carboidrato_g": 1.9,
+    "lipideos_g": 29.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 468,
+    "nome": "Maria mole",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 256.6,
+    "proteina_g": 9.6,
+    "carboidrato_g": 2.4,
+    "lipideos_g": 23.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 469,
+    "nome": "Queijo, ricota",
+    "grupo": "Leite e derivados",
+    "energia_kcal": 139.7,
+    "proteina_g": 12.6,
+    "carboidrato_g": 3.8,
+    "lipideos_g": 8.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 470,
+    "nome": "Bebida isotônica, sabores variados",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 25.6,
+    "proteina_g": 0,
+    "carboidrato_g": 6.4,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 471,
+    "nome": "Café, infusão 10%",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 9.1,
+    "proteina_g": 0.7,
+    "carboidrato_g": 1.5,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 472,
+    "nome": "Cana, aguardente 1",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 215.7,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 473,
+    "nome": "Cana, caldo de",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 65.3,
+    "proteina_g": 0,
+    "carboidrato_g": 18.2,
+    "lipideos_g": 0,
+    "fibra_g": 0.1
+  },
+  {
+    "id": 474,
+    "nome": "Cerveja, pilsen 2",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 40.7,
+    "proteina_g": 0.6,
+    "carboidrato_g": 3.3,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 475,
+    "nome": "Chá, erva-doce, infusão 5%",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 1.4,
+    "proteina_g": 0,
+    "carboidrato_g": 0.4,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 476,
+    "nome": "Chá, mate, infusão 5%",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 2.7,
+    "proteina_g": 0,
+    "carboidrato_g": 0.6,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 477,
+    "nome": "Chá, preto, infusão 5%",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 2.2,
+    "proteina_g": 0,
+    "carboidrato_g": 0.6,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 478,
+    "nome": "Coco, água de",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 21.5,
+    "proteina_g": 0,
+    "carboidrato_g": 5.3,
+    "lipideos_g": 0,
+    "fibra_g": 0.1
+  },
+  {
+    "id": 479,
+    "nome": "Refrigerante, tipo água tônica",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 30.8,
+    "proteina_g": 0,
+    "carboidrato_g": 8,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 480,
+    "nome": "Refrigerante, tipo cola",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 33.5,
+    "proteina_g": 0,
+    "carboidrato_g": 8.7,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 481,
+    "nome": "Refrigerante, tipo guaraná",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 38.7,
+    "proteina_g": 0,
+    "carboidrato_g": 10,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 482,
+    "nome": "Refrigerante, tipo laranja",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 45.6,
+    "proteina_g": 0,
+    "carboidrato_g": 11.8,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 483,
+    "nome": "Refrigerante, tipo limão",
+    "grupo": "Bebidas (alcoólicas e não alcoólicas)",
+    "energia_kcal": 39.7,
+    "proteina_g": 0,
+    "carboidrato_g": 10.3,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 484,
+    "nome": "Omelete, de queijo",
+    "grupo": "Ovos e derivados",
+    "energia_kcal": 268,
+    "proteina_g": 15.6,
+    "carboidrato_g": 0.4,
+    "lipideos_g": 22,
+    "fibra_g": 0
+  },
+  {
+    "id": 485,
+    "nome": "Ovo, de codorna, inteiro, cru",
+    "grupo": "Ovos e derivados",
+    "energia_kcal": 176.9,
+    "proteina_g": 13.7,
+    "carboidrato_g": 0.8,
+    "lipideos_g": 12.7,
+    "fibra_g": 0
+  },
+  {
+    "id": 486,
+    "nome": "Ovo, de galinha, clara, cozida/10minutos",
+    "grupo": "Ovos e derivados",
+    "energia_kcal": 59.4,
+    "proteina_g": 13.4,
+    "carboidrato_g": 0,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 487,
+    "nome": "Ovo, de galinha, gema, cozida/10minutos",
+    "grupo": "Ovos e derivados",
+    "energia_kcal": 352.7,
+    "proteina_g": 15.9,
+    "carboidrato_g": 1.6,
+    "lipideos_g": 30.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 488,
+    "nome": "Ovo, de galinha, inteiro, cozido/10minutos",
+    "grupo": "Ovos e derivados",
+    "energia_kcal": 145.7,
+    "proteina_g": 13.3,
+    "carboidrato_g": 0.6,
+    "lipideos_g": 9.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 489,
+    "nome": "Ovo, de galinha, inteiro, cru",
+    "grupo": "Ovos e derivados",
+    "energia_kcal": 143.1,
+    "proteina_g": 13,
+    "carboidrato_g": 1.6,
+    "lipideos_g": 8.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 490,
+    "nome": "Ovo, de galinha, inteiro, frito",
+    "grupo": "Ovos e derivados",
+    "energia_kcal": 240.2,
+    "proteina_g": 15.6,
+    "carboidrato_g": 1.2,
+    "lipideos_g": 18.6,
+    "fibra_g": 0
+  },
+  {
+    "id": 491,
+    "nome": "Achocolatado, pó",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 401,
+    "proteina_g": 4.2,
+    "carboidrato_g": 91.2,
+    "lipideos_g": 2.2,
+    "fibra_g": 3.9
+  },
+  {
+    "id": 492,
+    "nome": "Açúcar, cristal",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 386.8,
+    "proteina_g": 0.3,
+    "carboidrato_g": 99.6,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 493,
+    "nome": "Açúcar, mascavo",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 368.6,
+    "proteina_g": 0.8,
+    "carboidrato_g": 94.5,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 494,
+    "nome": "Açúcar, refinado",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 386.6,
+    "proteina_g": 0.3,
+    "carboidrato_g": 99.5,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 495,
+    "nome": "Chocolate, ao leite",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 539.6,
+    "proteina_g": 7.2,
+    "carboidrato_g": 59.6,
+    "lipideos_g": 30.3,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 496,
+    "nome": "Chocolate, ao leite, com castanha do Pará",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 558.9,
+    "proteina_g": 7.4,
+    "carboidrato_g": 55.4,
+    "lipideos_g": 34.2,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 497,
+    "nome": "Chocolate, ao leite, dietético",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 556.8,
+    "proteina_g": 6.9,
+    "carboidrato_g": 56.3,
+    "lipideos_g": 33.8,
+    "fibra_g": 2.8
+  },
+  {
+    "id": 498,
+    "nome": "Chocolate, meio amargo",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 474.9,
+    "proteina_g": 4.9,
+    "carboidrato_g": 62.4,
+    "lipideos_g": 29.9,
+    "fibra_g": 4.9
+  },
+  {
+    "id": 499,
+    "nome": "Cocada branca",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 448.8,
+    "proteina_g": 1.1,
+    "carboidrato_g": 81.4,
+    "lipideos_g": 13.6,
+    "fibra_g": 3.6
+  },
+  {
+    "id": 500,
+    "nome": "Doce, de abóbora, cremoso",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 198.9,
+    "proteina_g": 0.9,
+    "carboidrato_g": 54.6,
+    "lipideos_g": 0.2,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 501,
+    "nome": "Doce, de leite, cremoso",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 306.3,
+    "proteina_g": 5.5,
+    "carboidrato_g": 59.5,
+    "lipideos_g": 6,
+    "fibra_g": 0
+  },
+  {
+    "id": 502,
+    "nome": "Geléia, mocotó, natural",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 106.1,
+    "proteina_g": 2.1,
+    "carboidrato_g": 24.2,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 503,
+    "nome": "Glicose de milho",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 292.1,
+    "proteina_g": 0,
+    "carboidrato_g": 79.4,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 504,
+    "nome": "Maria mole",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 301.2,
+    "proteina_g": 3.8,
+    "carboidrato_g": 73.6,
+    "lipideos_g": 0.2,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 505,
+    "nome": "Maria mole, coco queimado",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 306.6,
+    "proteina_g": 3.9,
+    "carboidrato_g": 75.1,
+    "lipideos_g": 0.1,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 506,
+    "nome": "Marmelada",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 257.2,
+    "proteina_g": 0.4,
+    "carboidrato_g": 70.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 4.1
+  },
+  {
+    "id": 507,
+    "nome": "Mel, de abelha",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 309.2,
+    "proteina_g": 0,
+    "carboidrato_g": 84,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 508,
+    "nome": "Melado",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 296.5,
+    "proteina_g": 0,
+    "carboidrato_g": 76.6,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 509,
+    "nome": "Quindim",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 411.3,
+    "proteina_g": 4.7,
+    "carboidrato_g": 46.3,
+    "lipideos_g": 24.4,
+    "fibra_g": 3.2
+  },
+  {
+    "id": 510,
+    "nome": "Rapadura",
+    "grupo": "Produtos açucarados",
+    "energia_kcal": 352,
+    "proteina_g": 1,
+    "carboidrato_g": 90.8,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 511,
+    "nome": "Café, pó, torrado",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 418.6,
+    "proteina_g": 14.7,
+    "carboidrato_g": 65.8,
+    "lipideos_g": 11.9,
+    "fibra_g": 51.2
+  },
+  {
+    "id": 512,
+    "nome": "Capuccino, pó",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 417.4,
+    "proteina_g": 11.3,
+    "carboidrato_g": 73.6,
+    "lipideos_g": 8.6,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 513,
+    "nome": "Fermento em pó, químico",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 89.7,
+    "proteina_g": 0.5,
+    "carboidrato_g": 43.9,
+    "lipideos_g": 0.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 514,
+    "nome": "Fermento, biológico, levedura, tablete",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 89.8,
+    "proteina_g": 17,
+    "carboidrato_g": 7.7,
+    "lipideos_g": 1.5,
+    "fibra_g": 4.2
+  },
+  {
+    "id": 515,
+    "nome": "Gelatina, sabores variados, pó",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 380.2,
+    "proteina_g": 8.9,
+    "carboidrato_g": 89.2,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 516,
+    "nome": "Sal, dietético",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 0,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 517,
+    "nome": "Sal, grosso",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 0,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 518,
+    "nome": "Shoyu",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 60.9,
+    "proteina_g": 3.3,
+    "carboidrato_g": 11.6,
+    "lipideos_g": 0.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 519,
+    "nome": "Tempero a base de sal",
+    "grupo": "Miscelâneas",
+    "energia_kcal": 21.3,
+    "proteina_g": 2.7,
+    "carboidrato_g": 2.1,
+    "lipideos_g": 0.3,
+    "fibra_g": 0.6
+  },
+  {
+    "id": 520,
+    "nome": "Azeitona, preta, conserva",
+    "grupo": "Outros alimentos industrializados",
+    "energia_kcal": 194.2,
+    "proteina_g": 1.2,
+    "carboidrato_g": 5.5,
+    "lipideos_g": 20.3,
+    "fibra_g": 4.6
+  },
+  {
+    "id": 521,
+    "nome": "Azeitona, verde, conserva",
+    "grupo": "Outros alimentos industrializados",
+    "energia_kcal": 136.9,
+    "proteina_g": 0.9,
+    "carboidrato_g": 4.1,
+    "lipideos_g": 14.2,
+    "fibra_g": 3.8
+  },
+  {
+    "id": 522,
+    "nome": "Chantilly, spray, com gordura vegetal",
+    "grupo": "Outros alimentos industrializados",
+    "energia_kcal": 315,
+    "proteina_g": 0.5,
+    "carboidrato_g": 16.9,
+    "lipideos_g": 27.3,
+    "fibra_g": 0
+  },
+  {
+    "id": 523,
+    "nome": "Leite, de coco",
+    "grupo": "Outros alimentos industrializados",
+    "energia_kcal": 166.2,
+    "proteina_g": 1,
+    "carboidrato_g": 2.2,
+    "lipideos_g": 18.4,
+    "fibra_g": 0.7
+  },
+  {
+    "id": 524,
+    "nome": "Maionese, tradicional com ovos",
+    "grupo": "Outros alimentos industrializados",
+    "energia_kcal": 302.2,
+    "proteina_g": 0.6,
+    "carboidrato_g": 7.9,
+    "lipideos_g": 30.5,
+    "fibra_g": 0
+  },
+  {
+    "id": 525,
+    "nome": "Acarajé",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 289.2,
+    "proteina_g": 8.3,
+    "carboidrato_g": 19.1,
+    "lipideos_g": 19.9,
+    "fibra_g": 9.4
+  },
+  {
+    "id": 526,
+    "nome": "Arroz carreteiro",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 153.8,
+    "proteina_g": 10.8,
+    "carboidrato_g": 11.6,
+    "lipideos_g": 7.1,
+    "fibra_g": 1.5
+  },
+  {
+    "id": 527,
+    "nome": "Baião de dois, arroz e feijão-de-corda",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 135.7,
+    "proteina_g": 6.2,
+    "carboidrato_g": 20.4,
+    "lipideos_g": 3.2,
+    "fibra_g": 5.1
+  },
+  {
+    "id": 528,
+    "nome": "Barreado",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 165,
+    "proteina_g": 18.3,
+    "carboidrato_g": 0.2,
+    "lipideos_g": 9.5,
+    "fibra_g": 0.1
+  },
+  {
+    "id": 529,
+    "nome": "Bife à cavalo, com contra filé",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 291.2,
+    "proteina_g": 23.7,
+    "carboidrato_g": 0,
+    "lipideos_g": 21.1,
+    "fibra_g": 0
+  },
+  {
+    "id": 530,
+    "nome": "Bolinho de arroz",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 273.5,
+    "proteina_g": 8,
+    "carboidrato_g": 41.7,
+    "lipideos_g": 8.3,
+    "fibra_g": 2.7
+  },
+  {
+    "id": 531,
+    "nome": "Camarão à baiana",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 100.8,
+    "proteina_g": 7.9,
+    "carboidrato_g": 3.2,
+    "lipideos_g": 6,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 532,
+    "nome": "Charuto, de repolho",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 78.2,
+    "proteina_g": 6.8,
+    "carboidrato_g": 10.1,
+    "lipideos_g": 1.1,
+    "fibra_g": 1.5
+  },
+  {
+    "id": 533,
+    "nome": "Cuscuz, de milho, cozido com sal",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 113.5,
+    "proteina_g": 2.2,
+    "carboidrato_g": 25.3,
+    "lipideos_g": 0.7,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 534,
+    "nome": "Cuscuz, paulista",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 142.1,
+    "proteina_g": 2.6,
+    "carboidrato_g": 22.5,
+    "lipideos_g": 4.6,
+    "fibra_g": 2.4
+  },
+  {
+    "id": 535,
+    "nome": "Cuxá, molho",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 80.1,
+    "proteina_g": 5.6,
+    "carboidrato_g": 5.7,
+    "lipideos_g": 3.6,
+    "fibra_g": 3
+  },
+  {
+    "id": 536,
+    "nome": "Dobradinha",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 124.5,
+    "proteina_g": 19.8,
+    "carboidrato_g": 0,
+    "lipideos_g": 4.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 537,
+    "nome": "Estrogonofe de carne",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 173.1,
+    "proteina_g": 15,
+    "carboidrato_g": 3,
+    "lipideos_g": 10.8,
+    "fibra_g": 0
+  },
+  {
+    "id": 538,
+    "nome": "Estrogonofe de frango",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 156.8,
+    "proteina_g": 17.6,
+    "carboidrato_g": 2.6,
+    "lipideos_g": 8,
+    "fibra_g": 0
+  },
+  {
+    "id": 539,
+    "nome": "Feijão tropeiro mineiro",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 151.6,
+    "proteina_g": 10.2,
+    "carboidrato_g": 19.6,
+    "lipideos_g": 6.8,
+    "fibra_g": 3.6
+  },
+  {
+    "id": 540,
+    "nome": "Feijoada",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 116.9,
+    "proteina_g": 8.7,
+    "carboidrato_g": 11.6,
+    "lipideos_g": 6.5,
+    "fibra_g": 5.1
+  },
+  {
+    "id": 541,
+    "nome": "Frango, com açafrão",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 112.8,
+    "proteina_g": 9.7,
+    "carboidrato_g": 4.1,
+    "lipideos_g": 6.2,
+    "fibra_g": 0.2
+  },
+  {
+    "id": 542,
+    "nome": "Macarrão, molho bolognesa",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 119.5,
+    "proteina_g": 4.9,
+    "carboidrato_g": 22.5,
+    "lipideos_g": 0.9,
+    "fibra_g": 0.8
+  },
+  {
+    "id": 543,
+    "nome": "Maniçoba",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 134.2,
+    "proteina_g": 10,
+    "carboidrato_g": 3.4,
+    "lipideos_g": 8.7,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 544,
+    "nome": "Quibebe",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 86.3,
+    "proteina_g": 8.6,
+    "carboidrato_g": 6.6,
+    "lipideos_g": 2.7,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 545,
+    "nome": "Salada, de legumes, com maionese",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 96.1,
+    "proteina_g": 1.1,
+    "carboidrato_g": 8.9,
+    "lipideos_g": 7,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 546,
+    "nome": "Salada, de legumes, cozida no vapor",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 35.4,
+    "proteina_g": 2,
+    "carboidrato_g": 7.1,
+    "lipideos_g": 0.3,
+    "fibra_g": 2.5
+  },
+  {
+    "id": 547,
+    "nome": "Salpicão, de frango",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 147.9,
+    "proteina_g": 13.9,
+    "carboidrato_g": 4.6,
+    "lipideos_g": 7.8,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 548,
+    "nome": "Sarapatel",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 123,
+    "proteina_g": 18.5,
+    "carboidrato_g": 1.1,
+    "lipideos_g": 4.4,
+    "fibra_g": 0
+  },
+  {
+    "id": 549,
+    "nome": "Tabule",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 57.5,
+    "proteina_g": 2,
+    "carboidrato_g": 10.6,
+    "lipideos_g": 1.2,
+    "fibra_g": 2.1
+  },
+  {
+    "id": 550,
+    "nome": "Tacacá",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 46.9,
+    "proteina_g": 7,
+    "carboidrato_g": 3.4,
+    "lipideos_g": 0.4,
+    "fibra_g": 0.2
+  },
+  {
+    "id": 551,
+    "nome": "Tapioca, com manteiga",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 347.8,
+    "proteina_g": 0.1,
+    "carboidrato_g": 63.6,
+    "lipideos_g": 10.9,
+    "fibra_g": 0
+  },
+  {
+    "id": 552,
+    "nome": "Tucupi, com pimenta-de-cheiro",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 27.2,
+    "proteina_g": 2.1,
+    "carboidrato_g": 4.7,
+    "lipideos_g": 0.3,
+    "fibra_g": 0.2
+  },
+  {
+    "id": 553,
+    "nome": "Vaca atolada",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 144.9,
+    "proteina_g": 5.1,
+    "carboidrato_g": 10.1,
+    "lipideos_g": 9.3,
+    "fibra_g": 2.3
+  },
+  {
+    "id": 554,
+    "nome": "Vatapá",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 254.9,
+    "proteina_g": 6,
+    "carboidrato_g": 9.7,
+    "lipideos_g": 23.2,
+    "fibra_g": 1.7
+  },
+  {
+    "id": 555,
+    "nome": "Virado à paulista",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 306.9,
+    "proteina_g": 10.2,
+    "carboidrato_g": 14.1,
+    "lipideos_g": 25.6,
+    "fibra_g": 2.2
+  },
+  {
+    "id": 556,
+    "nome": "Yakisoba",
+    "grupo": "Alimentos preparados",
+    "energia_kcal": 112.8,
+    "proteina_g": 7.5,
+    "carboidrato_g": 18.3,
+    "lipideos_g": 2.6,
+    "fibra_g": 1.1
+  },
+  {
+    "id": 557,
+    "nome": "Amendoim, grão, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 544.1,
+    "proteina_g": 27.2,
+    "carboidrato_g": 20.3,
+    "lipideos_g": 43.9,
+    "fibra_g": 8
+  },
+  {
+    "id": 558,
+    "nome": "Amendoim, torrado, salgado",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 605.8,
+    "proteina_g": 22.5,
+    "carboidrato_g": 18.7,
+    "lipideos_g": 54,
+    "fibra_g": 7.8
+  },
+  {
+    "id": 559,
+    "nome": "Ervilha, em vagem",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 88.1,
+    "proteina_g": 7.5,
+    "carboidrato_g": 14.2,
+    "lipideos_g": 0.5,
+    "fibra_g": 9.7
+  },
+  {
+    "id": 560,
+    "nome": "Ervilha, enlatada, drenada",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 73.8,
+    "proteina_g": 4.6,
+    "carboidrato_g": 13.4,
+    "lipideos_g": 0.4,
+    "fibra_g": 5.1
+  },
+  {
+    "id": 561,
+    "nome": "Feijão, carioca, cozido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 76.4,
+    "proteina_g": 4.8,
+    "carboidrato_g": 13.6,
+    "lipideos_g": 0.5,
+    "fibra_g": 8.5
+  },
+  {
+    "id": 562,
+    "nome": "Feijão, carioca, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 329,
+    "proteina_g": 20,
+    "carboidrato_g": 61.2,
+    "lipideos_g": 1.3,
+    "fibra_g": 18.4
+  },
+  {
+    "id": 563,
+    "nome": "Feijão, fradinho, cozido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 78,
+    "proteina_g": 5.1,
+    "carboidrato_g": 13.5,
+    "lipideos_g": 0.6,
+    "fibra_g": 7.5
+  },
+  {
+    "id": 564,
+    "nome": "Feijão, fradinho, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 339.2,
+    "proteina_g": 20.2,
+    "carboidrato_g": 61.2,
+    "lipideos_g": 2.4,
+    "fibra_g": 23.6
+  },
+  {
+    "id": 565,
+    "nome": "Feijão, jalo, cozido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 92.7,
+    "proteina_g": 6.1,
+    "carboidrato_g": 16.5,
+    "lipideos_g": 0.5,
+    "fibra_g": 13.9
+  },
+  {
+    "id": 566,
+    "nome": "Feijão, jalo, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 327.9,
+    "proteina_g": 20.1,
+    "carboidrato_g": 61.5,
+    "lipideos_g": 0.9,
+    "fibra_g": 30.3
+  },
+  {
+    "id": 567,
+    "nome": "Feijão, preto, cozido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 77,
+    "proteina_g": 4.5,
+    "carboidrato_g": 14,
+    "lipideos_g": 0.5,
+    "fibra_g": 8.4
+  },
+  {
+    "id": 568,
+    "nome": "Feijão, preto, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 323.6,
+    "proteina_g": 21.3,
+    "carboidrato_g": 58.8,
+    "lipideos_g": 1.2,
+    "fibra_g": 21.8
+  },
+  {
+    "id": 569,
+    "nome": "Feijão, rajado, cozido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 84.7,
+    "proteina_g": 5.5,
+    "carboidrato_g": 15.3,
+    "lipideos_g": 0.4,
+    "fibra_g": 9.3
+  },
+  {
+    "id": 570,
+    "nome": "Feijão, rajado, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 325.8,
+    "proteina_g": 17.3,
+    "carboidrato_g": 62.9,
+    "lipideos_g": 1.2,
+    "fibra_g": 24
+  },
+  {
+    "id": 571,
+    "nome": "Feijão, rosinha, cozido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 67.9,
+    "proteina_g": 4.5,
+    "carboidrato_g": 11.8,
+    "lipideos_g": 0.5,
+    "fibra_g": 4.8
+  },
+  {
+    "id": 572,
+    "nome": "Feijão, rosinha, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 337,
+    "proteina_g": 20.9,
+    "carboidrato_g": 62.2,
+    "lipideos_g": 1.3,
+    "fibra_g": 20.6
+  },
+  {
+    "id": 573,
+    "nome": "Feijão, roxo, cozido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 76.9,
+    "proteina_g": 5.7,
+    "carboidrato_g": 12.9,
+    "lipideos_g": 0.5,
+    "fibra_g": 11.5
+  },
+  {
+    "id": 574,
+    "nome": "Feijão, roxo, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 331.4,
+    "proteina_g": 22.2,
+    "carboidrato_g": 60,
+    "lipideos_g": 1.2,
+    "fibra_g": 33.8
+  },
+  {
+    "id": 575,
+    "nome": "Grão-de-bico, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 354.7,
+    "proteina_g": 21.2,
+    "carboidrato_g": 57.9,
+    "lipideos_g": 5.4,
+    "fibra_g": 12.4
+  },
+  {
+    "id": 576,
+    "nome": "Guandu, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 344.1,
+    "proteina_g": 19,
+    "carboidrato_g": 64,
+    "lipideos_g": 2.1,
+    "fibra_g": 21.3
+  },
+  {
+    "id": 577,
+    "nome": "Lentilha, cozida",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 92.6,
+    "proteina_g": 6.3,
+    "carboidrato_g": 16.3,
+    "lipideos_g": 0.5,
+    "fibra_g": 7.9
+  },
+  {
+    "id": 578,
+    "nome": "Lentilha, crua",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 339.1,
+    "proteina_g": 23.2,
+    "carboidrato_g": 62,
+    "lipideos_g": 0.8,
+    "fibra_g": 16.9
+  },
+  {
+    "id": 579,
+    "nome": "Paçoca, amendoim",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 486.9,
+    "proteina_g": 16,
+    "carboidrato_g": 52.4,
+    "lipideos_g": 26.1,
+    "fibra_g": 7.3
+  },
+  {
+    "id": 580,
+    "nome": "Pé-de-moleque, amendoim",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 503.2,
+    "proteina_g": 13.2,
+    "carboidrato_g": 54.7,
+    "lipideos_g": 28,
+    "fibra_g": 3.4
+  },
+  {
+    "id": 581,
+    "nome": "Soja, farinha",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 404,
+    "proteina_g": 36,
+    "carboidrato_g": 38.4,
+    "lipideos_g": 14.6,
+    "fibra_g": 20.2
+  },
+  {
+    "id": 582,
+    "nome": "Soja, extrato solúvel, natural, fluido",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 39.1,
+    "proteina_g": 2.4,
+    "carboidrato_g": 4.3,
+    "lipideos_g": 1.6,
+    "fibra_g": 0.4
+  },
+  {
+    "id": 583,
+    "nome": "Soja, extrato solúvel, pó",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 458.9,
+    "proteina_g": 35.7,
+    "carboidrato_g": 28.5,
+    "lipideos_g": 26.2,
+    "fibra_g": 7.3
+  },
+  {
+    "id": 584,
+    "nome": "Soja, queijo (tofu)",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 64.5,
+    "proteina_g": 6.6,
+    "carboidrato_g": 2.1,
+    "lipideos_g": 4,
+    "fibra_g": 0.8
+  },
+  {
+    "id": 585,
+    "nome": "Tremoço, cru",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 381.3,
+    "proteina_g": 33.6,
+    "carboidrato_g": 43.8,
+    "lipideos_g": 10.3,
+    "fibra_g": 32.3
+  },
+  {
+    "id": 586,
+    "nome": "Tremoço, em conserva",
+    "grupo": "Leguminosas e derivados",
+    "energia_kcal": 120.6,
+    "proteina_g": 11.1,
+    "carboidrato_g": 12.4,
+    "lipideos_g": 3.8,
+    "fibra_g": 14.4
+  },
+  {
+    "id": 587,
+    "nome": "Amêndoa, torrada, salgada",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 580.7,
+    "proteina_g": 18.6,
+    "carboidrato_g": 29.5,
+    "lipideos_g": 47.3,
+    "fibra_g": 11.6
+  },
+  {
+    "id": 588,
+    "nome": "Castanha-de-caju, torrada, salgada",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 570.2,
+    "proteina_g": 18.5,
+    "carboidrato_g": 29.1,
+    "lipideos_g": 46.3,
+    "fibra_g": 3.7
+  },
+  {
+    "id": 589,
+    "nome": "Castanha-do-Brasil, crua",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 643,
+    "proteina_g": 14.5,
+    "carboidrato_g": 15.1,
+    "lipideos_g": 63.5,
+    "fibra_g": 7.9
+  },
+  {
+    "id": 590,
+    "nome": "Coco, cru",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 406.5,
+    "proteina_g": 3.7,
+    "carboidrato_g": 10.4,
+    "lipideos_g": 42,
+    "fibra_g": 5.4
+  },
+  {
+    "id": 591,
+    "nome": "Coco, verde, cru",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 0,
+    "proteina_g": 0,
+    "carboidrato_g": 0,
+    "lipideos_g": 0,
+    "fibra_g": 0
+  },
+  {
+    "id": 592,
+    "nome": "Farinha, de mesocarpo de babaçu, crua",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 328.8,
+    "proteina_g": 1.4,
+    "carboidrato_g": 79.2,
+    "lipideos_g": 0.2,
+    "fibra_g": 17.9
+  },
+  {
+    "id": 593,
+    "nome": "Gergelim, semente",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 583.5,
+    "proteina_g": 21.2,
+    "carboidrato_g": 21.6,
+    "lipideos_g": 50.4,
+    "fibra_g": 11.9
+  },
+  {
+    "id": 594,
+    "nome": "Linhaça, semente",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 495.1,
+    "proteina_g": 14.1,
+    "carboidrato_g": 43.3,
+    "lipideos_g": 32.3,
+    "fibra_g": 33.5
+  },
+  {
+    "id": 595,
+    "nome": "Pinhão, cozido",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 174.4,
+    "proteina_g": 3,
+    "carboidrato_g": 43.9,
+    "lipideos_g": 0.7,
+    "fibra_g": 15.6
+  },
+  {
+    "id": 596,
+    "nome": "Pupunha, cozida",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 218.5,
+    "proteina_g": 2.5,
+    "carboidrato_g": 29.6,
+    "lipideos_g": 12.8,
+    "fibra_g": 4.3
+  },
+  {
+    "id": 597,
+    "nome": "Noz, crua",
+    "grupo": "Nozes e sementes",
+    "energia_kcal": 620.1,
+    "proteina_g": 14,
+    "carboidrato_g": 18.4,
+    "lipideos_g": 59.4,
+    "fibra_g": 7.2
+  }
+]
