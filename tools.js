@@ -984,7 +984,7 @@ const toolImplementations = {
     return response.data;
   },
 
-  async analisar_foto_refeicao({ imageUrl, dietaContexto, instrucaoExtra }) {
+  async analisar_foto_refeicao({ imageUrl, dietaContexto, instrucaoExtra }, contexto) {
     if (!imageUrl || !imageUrl.startsWith("http")) {
       throw new Error("URL da imagem inválida");
     }
