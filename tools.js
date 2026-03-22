@@ -1036,7 +1036,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
     let response;
     try {
       response = await getOpenAI().chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",
         messages: [
           {
             role: "user",
@@ -1047,7 +1047,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
           },
         ],
         max_tokens: 2000,
-        temperature: 0.3,
+        temperature: 0.2,
       }, { signal: controller.signal });
     } catch (error) {
       clearTimeout(timeoutId);
