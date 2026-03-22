@@ -1103,6 +1103,43 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
         return alimento;
       });
 
+      // ★ AUTO-EVOLUÇÃO: Aplicar correções aprendidas de feedbacks anteriores
+      // Para cada alimento NÃO embalado, busca fator de correção no Calibration Studio
+      for (let i = 0; i < resultado.alimentos.length; i++) {
+        const alimento = resultado.alimentos[i];
+        // Pula produtos embalados (já têm peso exato do rótulo)
+        if (alimento.fonte === "banco_local_br" || alimento.eh_embalado) continue;
+
+        try {
+          const correcao = await api.post("/api/n8n/food-weight/apply-correction", {
+            foodName: alimento.nome,
+            foodType: alimento.nome.toLowerCase().split(" ")[0],
+            aiEstimate: alimento.peso,
+          });
+
+          if (correcao.data?.applied && correcao.data.corrected !== alimento.peso) {
+            const fator = correcao.data.corrected / alimento.peso;
+            console.log(
+              `🎯 Auto-correção: ${alimento.nome} ${alimento.peso}g → ${correcao.data.corrected}g (fator: ${correcao.data.correctionFactor})`
+            );
+            resultado.alimentos[i] = {
+              ...alimento,
+              peso: correcao.data.corrected,
+              proteinas: Math.round((alimento.proteinas || 0) * fator * 10) / 10,
+              carboidratos: Math.round((alimento.carboidratos || 0) * fator * 10) / 10,
+              gorduras: Math.round((alimento.gorduras || 0) * fator * 10) / 10,
+              calorias: Math.round((alimento.calorias || 0) * fator),
+              correcao_aplicada: true,
+              peso_original_ia: alimento.peso,
+              fator_correcao: correcao.data.correctionFactor,
+            };
+          }
+        } catch (e) {
+          // Silenciosamente ignora — não bloqueia análise se correção falhar
+          console.log(`ℹ️ Sem correção disponível para: ${alimento.nome}`);
+        }
+      }
+
       // Recalcular totais
       resultado.macros_totais = resultado.alimentos.reduce(
         (t, a) => ({
