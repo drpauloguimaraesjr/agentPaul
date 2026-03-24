@@ -64,8 +64,14 @@ async function savePendingToFirebase(conversationId, mealData) {
   if (!db) return;
   
   try {
+    // Filtrar campos não-serializáveis (timer, callbacks) e undefined values
+    const { timer, onAutoRegister, ...serializableData } = mealData;
+    const cleanData = JSON.parse(JSON.stringify(serializableData, (key, value) => 
+      value === undefined ? null : value
+    ));
+    
     await db.collection(PENDING_MEALS_COLLECTION).doc(conversationId).set({
-      ...mealData,
+      ...cleanData,
       conversationId,
       createdAt: new Date(),
       expiresAt: new Date(Date.now() + AUTO_REGISTER_TIMEOUT_MS)
