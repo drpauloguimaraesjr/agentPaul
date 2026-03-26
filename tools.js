@@ -1230,7 +1230,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       `/api/n8n/patients/${patientId}/food-diary`,
       {
         type: mealTypeNormalizado,
-        date: targetDate || new Date().toISOString().split("T")[0],
+        date: targetDate || new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" }),
         foods: alimentos.map((a) => ({
           name: a.nome,
           weight: a.peso,
@@ -1291,7 +1291,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
           `/api/n8n/patients/${pending.patientId}/food-diary`,
           {
             type: pending.mealType,
-            date: pending.targetDate || new Date().toISOString().split("T")[0],
+            date: pending.targetDate || new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" }),
             foods: pending.alimentos.map((a) => ({
               name: a.nome,
               weight: a.peso,
