@@ -33,6 +33,20 @@ const {
   evaluateMealAgainstGoals,
 } = require("./utils");
 
+// ================================================
+// 🌐 Helper: Data de hoje no timezone do paciente
+// ================================================
+function getPatientDateToday(contexto) {
+  const tz = contexto?.timezone || contexto?.patientTimezone || 'America/Sao_Paulo';
+  try {
+    return new Date().toLocaleDateString('en-CA', { timeZone: tz });
+  } catch (e) {
+    // Fallback se timezone inválido
+    console.warn(`⚠️ Timezone inválido: ${tz}, usando America/Sao_Paulo`);
+    return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
+  }
+}
+
 // Configuração
 const BACKEND_URL =
   process.env.BACKEND_URL || "https://web-production-c9eaf.up.railway.app";
@@ -1230,7 +1244,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       `/api/n8n/patients/${patientId}/food-diary`,
       {
         type: mealTypeNormalizado,
-        date: targetDate || new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" }),
+        date: targetDate || getPatientDateToday(contexto),
         foods: alimentos.map((a) => ({
           name: a.nome,
           weight: a.peso,
@@ -1291,7 +1305,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
           `/api/n8n/patients/${pending.patientId}/food-diary`,
           {
             type: pending.mealType,
-            date: pending.targetDate || new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" }),
+            date: pending.targetDate || getPatientDateToday(pending),
             foods: pending.alimentos.map((a) => ({
               name: a.nome,
               weight: a.peso,
