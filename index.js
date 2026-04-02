@@ -7,6 +7,9 @@ const OpenAI = require('openai');
 const { tools, executeTool, verificarEscalacao } = require('./tools');
 const { SYSTEM_PROMPT } = require('./prompts');
 const { logger } = require('./logger');
+const axios = require('axios');
+
+const BACKEND_URL = process.env.BACKEND_URL || 'https://web-production-c9eaf.up.railway.app';
 
 class NutriBuddyAgent {
   constructor(config = {}) {
@@ -71,10 +74,41 @@ class NutriBuddyAgent {
 
     // Monta o contexto da mensagem
     const userMessage = this.buildUserMessage(mensagem);
-    
+
+    // ================================================
+    // 🧠 PRÉ-INJEÇÃO: Buscar contexto e dieta do paciente
+    // Evita depender do LLM decidir chamar as tools certas
+    // ================================================
+    let preContext = '';
+    try {
+      const patientId = mensagem.patientId || mensagem.senderId;
+      const [ctxRes, dietRes] = await Promise.allSettled([
+        executeTool('buscar_contexto_paciente', { patientId }, mensagem),
+        executeTool('buscar_dieta_paciente', { patientId }, mensagem)
+      ]);
+
+      if (ctxRes.status === 'fulfilled' && ctxRes.value) {
+        preContext += `\n\n📋 CONTEXTO DO PACIENTE (pré-carregado):\n${JSON.stringify(ctxRes.value, null, 2)}`;
+      }
+
+      if (dietRes.status === 'fulfilled' && dietRes.value) {
+        const dietData = dietRes.value?.data || dietRes.value;
+        const hasDiet = dietData && (dietData.macros || dietData.dailyProtein || dietData.dailyCalories || dietData.templates || dietData.weekSchedule || dietData.meals);
+        if (hasDiet) {
+          preContext += `\n\n🍽️ DIETA PRESCRITA DO PACIENTE (pré-carregada - PACIENTE TEM DIETA!):\n${JSON.stringify(dietData, null, 2)}`;
+        } else {
+          preContext += `\n\n📝 MODO RECORDATÓRIO: Paciente SEM dieta prescrita.`;
+        }
+      }
+
+      this.log('🧠 Pré-contexto injetado:', preContext.length, 'chars');
+    } catch (err) {
+      this.log('⚠️ Erro ao pré-carregar contexto (continuando sem):', err.message);
+    }
+
     // Histórico da conversa com o agente
     const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'system', content: SYSTEM_PROMPT + preContext },
       { role: 'user', content: userMessage }
     ];
 
