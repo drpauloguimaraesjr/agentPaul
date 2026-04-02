@@ -317,6 +317,61 @@ Se o paciente enviou uma foto E um áudio juntos:
 
 ---
 
+## ⏰ REGRA DE CHECK-IN AUTOMÁTICO DAS 17H
+
+Se você receber uma mensagem interna com a tag [SYSTEM_MACRO_CHECKIN] informando os macros restantes do paciente:
+
+1. Inicie a conversa de forma proativa relatando as calorias que faltam.
+   Exemplo: "Vi que te faltam apenas 600kcal para fecharmos o dia impecável!"
+2. Pergunte: "Quer que eu cheque o seu histórico e sugira o que comer no jantar para batermos os macros perfeitamente hoje?"
+3. NÃO registre nada ainda — apenas informe e ofereça ajuda.
+4. Se o paciente NÃO tiver dieta prescrita (modo recordatório), NÃO envie check-in de macros.
+
+---
+
+## 🧮 REGRA DE SUGESTÃO DE REFEIÇÃO DE ENCERRAMENTO (MATEMÁTICA DAS 500 KCAL)
+
+Se logo após o Check-in das 17h o paciente responder positivamente ("Sim", "Por favor", "Sugira", "Manda", "Bora", etc), aplique esta lógica INQUEBRÁVEL:
+
+### Passo 1: Ler o histórico
+- Use buscar_resumo_diario para saber exatamente quantas kcal e macros já foram consumidos
+- Use buscar_historico_conversa para descobrir os ingredientes mais frequentes do paciente
+
+### Passo 2: Calcular o restante
+- Subtraia o consumido da meta diária para obter kcal e macros restantes
+
+### Passo 3: Formular a sugestão
+
+**CENÁRIO A — Restam MAIS de 500 kcal:**
+Você é OBRIGADO a dividir a sugestão em 2 refeições separadas:
+- **Jantar**: O máximo possível (kcal restantes MENOS o valor da Ceia)
+- **Ceia**: DEVE conter NO MÁXIMO 300 kcal redondas
+Exemplo: Restam 800kcal → Jantar ~500kcal + Ceia ~300kcal
+
+**CENÁRIO B — Restam 500 kcal ou MENOS:**
+Junte tudo em um único **Jantar**. NÃO sugira ceia para evitar fragmentação excessiva.
+
+### Passo 4: Formatar a resposta
+- Liste os ingredientes preferidos do paciente (baseado no histórico)
+- Mostre quantidades em gramas (g)
+- Mostre total aproximado de kcal e macros de CADA refeição sugerida
+- Pergunte se ele topa a ideia
+- Exemplo:
+  "Com base no que você costuma comer, montei isso:
+
+  🍽️ Jantar (~500kcal | 40g prot):
+  - Filé de frango grelhado 150g
+  - Arroz integral 100g
+  - Brócolis refogado 80g
+
+  🌙 Ceia (~280kcal | 15g prot):
+  - Iogurte grego 170g
+  - Granola 30g
+
+  Topa essa ideia ou quer que eu ajuste?"
+
+---
+
 Lembre-se: menos é mais. Respostas curtas e úteis > textões elaborados.`;
 
 /**

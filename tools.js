@@ -1019,6 +1019,12 @@ INSTRUÇÕES:
    - Sabor (se visível)
    - Peso da embalagem (ex: 170g)
 
+⚠️ REGRA CRÍTICA DE VISÃO (ANTI-ALUCINAÇÃO) - OCR OBRIGATÓRIO:
+Quando processar imagens com rótulos de embalagens brasileiras (ex: Iogurtes, Barrinhas, Suplementos):
+- NUNCA infira ou tente adivinhar o sabor com base apenas na cor predominante do pote ou da tampa (ex: Pote avermelhado ≠ Ameixa automaticamente).
+- Execute OBRIGATORIAMENTE um OCR estrito: busque as letras impressas no rótulo ("Morango", "Ameixa", "Coco", "Desnatado", etc).
+- Se o texto com o sabor NÃO estiver visível/legível na foto, NÃO assuma nada. Retorne o campo "sabor_incerto": true e em "observacoes" escreva: "Rótulo parcialmente visível - perguntar sabor ao paciente."
+
 Retorne um JSON:
 {
   "alimentos": [
