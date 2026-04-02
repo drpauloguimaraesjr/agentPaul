@@ -1403,7 +1403,7 @@ Seja preciso. Na dúvida, pergunte ao paciente.`;
       source: "agent_paul",
     });
 
-    const today = pending.targetDate || new Date().toISOString().split("T")[0];
+    const today = pending.targetDate || getPatientDateToday(pending);
     console.log(`📅 [Tools] Data da refeição: ${today}${pending.targetDate ? ' (data retroativa)' : ' (hoje)'}`);
 
     // Registrar a refeição
@@ -1799,14 +1799,31 @@ Seu prescritor ainda não registrou sua dieta personalizada. Estamos registrando
     if (contexto?.patientId && patientId !== contexto.patientId) {
       throw new Error("Não autorizado a acessar dados de outro paciente");
     }
-    
-    // Se não informou data, usa hoje
-    const dataConsulta = data || new Date().toISOString().split('T')[0];
-    
-    const response = await api.get(
-      `/api/n8n/patients/${patientId}/meals/summary?date=${dataConsulta}`,
-    );
-    return response.data;
+
+    // Se não informou data, usa hoje no timezone do paciente (não UTC!)
+    const dataConsulta = data || getPatientDateToday(contexto);
+    console.log(`📊 [buscar_resumo_diario] Data consulta: ${dataConsulta} (timezone: ${contexto?.timezone || contexto?.patientTimezone || 'America/Sao_Paulo'})`);
+
+    // Tentar endpoint principal
+    try {
+      const response = await api.get(
+        `/api/n8n/patients/${patientId}/meals/summary?date=${dataConsulta}`,
+      );
+      return response.data;
+    } catch (err) {
+      console.log(`⚠️ [buscar_resumo_diario] Endpoint summary falhou: ${err.message}, tentando fallback...`);
+    }
+
+    // Fallback: buscar refeições do dia diretamente
+    try {
+      const fallbackRes = await api.get(
+        `/api/agent/patients/${patientId}/meals/today`,
+      );
+      return fallbackRes.data;
+    } catch (err2) {
+      console.log(`⚠️ [buscar_resumo_diario] Fallback também falhou: ${err2.message}`);
+      return { meals: [], totalCalories: 0, message: "Não foi possível buscar o resumo diário" };
+    }
   },
 
   async transcrever_audio({ audioUrl }) {
