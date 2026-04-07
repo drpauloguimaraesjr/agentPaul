@@ -814,9 +814,15 @@ _(registro automático em 2 min se não responder)_`;
         });
 
         if (resultadoAudio.success && resultadoAudio.transcription) {
-          // 3. Injetar transcrição como conteúdo texto
+          // Injetar transcrição como conteúdo texto
           mensagem.content = resultadoAudio.transcription;
           mensagem.audioTranscription = resultadoAudio.transcription;
+          
+          // IMPORTANTE: Limpar flags de áudio para que o agente
+          // trate como texto puro (não tente acessar o áudio de novo)
+          mensagem.hasAudio = false;
+          mensagem.audioUrl = null;
+          mensagem.mediaUrl = null;
           
           addLog('info', 'audio-flow', '✅ Áudio transcrito - continuando como texto', {
             patientId: mensagem.patientId,
