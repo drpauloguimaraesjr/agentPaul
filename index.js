@@ -36,11 +36,16 @@ class NutriBuddyAgent {
     });
     
     this.openai = new OpenAI({
+      baseURL: 'https://openrouter.ai/api/v1',
       apiKey: cleanKey,
       timeout: 60000,      // 60 segundos de timeout
-      maxRetries: 3        // 3 tentativas automáticas
+      maxRetries: 3,       // 3 tentativas automáticas
+      defaultHeaders: {
+        "HTTP-Referer": "https://nutribuddy.app", // Necessário pro OpenRouter
+        "X-Title": "NutriBuddy Agent"
+      }
     });
-    this.model = config.model || 'gpt-4o';
+    this.model = config.model || 'openai/gpt-4o';
     this.maxIterations = config.maxIterations || 10;
     this.debug = config.debug || false;
   }
