@@ -120,6 +120,39 @@ setInterval(() => {
 }, 60000);
 
 // ==========================================
+// LOCK POR PACIENTE (evita duplicatas)
+// ==========================================
+
+const patientLocks = new Map();
+
+async function withPatientLock(patientId, fn) {
+  const key = patientId || 'unknown';
+  const MAX_WAIT = 15000; // 15 segundos max de espera
+  const startWait = Date.now();
+  
+  // Espera se já tem processamento ativo
+  while (patientLocks.has(key)) {
+    const lockAge = Date.now() - patientLocks.get(key);
+    if (lockAge > MAX_WAIT) {
+      console.log(`⚠️ Lock expirado para ${key} (${lockAge}ms) - forçando`);
+      break;
+    }
+    if (Date.now() - startWait > MAX_WAIT) {
+      console.log(`⚠️ Timeout esperando lock para ${key} - processando mesmo assim`);
+      break;
+    }
+    await new Promise(r => setTimeout(r, 300));
+  }
+  
+  patientLocks.set(key, Date.now());
+  try {
+    return await fn();
+  } finally {
+    patientLocks.delete(key);
+  }
+}
+
+// ==========================================
 // MIDDLEWARE
 // ==========================================
 
@@ -312,6 +345,8 @@ app.post('/webhook', async (req, res) => {
   const startTime = Date.now();
   const mensagem = req.body;
   
+  // Envolver TUDO no lock por paciente para evitar duplicatas
+  await withPatientLock(mensagem.patientId, async () => {
   try {
     // Log da mensagem recebida (buffer + console)
     addLog('info', 'webhook', '📥 Mensagem recebida', {
@@ -763,6 +798,57 @@ _(registro automático em 2 min se não responder)_`;
     }
 
     // ==========================================
+    // 🎤 FLUXO 3.5: ÁUDIO (semi-determinístico)
+    // Transcreve ANTES de enviar ao agente
+    // Depois o agente recebe como texto puro
+    // ==========================================
+    if (mensagem.hasAudio && (mensagem.audioUrl || mensagem.mediaUrl)) {
+      addLog('info', 'audio-flow', '🎤 Áudio detectado - transcrevendo primeiro', {
+        patientId: mensagem.patientId
+      });
+
+      try {
+        // 1. Enviar "Transcrevendo..."
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: '🎧 *Transcrevendo seu áudio...*\n\n_Aguarde alguns segundos._'
+        }, mensagem);
+
+        // 2. Transcrever diretamente (sem depender do agente)
+        const resultadoAudio = await toolImplementations.transcrever_audio({
+          audioUrl: mensagem.audioUrl || mensagem.mediaUrl
+        });
+
+        if (resultadoAudio.success && resultadoAudio.transcription) {
+          // 3. Injetar transcrição como conteúdo texto
+          mensagem.content = resultadoAudio.transcription;
+          mensagem.audioTranscription = resultadoAudio.transcription;
+          
+          addLog('info', 'audio-flow', '✅ Áudio transcrito - continuando como texto', {
+            patientId: mensagem.patientId,
+            transcription: resultadoAudio.transcription.substring(0, 80)
+          });
+          // Continua para o FLUXO 4 (agente) com o texto da transcrição
+        } else {
+          await executeTool('enviar_mensagem_whatsapp', {
+            conversationId: mensagem.conversationId,
+            mensagem: 'Não consegui entender o áudio 😅 Pode mandar por texto ou tentar enviar novamente?'
+          }, mensagem);
+          return res.json({ success: true, flow: 'audio', result: 'transcription_failed', elapsedMs: Date.now() - startTime });
+        }
+      } catch (audioError) {
+        addLog('error', 'audio-flow', '❌ Erro na transcrição', {
+          error: audioError.message, patientId: mensagem.patientId
+        });
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: 'Não consegui entender o áudio 😅 Pode mandar por texto ou tentar enviar novamente?'
+        }, mensagem).catch(() => {});
+        return res.json({ success: true, flow: 'audio', result: 'error', error: audioError.message, elapsedMs: Date.now() - startTime });
+      }
+    }
+
+    // ==========================================
     // 🧠 FLUXO 4: INTELIGENTE (usa GPT)
     // Somente para mensagens que PRECISAM de IA:
     // - Perguntas sobre nutrição
@@ -879,6 +965,7 @@ _(registro automático em 2 min se não responder)_`;
       elapsedMs: elapsed
     });
   }
+  }); // fim do withPatientLock
 });
 
 /**
