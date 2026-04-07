@@ -62,7 +62,7 @@ const api = axios.create({
   timeout: 30000,
 });
 
-// OpenAI (lazy initialization with cleaned API key)
+// OpenAI via OpenRouter (lazy initialization with cleaned API key)
 let openai = null;
 function getOpenAI() {
   if (!openai) {
@@ -79,16 +79,49 @@ function getOpenAI() {
     }
 
     console.log(
-      `✅ OpenAI inicializado em tools.js (key length: ${cleanKey.length})`,
+      `✅ OpenAI (OpenRouter) inicializado em tools.js (key length: ${cleanKey.length})`,
     );
 
     openai = new OpenAI({
+      baseURL: 'https://openrouter.ai/api/v1',
       apiKey: cleanKey,
       timeout: 120000, // 120 segundos para Vision (imagens demoram mais)
       maxRetries: 3, // 3 tentativas automáticas
+      defaultHeaders: {
+        "HTTP-Referer": "https://nutribuddy.app",
+        "X-Title": "NutriBuddy Agent"
+      }
     });
   }
   return openai;
+}
+
+// OpenAI DIRETO (para Whisper - não disponível no OpenRouter)
+let openaiWhisper = null;
+function getOpenAIWhisper() {
+  if (!openaiWhisper) {
+    const rawKey = process.env.OPENAI_DIRECT_KEY || process.env.OPENAI_API_KEY || "";
+    const cleanKey = rawKey
+      .trim()
+      .replace(/^["']|["']$/g, "")
+      .replace(/[\n\r\s]/g, "");
+
+    if (!cleanKey || !cleanKey.startsWith("sk-")) {
+      console.error("❌ OPENAI_DIRECT_KEY inválida para Whisper");
+      throw new Error("OPENAI_DIRECT_KEY inválida");
+    }
+
+    console.log(
+      `✅ OpenAI Whisper (direto) inicializado em tools.js (key length: ${cleanKey.length})`,
+    );
+
+    openaiWhisper = new OpenAI({
+      apiKey: cleanKey,
+      timeout: 60000,
+      maxRetries: 2,
+    });
+  }
+  return openaiWhisper;
 }
 
 // ==========================================
@@ -1849,8 +1882,8 @@ Seu prescritor ainda não registrou sua dieta personalizada. Estamos registrando
     const { toFile } = require('openai');
     const audioFile = await toFile(audioBuffer, 'audio.ogg', { type: 'audio/ogg' });
 
-    // Transcrever com Whisper
-    const transcription = await getOpenAI().audio.transcriptions.create({
+    // Transcrever com Whisper (API OpenAI direta - não disponível no OpenRouter)
+    const transcription = await getOpenAIWhisper().audio.transcriptions.create({
       file: audioFile,
       model: "whisper-1",
       language: "pt",
