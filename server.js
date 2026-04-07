@@ -808,13 +808,7 @@ _(registro automático em 2 min se não responder)_`;
       });
 
       try {
-        // 1. Enviar "Transcrevendo..."
-        await executeTool('enviar_mensagem_whatsapp', {
-          conversationId: mensagem.conversationId,
-          mensagem: '🎧 *Transcrevendo seu áudio...*\n\n_Aguarde alguns segundos._'
-        }, mensagem);
-
-        // 2. Transcrever diretamente (sem depender do agente)
+        // Backend já envia "Transcrevendo..." — não duplicar
         const resultadoAudio = await toolImplementations.transcrever_audio({
           audioUrl: mensagem.audioUrl || mensagem.mediaUrl
         });
