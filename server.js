@@ -630,6 +630,196 @@ _(registro automático em 2 min se não responder)_`;
     }
 
     // ==========================================
+    // 🆕 FLUXO 1.5: ONBOARDING (determinístico)
+    // Intercepta mensagens durante o onboarding
+    // ANTES do fluxo de confirmação de refeição
+    // ==========================================
+    if (mensagem.onboardingStatus && mensagem.content && !mensagem.hasImage) {
+      const msgLower = mensagem.content.toLowerCase().trim();
+      const primeiroNome = (mensagem.patientName || 'Paciente').split(' ')[0];
+      
+      addLog('info', 'onboarding-flow', '🆕 Onboarding em andamento', {
+        patientId: mensagem.patientId,
+        onboardingStatus: mensagem.onboardingStatus,
+        contentPreview: msgLower.substring(0, 30)
+      });
+
+      // ---- ESTADO: AWAITING_EMAIL_CONFIRMATION ----
+      if (mensagem.onboardingStatus === 'awaiting_email_confirmation') {
+        
+        // Verificar se é um email (paciente quer trocar o email)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const possibleEmail = mensagem.content.trim();
+        
+        if (emailRegex.test(possibleEmail)) {
+          // Paciente enviou um novo email
+          try {
+            await axios.patch(
+              `${BACKEND_URL}/api/patients/${mensagem.patientId}/onboarding-status`,
+              { 
+                onboardingStatus: 'awaiting_password',
+                email: possibleEmail,
+                emailConfirmed: true
+              },
+              { 
+                headers: { 'Content-Type': 'application/json', 'X-Webhook-Secret': WEBHOOK_SECRET },
+                timeout: 10000
+              }
+            );
+            
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: `Pronto! Atualizei para ${possibleEmail} ✅\n\nAgora crie uma senha de acesso (mínimo 6 caracteres):`
+            }, mensagem);
+            
+            addLog('info', 'onboarding-flow', '✅ Email atualizado', {
+              patientId: mensagem.patientId, email: possibleEmail
+            });
+            
+            return res.json({ success: true, flow: 'onboarding', step: 'email_updated', elapsedMs: Date.now() - startTime });
+          } catch (err) {
+            addLog('error', 'onboarding-flow', '❌ Erro ao atualizar email', { error: err.message });
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: '😅 Tive um problema ao atualizar o email. Pode tentar novamente?'
+            }, mensagem).catch(() => {});
+            return res.json({ success: false, flow: 'onboarding', error: err.message });
+          }
+        }
+        
+        // Verificar se é uma confirmação (Sim/Ok/Confirmo)
+        const CONFIRMACOES = ['sim', 'yes', 's', 'ok', 'confirmo', 'isso', 'correto', 'pode', 'certo', 'isso mesmo', 'confirma'];
+        const ehConfirmacaoOnboarding = msgLower.length <= 30 && CONFIRMACOES.some(p => 
+          msgLower === p || msgLower === p + '!' || msgLower.startsWith(p + ' ') || msgLower.startsWith(p + ',')
+        );
+        
+        if (ehConfirmacaoOnboarding) {
+          try {
+            await axios.patch(
+              `${BACKEND_URL}/api/patients/${mensagem.patientId}/onboarding-status`,
+              { 
+                onboardingStatus: 'awaiting_password',
+                emailConfirmed: true
+              },
+              { 
+                headers: { 'Content-Type': 'application/json', 'X-Webhook-Secret': WEBHOOK_SECRET },
+                timeout: 10000
+              }
+            );
+            
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: `Ótimo, ${primeiroNome}! 😊 Email confirmado.\n\nAgora crie uma senha de acesso (mínimo 6 caracteres):`
+            }, mensagem);
+            
+            addLog('info', 'onboarding-flow', '✅ Email confirmado - aguardando senha', {
+              patientId: mensagem.patientId
+            });
+            
+            return res.json({ success: true, flow: 'onboarding', step: 'email_confirmed', elapsedMs: Date.now() - startTime });
+          } catch (err) {
+            addLog('error', 'onboarding-flow', '❌ Erro ao confirmar email', { error: err.message });
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: '😅 Tive um problema. Pode tentar novamente?'
+            }, mensagem).catch(() => {});
+            return res.json({ success: false, flow: 'onboarding', error: err.message });
+          }
+        }
+        
+        // Mensagem não reconhecida durante confirmação de email
+        await executeTool('enviar_mensagem_whatsapp', {
+          conversationId: mensagem.conversationId,
+          mensagem: `${primeiroNome}, preciso que você confirme seu email.\n\nResponda *Sim* para confirmar ou envie o email correto:`
+        }, mensagem);
+        return res.json({ success: true, flow: 'onboarding', step: 'awaiting_email_retry', elapsedMs: Date.now() - startTime });
+      }
+
+      // ---- ESTADO: AWAITING_PASSWORD ----
+      if (mensagem.onboardingStatus === 'awaiting_password') {
+        const senha = mensagem.content.trim();
+        
+        if (senha.length < 6) {
+          await executeTool('enviar_mensagem_whatsapp', {
+            conversationId: mensagem.conversationId,
+            mensagem: 'A senha precisa ter no mínimo 6 caracteres. Tenta de novo! 🔒'
+          }, mensagem);
+          return res.json({ success: true, flow: 'onboarding', step: 'password_too_short', elapsedMs: Date.now() - startTime });
+        }
+        
+        try {
+          // Criar conta via endpoint existente
+          const registerResponse = await axios.post(
+            `${BACKEND_URL}/api/patients/onboard/register`,
+            { 
+              patientId: mensagem.patientId,
+              email: mensagem.patientEmail || mensagem.email,
+              password: senha
+            },
+            { 
+              headers: { 'Content-Type': 'application/json', 'X-Webhook-Secret': WEBHOOK_SECRET },
+              timeout: 15000
+            }
+          );
+          
+          // Atualizar status para completed
+          await axios.patch(
+            `${BACKEND_URL}/api/patients/${mensagem.patientId}/onboarding-status`,
+            { 
+              onboardingStatus: 'completed',
+              accountCreated: true
+            },
+            { 
+              headers: { 'Content-Type': 'application/json', 'X-Webhook-Secret': WEBHOOK_SECRET },
+              timeout: 10000
+            }
+          );
+          
+          const emailUsado = registerResponse.data?.email || mensagem.patientEmail || mensagem.email || 'seu email cadastrado';
+          
+          await executeTool('enviar_mensagem_whatsapp', {
+            conversationId: mensagem.conversationId,
+            mensagem: `Pronto, ${primeiroNome}! 🎉 Sua conta foi criada com sucesso!\n\n🔗 Acesse: nutribuddy.dog/login\n📧 Email: ${emailUsado}\n🔑 Senha: a que você acabou de criar\n\nAgora é só tirar foto das suas refeições que eu registro tudo! 📸`
+          }, mensagem);
+          
+          addLog('info', 'onboarding-flow', '✅ Conta criada - onboarding completo!', {
+            patientId: mensagem.patientId
+          });
+          
+          return res.json({ success: true, flow: 'onboarding', step: 'completed', elapsedMs: Date.now() - startTime });
+        } catch (err) {
+          addLog('error', 'onboarding-flow', '❌ Erro ao criar conta', { 
+            error: err.message,
+            response: err.response?.data
+          });
+          
+          const errorMsg = err.response?.data?.error || err.message;
+          
+          // Verificar se é erro de email já existente
+          if (errorMsg.includes('already exists') || errorMsg.includes('já existe') || errorMsg.includes('already in use')) {
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: `Esse email já está em uso. Tente fazer login em nutribuddy.dog/login ou use outro email.`
+            }, mensagem).catch(() => {});
+          } else {
+            await executeTool('enviar_mensagem_whatsapp', {
+              conversationId: mensagem.conversationId,
+              mensagem: '😅 Tive um problema ao criar sua conta. Pode tentar enviar a senha novamente?'
+            }, mensagem).catch(() => {});
+          }
+          
+          return res.json({ success: false, flow: 'onboarding', error: err.message, elapsedMs: Date.now() - startTime });
+        }
+      }
+      
+      // Outros estados de onboarding (pending_first_contact, first_contact_sent, etc.)
+      // Não interceptar — deixar cair no fluxo normal do agente
+      addLog('debug', 'onboarding-flow', '⏭️ Status de onboarding não tratado - seguindo fluxo normal', {
+        onboardingStatus: mensagem.onboardingStatus
+      });
+    }
+
+    // ==========================================
     // ✅ FLUXO 2: CONFIRMAÇÃO (determinístico)
     // Código busca pendente → registra → responde
     // Zero calls GPT
