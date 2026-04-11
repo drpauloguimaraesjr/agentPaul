@@ -35,9 +35,13 @@ class NutriBuddyAgent {
       suffix: '...' + cleanKey.slice(-4)
     });
     
+    // Suporte a OpenRouter (default) ou outro provider compatível via OPENAI_BASE_URL
+    const baseURL = config.baseURL || process.env.OPENAI_BASE_URL || 'https://openrouter.ai/api/v1';
+    logger.info('Usando base URL para OpenAI client', { baseURL });
+
     this.openai = new OpenAI({
-      baseURL: 'https://openrouter.ai/api/v1',
       apiKey: cleanKey,
+      baseURL,
       timeout: 60000,      // 60 segundos de timeout
       maxRetries: 3,       // 3 tentativas automáticas
       defaultHeaders: {

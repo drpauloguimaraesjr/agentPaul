@@ -78,13 +78,14 @@ function getOpenAI() {
       throw new Error("OPENAI_API_KEY inválida");
     }
 
+    const baseURL = process.env.OPENAI_BASE_URL || 'https://openrouter.ai/api/v1';
     console.log(
-      `✅ OpenAI (OpenRouter) inicializado em tools.js (key length: ${cleanKey.length})`,
+      `✅ OpenAI inicializado em tools.js (key length: ${cleanKey.length}, baseURL: ${baseURL})`,
     );
 
     openai = new OpenAI({
-      baseURL: 'https://openrouter.ai/api/v1',
       apiKey: cleanKey,
+      baseURL,
       timeout: 120000, // 120 segundos para Vision (imagens demoram mais)
       maxRetries: 3, // 3 tentativas automáticas
       defaultHeaders: {
